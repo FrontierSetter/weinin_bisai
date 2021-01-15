@@ -1,0 +1,148 @@
+﻿<!DOCTYPE html>
+
+<html>
+	<head>
+		<meta charset="utf-8" />
+	    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
+		<meta http-equiv="Page-Enter" content="revealTrans(Duration=2.0,Transition=12)" />
+		<title>大屏数据可视化 - 模板</title>
+		<link rel="stylesheet" href="css/app.css" />
+		<link rel="stylesheet" href="css/mine.css" />
+		<link rel="stylesheet" href="css/style.css" />
+
+
+		
+
+
+		
+
+		  
+
+		<!-- 五菱的部分 -->
+		 <!-- <meta http-equiv="refresh" content="10"> -->
+		 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts/dist/echarts.min.js"></script>
+		 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts-gl/dist/echarts-gl.min.js"></script>
+		 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts-stat/dist/ecStat.min.js"></script>
+		 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts/dist/extension/dataTool.min.js"></script>
+		 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts/map/js/china.js"></script>
+		 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts/map/js/world.js"></script>
+		 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts/dist/extension/bmap.min.js"></script>
+		 <!-- <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=2GCVEjjkYGGiVjTR1EoENtf2SNzYaiRI"></script> -->
+		 <script type="text/javascript" src="http://api.map.baidu.com/api?v=3.0&ak=stCj3XtKtn4BKeUDSV512dwfCEDBkh6Y"></script>
+  
+		 <!--加载鼠标绘制工具-->
+		  <script type="text/javascript" src="//api.map.baidu.com/library/DrawingManager/1.4/src/DrawingManager_min.js"></script>
+		  <link rel="stylesheet" href="//api.map.baidu.com/library/DrawingManager/1.4/src/DrawingManager_min.css" />
+  
+		  <!-- 几何工具 -->
+		  <script type="text/javascript" src="http://api.map.baidu.com/library/GeoUtils/1.2/src/GeoUtils_min.js"></script>
+  
+		 
+		 <!-- <script src="theme/dark.js"></script> -->
+		 <!-- button -->
+		 <!-- <link rel="shortcut icon" href="../favicon.ico"> 
+		 <link rel="stylesheet" type="text/css" href="css/default.css" />
+		 <link rel="stylesheet" type="text/css" href="css/component.css" />
+		 <script src="js/modernizr.custom.js"></script> -->
+  
+		 <!-- Stylesheet -->
+		  <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous"> -->
+		  
+		  <!-- jQuery & Bootstrap -->
+		  <!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+		  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+		  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script> -->
+  
+		  <!-- Latest compiled and minified CSS -->
+		  <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.12/dist/css/bootstrap-select.min.css"> -->
+  
+		  <!-- Latest compiled and minified JavaScript -->
+		  <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.12/dist/js/bootstrap-select.min.js"></script> -->
+  
+		  <!-- (Optional) Latest compiled and minified JavaScript translation files -->
+		  <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.12/dist/js/i18n/defaults-*.min.js"></script> -->
+  
+		  <!-- semantic-ui -->
+		  <!-- <link href="css/semantic.min.css" rel="stylesheet" type="text/css"> -->
+		  <link href="https://cdn.bootcdn.net/ajax/libs/semantic-ui/2.4.1/semantic.min.css" rel="stylesheet">
+		  <!-- <link href="https://cdn.bootcdn.net/ajax/libs/semantic-ui/2.4.1/components/input.css" rel="stylesheet"> -->
+		  <!-- <link href="icon.min.css" rel="stylesheet" type="text/css"> -->
+  
+		  <!-- <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script> -->
+		  <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+		  <!-- <script src="js/semantic.min.js"></script> -->
+		  <script src="https://cdn.bootcdn.net/ajax/libs/semantic-ui/2.4.1/semantic.min.js"></script>
+  
+		  <link href="https://cdn.bootcss.com/semantic-ui/2.4.1/components/icon.css" rel="stylesheet">
+		<script src="https://cdn.bootcdn.net/ajax/libs/semantic-ui/2.4.1/components/dropdown.js"></script>
+		<script src="https://cdn.bootcdn.net/ajax/libs/semantic-ui/2.4.1/components/dropdown.js"></script>
+  
+		  <script type="text/javascript" src="js/vin_license.js"></script>
+  
+
+
+		<style type="text/css">
+			div#mapDiv {
+				/* background-color:green; */
+				height:75%;
+				width:75%;
+				float:left;
+			}
+			div#optionList {
+				/* background-color:gray; */
+				height:75%;
+				width:25%;
+				float:left;
+			}
+			div#chart {
+				/* background-color:blue; */
+				width:100%;
+				height:25%;
+				float: left; 
+			}
+			</style>
+
+	</head>
+
+	
+	
+	<body style="background-color:transparent">
+		<div class="header">
+			<h1 class="header-title" style="font-size:40px">上海市质量状况可视化展图</h1>
+		</div>
+		
+		<div class="wrapper">
+			<div class="content">
+				<div class="col col-c">
+					<div class="xpanel-wrapper">
+						<div class="xpanel xpanel-c-t" style="height: 100%; margin: 0">
+							<!-- <div class="title">2014-2017年上海市化妆品监督抽查情况表</div> -->
+							<iframe src="http://202.120.60.31:3000/base" style="width: 100%; height: 100%; " frameborder="no" scrolling="no" allowtransparency="yes"></iframe>
+						</div>
+					</div>
+				</div>
+				<!-- <div class="col col-r">
+					<div class="xpanel-wrapper xpanel-wrapper-50">
+						<div class="xpanel xpanel-r-t">
+							<div class="title">2008-2017年上海市食品安全风险监测总体合格率<a href="./index_10.html" style="color: white;" class="title_link"><i class="external square alternate icon"></i></a></div>
+							<div class="echart-container" id="container_2_5"></div>
+						</div>
+					</div>
+					<div class="xpanel-wrapper xpanel-wrapper-55">
+						<div class="xpanel xpanel-r-b">
+							<div class="title">2014年和2015年勘察设计质量监管情况对比</div>
+							<div class="echart-container" id="container_2_6"></div>
+						</div>
+					</div>
+				</div> -->
+			</div>
+		</div>
+
+		<!-- <svg onclick="location='./index_9.html'" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" enable-background="new 0 0 32 32" id="next" version="1.1" viewBox="0 0 32 32" xml:space="preserve">
+			<path d="M24.291,14.276L14.705,4.69c-0.878-0.878-2.317-0.878-3.195,0l-0.8,0.8c-0.878,0.877-0.878,2.316,0,3.194  L18.024,16l-7.315,7.315c-0.878,0.878-0.878,2.317,0,3.194l0.8,0.8c0.878,0.879,2.317,0.879,3.195,0l9.586-9.587  c0.472-0.471,0.682-1.103,0.647-1.723C24.973,15.38,24.763,14.748,24.291,14.276z" fill="#FFFFFF"/>
+		</svg> -->
+
+		<!-- <i id="back-to-top"></i> -->
+	</body>
+</html>
