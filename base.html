@@ -14,7 +14,9 @@
        <!-- <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=2GCVEjjkYGGiVjTR1EoENtf2SNzYaiRI"></script> -->
        <script type="text/javascript" src="http://api.map.baidu.com/api?v=3.0&ak=UzU0x7BTmvGMVZQaCMvHQPho0ehHiYrI"></script>
        <script type="text/javascript" src="//api.map.baidu.com/api?v=1.0&type=webgl&ak=UzU0x7BTmvGMVZQaCMvHQPho0ehHiYrI"></script>
-       <script type="text/javascript" src="//api.map.baidu.com/library/TrackAnimation/src/TrackAnimation_min.js"></script>
+       <!-- <script type="text/javascript" src="//api.map.baidu.com/library/TrackAnimation/src/TrackAnimation_min.js"></script> -->
+       <!-- <script type="text/javascript" src="TrackAnimation.min.js"></script> -->
+       <script type="text/javascript" src="TrackAnimation.js"></script>
 
        <!--加载鼠标绘制工具-->
         <!-- <script type="text/javascript" src="//api.map.baidu.com/library/DrawingManager/1.4/src/DrawingManager_min.js"></script>
@@ -1411,8 +1413,9 @@
         trackAni = new BMapGLLib.TrackAnimation(map, pl, {
             overallView: true, // 动画完成后自动调整视野到总览
             tilt: 30,          // 轨迹播放的角度，默认为55
-            duration: 30*point.length,   // 动画持续时长，默认为10000，单位ms
-            delay: 3000        // 动画开始的延迟，默认0，单位ms
+            duration: 500*point.length,   // 动画持续时长，默认为10000，单位ms
+            delay: 3000,        // 动画开始的延迟，默认0，单位ms
+            // zoom: 18
         });
         console.log('do_singleCarTrace 4');
 
