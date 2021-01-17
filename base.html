@@ -1046,22 +1046,32 @@
         {
 			text:'播放轨迹动画',
             callback:function(){
-                var curPoints = trackAni.getPolyline().getPath();
-                console.log('长度：',singleCarTranslatedPoints.length,curPoints.length)
-                for(var i = 0; i < curPoints.length; ++i){
-                    console.log(curPoints[i])
-                    console.log(singleCarTranslatedPoints[i])
-                }
+                // trackAni = new BMapGLLib.TrackAnimation(map, polylineEagle, {
+                //     overallView: true, // 动画完成后自动调整视野到总览
+                //     tilt: 30,          // 轨迹播放的角度，默认为55
+                //     duration: 500*polylineEagle.getPath().length,   // 动画持续时长，默认为10000，单位ms
+                //     delay: 3000,        // 动画开始的延迟，默认0，单位ms
+                //     // zoom: 18
+                // });
+                map.removeOverlay(polylineEagle);
+                map.removeOverlay(polylineNaive);
+                curLineNaive = false;
                 trackAni.start();
                 
             },
-            mode:'none'
+            mode:'single'
 		},
-        {
-			text:'停止轨迹动画',
-            callback:function(){trackAni.cancel();},
-            mode:'none'
-		},
+        // {
+		// 	text:'暂停/继续轨迹动画',
+        //     callback:function(){
+        //         if(videoOn == true){
+        //             trackAni.pause();
+        //         }else{
+        //             trackAni.continue();
+        //         }
+        //     },
+        //     mode:'single'
+		// },
         {
 			text:'添加电子围栏',
 			callback:function(){
@@ -1321,6 +1331,7 @@
 
     // var singleCarTraceAnimation;
     var trackAni;
+    var videoOn = false;
 
 
 // <!-- 单车查询 -->
@@ -1411,50 +1422,50 @@
         addMouseHandler(content, curNewOverlayHandler);
 
         // console.log('do_singleCarTrace 3');
-        var path = [{
-            'lng': 116.297611,
-            'lat': 40.047363
-        }, {
-            'lng': 116.302839,
-            'lat': 40.048219
-        }, {
-            'lng': 116.308301,
-            'lat': 40.050566
-        }, {
-            'lng': 116.305732,
-            'lat': 40.054957
-        }, {
-            'lng': 116.304754,
-            'lat': 40.057953
-        }, {
-            'lng': 116.306487,
-            'lat': 40.058312
-        }, {
-            'lng': 116.307223,
-            'lat': 40.056379
-        }];
+        // var path = [{
+        //     'lng': 116.297611,
+        //     'lat': 40.047363
+        // }, {
+        //     'lng': 116.302839,
+        //     'lat': 40.048219
+        // }, {
+        //     'lng': 116.308301,
+        //     'lat': 40.050566
+        // }, {
+        //     'lng': 116.305732,
+        //     'lat': 40.054957
+        // }, {
+        //     'lng': 116.304754,
+        //     'lat': 40.057953
+        // }, {
+        //     'lng': 116.306487,
+        //     'lat': 40.058312
+        // }, {
+        //     'lng': 116.307223,
+        //     'lat': 40.056379
+        // }];
 
-        var point = [];
-        for (var i = 0; i < singleCarTranslatedPoints.length; i++) {
-            // for(var j = 0; j < 4; j++){
-            //    point.push(new BMapGL.Point(SJTUPoints[j].lng, SJTUPoints[j].lat));
-            // }
-            point.push(new BMapGL.Point(singleCarTranslatedPoints[i].lng, singleCarTranslatedPoints[i].lat));
-        }
+        // var point = [];
+        // for (var i = 0; i < singleCarTranslatedPoints.length; i++) {
+        //     // for(var j = 0; j < 4; j++){
+        //     //    point.push(new BMapGL.Point(SJTUPoints[j].lng, SJTUPoints[j].lat));
+        //     // }
+        //     point.push(new BMapGL.Point(singleCarTranslatedPoints[i].lng, singleCarTranslatedPoints[i].lat));
+        // }
         // for (var i = 0; i < path.length; i++) {
         //     point.push(new BMapGL.Point(path[i].lng, path[i].lat));
         // }
-        var pl = new BMapGL.Polyline(point);
+        // var pl = new BMapGL.Polyline(point);
         // console.log('do_singleCarTrace 5');
 
 
-        trackAni = new BMapGLLib.TrackAnimation(map, pl, {
-            overallView: true, // 动画完成后自动调整视野到总览
-            tilt: 30,          // 轨迹播放的角度，默认为55
-            duration: 500*point.length,   // 动画持续时长，默认为10000，单位ms
-            delay: 3000,        // 动画开始的延迟，默认0，单位ms
-            // zoom: 18
-        });
+        // trackAni = new BMapGLLib.TrackAnimation(map, pl, {
+        //     overallView: true, // 动画完成后自动调整视野到总览
+        //     tilt: 30,          // 轨迹播放的角度，默认为55
+        //     duration: 500*point.length,   // 动画持续时长，默认为10000，单位ms
+        //     delay: 3000,        // 动画开始的延迟，默认0，单位ms
+        //     // zoom: 18
+        // });
         // console.log('do_singleCarTrace 4');
 
         singleCarTraceInitFinish = true;
@@ -1628,6 +1639,14 @@
                 polylineEagle = new BMapGL.Polyline(singleCarEagleProcessedPoints, { strokeColor: "#FAC858", strokeWeight: 5, strokeOpacity: 0.8 });
                 console.log(polylineEagle)
                 // map.addOverlay(polylineEagle);
+
+                trackAni = new BMapGLLib.TrackAnimation(map, polylineEagle, {
+                    overallView: true, // 动画完成后自动调整视野到总览
+                    tilt: 30,          // 轨迹播放的角度，默认为55
+                    duration: 500*polylineEagle.getPath().length,   // 动画持续时长，默认为10000，单位ms
+                    delay: 3000,        // 动画开始的延迟，默认0，单位ms
+                    // zoom: 18
+                });
 
             },
             dataType: "json"
