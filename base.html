@@ -1028,6 +1028,22 @@
             mode:'single'
         },
         {
+			text:'显示/隐藏纠偏后轨迹',
+            callback:function(){
+                console.log("纠偏")
+                if(curLineNaive == true){
+                    map.removeOverlay(polylineNaive);
+                    map.addOverlay(polylineEagle);
+                    curLineNaive = false
+                }else{
+                    map.removeOverlay(polylineEagle);
+                    map.addOverlay(polylineNaive);
+                    curLineNaive = true
+                }
+            },
+            mode:'single'
+		},
+        {
 			text:'播放轨迹动画',
             callback:function(){
                 var curPoints = trackAni.getPolyline().getPath();
@@ -1039,12 +1055,12 @@
                 trackAni.start();
                 
             },
-            mode:'single'
+            mode:'none'
 		},
         {
 			text:'停止轨迹动画',
             callback:function(){trackAni.cancel();},
-            mode:'single'
+            mode:'none'
 		},
         {
 			text:'添加电子围栏',
@@ -1069,6 +1085,10 @@
 
 	for(var i=0; i < txtMenuItem_all.length; i++){
 		menu_all.addItem(new BMapGL.MenuItem(txtMenuItem_all[i].text,txtMenuItem_all[i].callback,100));
+    }
+
+    for(var i = 0; i < txtMenuItem_all.length; ++i){
+        menu_all.getItem(i).enable();
     }
 
     function menuGlobal(){
@@ -1263,6 +1283,12 @@
     }
 
     // 单车历史轨迹参数
+    var eagleEntity = 'default';
+    var singleCarEagleRawData = new Array();
+    var singleCarEagleProcessedData = new Array();
+    var singleCarEagleProcessedPoints = new Array();
+    var polylineEagle, polylineNaive;
+    var curLineNaive = true;
     var singleCarFilteredPoints = new Array();
     var singleCarTranslatedPoints = new Array();
     var singleCarTranslatedPointsIdx = 0;
@@ -1361,9 +1387,21 @@
         //     strokeColor:"#18a45b" //折线颜色
         // });
 
-        var polyline = new BMapGL.Polyline(singleCarTranslatedPoints, { strokeColor: "#5470C6", strokeWeight: 5, strokeOpacity: 0.8 });
-        map.addOverlay(polyline);
-        console.log('do_singleCarTrace 2');
+        var startTime = singleCarEagleRawData[0]['loc_time'];
+        var endTime = singleCarEagleRawData[0]['loc_time'];
+        for(var i = 0; i < singleCarEagleRawData.length; ++i){
+            if(singleCarEagleRawData[i]['loc_time'] > endTime){
+                endTime = singleCarEagleRawData[i]['loc_time']
+            }
+            if(singleCarEagleRawData[i]['loc_time'] < startTime){
+                startTime = singleCarEagleRawData[i]['loc_time']
+            }
+        }
+        getEagleTrace(eagleEntity, startTime, endTime);
+
+        polylineNaive = new BMapGL.Polyline(singleCarTranslatedPoints, { strokeColor: "#5470C6", strokeWeight: 5, strokeOpacity: 0.8 });
+        map.addOverlay(polylineNaive);
+        // console.log('do_singleCarTrace 2');
 
         curNewOverlayHandler = new BMapGL.Marker(singleCarTranslatedPoints[singleCarTranslatedPoints.length-1]);
         curNewOverlayHandler.setIcon(iconEnd);
@@ -1372,7 +1410,7 @@
         curNewOverlayHandler.setAnimation(BMAP_ANIMATION_BOUNCE);//跳动的动画
         addMouseHandler(content, curNewOverlayHandler);
 
-        console.log('do_singleCarTrace 3');
+        // console.log('do_singleCarTrace 3');
         var path = [{
             'lng': 116.297611,
             'lat': 40.047363
@@ -1407,7 +1445,7 @@
         //     point.push(new BMapGL.Point(path[i].lng, path[i].lat));
         // }
         var pl = new BMapGL.Polyline(point);
-        console.log('do_singleCarTrace 5');
+        // console.log('do_singleCarTrace 5');
 
 
         trackAni = new BMapGLLib.TrackAnimation(map, pl, {
@@ -1417,7 +1455,7 @@
             delay: 3000,        // 动画开始的延迟，默认0，单位ms
             // zoom: 18
         });
-        console.log('do_singleCarTrace 4');
+        // console.log('do_singleCarTrace 4');
 
         singleCarTraceInitFinish = true;
 
@@ -1439,6 +1477,161 @@
             return false;
         }
         return true;
+    }
+
+    function constructEagleTrace(data, entityname){
+        // console.log(data)
+        // console.log(entityname)
+        for(var i = 0; i < data.length; ++i){
+            if(i > 0 && data[i]['latitude'] == data[i-1]['latitude'] && data[i]['longitude'] == data[i-1]['longitude']){
+                continue;
+            }
+            var curDict = {
+                "entity_name": entityname,
+                "loc_time": Date.parse(data[i]['collectTime'])/1000,
+                "latitude": data[i]['latitude'],
+                "longitude": data[i]['longitude'],
+            }
+            // console.log(curDict)
+            singleCarEagleRawData.push(curDict)
+        }
+        // console.log("constructEagleTrace:")
+        // console.log(singleCarEagleRawData)
+    }
+
+    function createEagleTrace(entityname){
+        console.log("createEagleTrace:")
+        console.log(singleCarEagleRawData)
+        $.ajax({
+            type: 'GET',
+            
+            url: "http://202.120.60.31:3000/query/single/eagle/create",
+            data: {
+                "ak": "kNUTUBAVwPw6ddlgoiCPcGGRNvGUVXLK",
+                "service_id": 225809,
+                "entity_name": entityname
+            },
+            error: function (data) {
+                console.log('创建鹰眼轨迹失败');
+            },
+            success: function (data) {
+                console.log('创建鹰眼轨迹成功');
+                console.log(data);
+                uploadEagleTraceSingle(entityname)
+            },
+            dataType: "json"
+        });
+    }
+
+    function uploadEagleTrace(entityname){
+        $.ajax({
+            type: 'GET',
+            url: "http://202.120.60.31:3000/query/single/eagle/add",
+            data: {
+                "ak": "kNUTUBAVwPw6ddlgoiCPcGGRNvGUVXLK",
+                "service_id": 225809,
+                "point_list": singleCarEagleRawData
+            },
+            error: function (data) {
+                console.log('鹰眼上传失败');
+            },
+            success: function (data) {
+                console.log('鹰眼上传成功');
+                console.log(data)
+                var startTime = singleCarEagleRawData[0]['loc_time'];
+                var endTime = singleCarEagleRawData[0]['loc_time'];
+                for(var i = 0; i < singleCarEagleRawData.length; ++i){
+                    if(singleCarEagleRawData[i]['loc_time'] > endTime){
+                        endTime = singleCarEagleRawData[i]['loc_time']
+                    }
+                    if(singleCarEagleRawData[i]['loc_time'] < startTime){
+                        startTime = singleCarEagleRawData[i]['loc_time']
+                    }
+                }
+
+                getEagleTrace(entityname, startTime, endTime);
+            },
+            dataType: "json"
+        });
+    }
+
+    function uploadEagleTraceSingle(entityname){
+        var i = 0;
+        for(i = 0; i < singleCarEagleRawData.length; i += 1){
+            if(i % 20 == 0){
+                sleep(500);
+            }
+            $.ajax({
+                type: 'GET',
+                url: "http://202.120.60.31:3000/query/single/eagle/add_single",
+                data: {
+                    "ak": "kNUTUBAVwPw6ddlgoiCPcGGRNvGUVXLK",
+                    "service_id": 225809,
+                    "entity_name": entityname,
+                    "loc_time": singleCarEagleRawData[i]["loc_time"],
+                    "latitude": singleCarEagleRawData[i]["latitude"],
+                    "longitude": singleCarEagleRawData[i]["longitude"],
+                    "coord_type_input": "wgs84"
+                },
+                error: function (data) {
+                    console.log('鹰眼上传失败');
+                },
+                success: function (data) {
+                    console.log('鹰眼上传成功');
+                    console.log(data)
+                    // var startTime = singleCarEagleRawData[0]['loc_time'];
+                    // var endTime = singleCarEagleRawData[0]['loc_time'];
+                    // for(var i = 0; i < singleCarEagleRawData.length; ++i){
+                    //     if(singleCarEagleRawData[i]['loc_time'] > endTime){
+                    //         endTime = singleCarEagleRawData[i]['loc_time']
+                    //     }
+                    //     if(singleCarEagleRawData[i]['loc_time'] < startTime){
+                    //         startTime = singleCarEagleRawData[i]['loc_time']
+                    //     }
+                    // }
+
+                    // getEagleTrace(entityname, startTime, endTime);
+                },
+                dataType: "json"
+            });
+        }
+    }
+
+    function getEagleTrace(entityname, start_time, end_time){
+        $.ajax({
+            type: 'GET',
+            url: "http://202.120.60.31:3000/query/single/eagle/get",
+            data: {
+                "ak": "kNUTUBAVwPw6ddlgoiCPcGGRNvGUVXLK",
+                "service_id": 225809,
+                "entity_name": entityname,
+                "start_time": start_time,
+                "end_time": end_time,
+                "is_processed": "1",
+                "process_option": "denoise_grade=1,need_mapmatch=1,transport_mode=driving",
+                "supplement_mode": "driving",
+                "supplement_content": "distance_and_points",
+                "page_size": 5000
+
+            },
+            error: function (data) {
+                console.log('鹰眼拉取失败');
+            },
+            success: function (data) {
+                console.log('鹰眼拉取成功');
+                console.log(data)
+                singleCarEagleProcessedData = data["points"];
+                for(var i = 0; i < singleCarEagleProcessedData.length; ++i){
+                    singleCarEagleProcessedPoints.push(new BMapGL.Point(singleCarEagleProcessedData[i].longitude, singleCarEagleProcessedData[i].latitude))
+                }
+
+                polylineEagle = new BMapGL.Polyline(singleCarEagleProcessedPoints, { strokeColor: "#FAC858", strokeWeight: 5, strokeOpacity: 0.8 });
+                console.log(polylineEagle)
+                // map.addOverlay(polylineEagle);
+
+            },
+            dataType: "json"
+        });
     }
 
     function filterTrace(data){
@@ -1484,7 +1677,7 @@
         $.ajax({
             url: 'http://202.120.60.31:3000/query/single/route', //请求的url
             type: 'get', //请求的方式
-            data: 'car_VIN='+curCarVin+'&limit=2880',
+            data: 'car_VIN='+curCarVin+'&limit=1440',
             error: function (data) {
                 console.log('requestSingleCarTrace请求失败');
             },
@@ -1492,9 +1685,12 @@
                 console.log('请求到的历史轨迹长度: '+data.length);
                 singleCarTranslatedPoints = new Array();
                 singleCarFilteredPoints = new Array();
+                singleCarEagleRawData = new Array();
                 singleCarFilteredPointsIdx = 0;
                 singleCarTranslatedPointsIdx = 0;
                 filterTrace(data);
+                constructEagleTrace(data,eagleEntity);
+                createEagleTrace(eagleEntity);
                 translateTrace();
             }
             
@@ -1517,7 +1713,7 @@
         $.ajax({
             url: 'http://202.120.60.31:3000/query/single/history', //请求的url
             type: 'get', //请求的方式
-            data: 'car_VIN='+curCarVin+'&type='+curCarType+'&limit=2880',
+            data: 'car_VIN='+curCarVin+'&type='+curCarType+'&limit=1440',
             error: function (data) {
                 console.log('requestSingleCarHistory请求失败');
             },
@@ -2338,7 +2534,11 @@
 
             curCarVin = requestIdValue;
             curCarType = requestTypeValue;
+            eagleEntity = Date.parse(new Date()).toString()+"_"+curCarVin;
+
             requestSingleCarTrace();
+
+
             requestSingleCarHistory();
             // map.addEventListener('click', function(){console.log('EventListener trigged')});
             curSingleMode = true;
@@ -3599,5 +3799,10 @@ var domGuage = document.getElementById("guage");
     setInterval(function(){
         pageStale = true;
     }, 1800000);
+
+    var sleep = function(time) {
+        var startTime = new Date().getTime() + parseInt(time, 10);
+        while(new Date().getTime() < startTime) {}
+    };
 </script>
           
