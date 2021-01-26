@@ -684,7 +684,10 @@
 								<!-- <div id="Heatmap"" style="height: 100%; width: 50%; float: left;"></div> -->
 								<div id="Stack" style="height: 100%; width: 50%; float: left;"></div>
 								<div id="Board" style="height: 100%; width: 25%; float: left;">
-									<div id="right_bottom_coner_default" style="height: 100%; width: 100%; padding-right: 10%; overflow: scroll;">
+                                    <div id="right_bottom_coner_default" style="height: 100%; width: 100%; padding-right: 10%;">
+                                        <div id="OutSchoolBar" style="height: 10%; width: 100%; float: left;"></div>
+                                        <div id="OutSchoolDetail" style="height: 900%; width: 100%; padding-right: 10%; overflow: scroll;"></div>
+
 										<!-- <p id="time1" style="margin-left: 5%; margin-top: 5%;">item1</p> -->
 										
 										<!-- <iframe id="fancybox-frame" name="fancybox-frame1573219207283" frameborder="0" scrolling="no" hspace="0"  src="http://i.tianqi.com/index.php?c=code&a=getcode&id=35&h=55&w=200&py=minhang"></iframe> -->
@@ -2261,7 +2264,7 @@
                 console.log("carPosition[0][carPositionIdx[0]]");
                 console.log(carPosition[0][carPositionIdx[0]]);
 
-                var obj = document.getElementById("right_bottom_coner_default");
+                var obj = document.getElementById("OutSchoolDetail");
                 var new_tex = document.createElement("p");
                 new_tex.setAttribute("onclick", "centerAndZoomCarVin(this)");
                 new_tex.innerHTML = carPosition[0][carPositionIdx[0]][0];
@@ -2319,7 +2322,7 @@
                 // console.log("carPosition[1][carPositionIdx[1]]");
                 console.log(carPosition[1][carPositionIdx[1]]);
 
-                var obj = document.getElementById("right_bottom_coner_default");
+                var obj = document.getElementById("OutSchoolDetail");
                 var new_tex = document.createElement("p");
                 // curVin = carPosition[1][carPositionIdx[1]][0].split()[1]
                 console.log(tem_vin)
@@ -3181,12 +3184,72 @@ var domGuage = document.getElementById("guage");
 
 // 层叠图 结束
 
+// 右下角校外柱状图
+    var domOutSchoolBar = document.getElementById('OutSchoolBar');
+    var myChartOutSchoolBar = echarts.init(chartDom);
+    var optionOutSchoolBar;
+
+    optionOutSchoolBar = {
+        tooltip: {
+            trigger: 'axis',
+            axisPointer: {            // Use axis to trigger tooltip
+                type: 'shadow'        // 'shadow' as default; can also be 'line' or 'shadow'
+            }
+        },
+        legend: {
+            data: ['校内','校外']
+        },
+        grid: {
+            left: '3%',
+            right: '4%',
+            bottom: '3%',
+            containLabel: true
+        },
+        xAxis: {
+            show: false,
+            type: 'value'
+        },
+        yAxis: {
+            show: false,
+            data: ['0']
+        },
+        series: [
+            {
+                name: '校内',
+                type: 'bar',
+                stack: 'total',
+                label: {
+                    show: true
+                },
+                emphasis: {
+                    focus: 'series'
+                },
+                data: [50.0]
+            },
+            {
+                name: '校外',
+                type: 'bar',
+                stack: 'total',
+                label: {
+                    show: true
+                },
+                emphasis: {
+                    focus: 'series'
+                },
+                data: [50.0]
+            },
+        ]
+    };
+
+    myChartOutSchoolBar.setOption(optionOutSchoolBar);
+
 
     window.onresize = function () {
         myChartPie.resize();
         myChartStack.resize();
         myChartGuage.resize();
         myChartLine.resize();
+        myChartOutSchoolBar.resize();
     }
 
 

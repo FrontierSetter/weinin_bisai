@@ -61,6 +61,7 @@
         <script src="semantic.min.js"></script>
 
         <link href="https://cdn.bootcss.com/semantic-ui/2.4.1/components/icon.css" rel="stylesheet">
+        <link href="https://cdn.bootcdn.net/ajax/libs/semantic-ui/2.4.1/components/button.css" rel="stylesheet">
 
         <script type="text/javascript" src="vin_license.js"></script>
 
@@ -707,7 +708,14 @@
             <!-- <div id="Heatmap"" style="height: 100%; width: 50%; float: left;"></div> -->
             <div id="Stack" style="height: 100%; width: 50%; float: left;"></div>
             <div id="Board" style="height: 100%; width: 25%; float: left;">
-                <div id="right_bottom_coner_default" style="height: 100%; width: 100%; padding-right: 10%; overflow: scroll;">
+                <div id="right_bottom_coner_default" style="height: 100%; width: 100%; padding-right: 10%;">
+                    <div style="height: 10%; width: 100%; float: left;">
+                        <h4 style="color: #fff">
+                            离校车辆信息
+                        </h4>
+                    </div>
+                    <div id="OutSchoolBar" style="height: 30%; width: 100%; float: left;"></div>
+                    <div id="OutSchoolDetail" style="height: 60%; width: 100%; padding-left: 2%; padding-right: 10%; overflow: scroll;"></div>
                     <!-- <p id="time1" style="margin-left: 5%; margin-top: 5%;">item1</p> -->
                     
                     <!-- <iframe id="fancybox-frame" name="fancybox-frame1573219207283" frameborder="0" scrolling="no" hspace="0"  src="http://i.tianqi.com/index.php?c=code&a=getcode&id=35&h=55&w=200&py=minhang"></iframe> -->
@@ -830,7 +838,7 @@
 
     function vinChange(){
         if (onChangeCalled){
-            console.log("cascade");
+            // console.log("cascade");
             onChangeCalled = false;
             return;
         }else{
@@ -840,26 +848,26 @@
         var requestId = document.getElementById('search-select');
         var requestIdValue = requestId.options[requestId.selectedIndex].value;
 
-        console.log('vinchange to '+requestIdValue);
-        console.log('license to '+getLicenseByVin(requestIdValue));
+        // console.log('vinchange to '+requestIdValue);
+        // console.log('license to '+getLicenseByVin(requestIdValue));
         $('#search-select-license').dropdown('set selected', getLicenseByVin(requestIdValue));
     }
 
     function licenseChange(){
         if (onChangeCalled){
-            console.log("cascade");
+            // console.log("cascade");
             onChangeCalled = false;
             return;
         }else{
             onChangeCalled = true;
         }
 
-        console.log('license change')
+        // console.log('license change')
         var requestLicense = document.getElementById('search-select-license');
         var requestLicenseValue = requestLicense.options[requestLicense.selectedIndex].value;
 
-        console.log('licensechange to '+requestLicenseValue);
-        console.log('vin to '+getVinByLicense(requestLicenseValue));
+        // console.log('licensechange to '+requestLicenseValue);
+        // console.log('vin to '+getVinByLicense(requestLicenseValue));
         $('#search-select').dropdown('set selected', getVinByLicense(requestLicenseValue));
     }
 
@@ -894,7 +902,7 @@
     var overlays = [];
 	var overlaycomplete = function(e){
         overlays.push(e.overlay);
-        console.log(e.overlay.getPath())
+        // console.log(e.overlay.getPath())
         drawingManager.close();
     };
     var styleOptions = {
@@ -925,21 +933,23 @@
     overlays.push(defaulteFence)
     
     map.addOverlay(defaulteFence)
-    console.log('defaulteFence')
-    console.log(defaulteFence)
-    console.log('defaulteFence in', IsInPolygon(new BMapGL.Point(121.447176,31.033731), defaulteFence))
+    // console.log('defaulteFence')
+    // console.log(defaulteFence)
+    // console.log('defaulteFence in', IsInPolygon(new BMapGL.Point(121.447176,31.033731), defaulteFence))
 	 //添加鼠标绘制工具监听事件，用于获取绘制结果
     drawingManager.addEventListener('overlaycomplete', overlaycomplete);
 
 
     function centerAndZoomCarVin(e){
-        console.log($(e).text())
-        vin = $(e).text().split(' ')[0]
+        // console.log($(e).text())
+        vin = $(e).text().split(' ')[1]
+        // console.log($(e).text().split(' '))
+        // console.log(vin)
 
-        console.log('center:'+vin)
+        // console.log('center:'+vin)
         if((backGroundPointCache[vin] != undefined) && (backGroundPointCache[vin]['converted'] != undefined)){
-            console.log(backGroundPointCache[vin]['converted'])
-            console.log(IsInPolygon(backGroundPointCache[vin]['converted'], defaulteFence))
+            // console.log(backGroundPointCache[vin]['converted'])
+            // console.log(IsInPolygon(backGroundPointCache[vin]['converted'], defaulteFence))
             // map.centerAndZoom(new BMapGL.Point(121.447176,31.033731),13);
             map.flyTo(backGroundPointCache[vin]['converted'],16);
         }else{
@@ -948,7 +958,7 @@
     }
 
     function centerAndZoomCoor(long, lati){
-        console.log(long,lati)
+        // console.log(long,lati)
         map.centerAndZoom(new BMapGL.Point(121.447176,31.033731),8);
         map.centerAndZoom(new BMapGL.Point(long, lati),18);
 
@@ -1030,7 +1040,7 @@
         {
 			text:'显示/隐藏纠偏后轨迹',
             callback:function(){
-                console.log("纠偏")
+                // console.log("纠偏")
                 if(curLineNaive == true){
                     map.removeOverlay(polylineNaive);
                     map.addOverlay(polylineEagle);
@@ -1171,7 +1181,7 @@
     var stack_value = new Array(totalOperatingModelCnt);
     for(var i = 0; i < totalOperatingModelCnt; ++i){
         stack_value[i] = new Array();
-        console.log('stacklen ' + stack_value[i].length);
+        // console.log('stacklen ' + stack_value[i].length);
     }
     // 用于饼图和层叠图更新的数组
     var cur_value = new Array(totalOperatingModelCnt);
@@ -1511,8 +1521,8 @@
     }
 
     function createEagleTrace(entityname){
-        console.log("createEagleTrace:")
-        console.log(singleCarEagleRawData)
+        // console.log("createEagleTrace:")
+        // console.log(singleCarEagleRawData)
         $.ajax({
             type: 'GET',
             
@@ -1527,7 +1537,7 @@
             },
             success: function (data) {
                 console.log('创建鹰眼轨迹成功');
-                console.log(data);
+                // console.log(data);
                 uploadEagleTraceSingle(entityname)
             },
             dataType: "json"
@@ -1548,7 +1558,7 @@
             },
             success: function (data) {
                 console.log('鹰眼上传成功');
-                console.log(data)
+                // console.log(data)
                 var startTime = singleCarEagleRawData[0]['loc_time'];
                 var endTime = singleCarEagleRawData[0]['loc_time'];
                 for(var i = 0; i < singleCarEagleRawData.length; ++i){
@@ -1589,7 +1599,7 @@
                 },
                 success: function (data) {
                     console.log('鹰眼上传成功');
-                    console.log(data)
+                    // console.log(data)
                     // var startTime = singleCarEagleRawData[0]['loc_time'];
                     // var endTime = singleCarEagleRawData[0]['loc_time'];
                     // for(var i = 0; i < singleCarEagleRawData.length; ++i){
@@ -1630,14 +1640,14 @@
             },
             success: function (data) {
                 console.log('鹰眼拉取成功');
-                console.log(data)
+                // console.log(data)
                 singleCarEagleProcessedData = data["points"];
                 for(var i = 0; i < singleCarEagleProcessedData.length; ++i){
                     singleCarEagleProcessedPoints.push(new BMapGL.Point(singleCarEagleProcessedData[i].longitude, singleCarEagleProcessedData[i].latitude))
                 }
 
                 polylineEagle = new BMapGL.Polyline(singleCarEagleProcessedPoints, { strokeColor: "#FAC858", strokeWeight: 5, strokeOpacity: 0.8 });
-                console.log(polylineEagle)
+                // console.log(polylineEagle)
                 // map.addOverlay(polylineEagle);
 
                 trackAni = new BMapGLLib.TrackAnimation(map, polylineEagle, {
@@ -1654,7 +1664,7 @@
     }
 
     function filterTrace(data){
-        console.log('过滤前的历史轨迹长度: '+data.length);
+        // console.log('过滤前的历史轨迹长度: '+data.length);
         for(var i = 0; i < data.length; ++i){
             // if (data[i]['longitude'] == null || data[i]['latitude'] == null) {
             //     continue;
@@ -1673,13 +1683,13 @@
             }
             // if(singleCarFilteredPoints.length > 10) break;
         }
-        console.log('过滤完的历史轨迹长度: '+singleCarFilteredPoints.length);
+        // console.log('过滤完的历史轨迹长度: '+singleCarFilteredPoints.length);
 
         // console.log(singleCarFilteredPoints.length);
     }
 
     function translateTrace(){
-        console.log('translateTrace');
+        // console.log('translateTrace');
         var convertor = new BMapGL.Convertor();
         var pointArr = [];
         for(var j = 0; j < 10; ++j){
@@ -1757,7 +1767,7 @@
                         ]
                     })
                 }
-                console.log('requestSingleCarHistory: '+dataLine.length+' '+data.length);
+                // console.log('requestSingleCarHistory: '+dataLine.length+' '+data.length);
 
                 myChartLine.setOption({
                     title:{
@@ -1804,9 +1814,9 @@
             },
             success: function (data) {
                 console.log('requestSingleCar success');
-                console.log(data);
+                // console.log(data);
                 data = JSON.parse(data);
-                console.log(data);
+                // console.log(data);
                 if(!curSingleMode) return;
 
                 if(data.length == 0) return;
@@ -1987,8 +1997,8 @@
         filteredData = new Array();
         for(var k in filterDic){
             if(k == "LK6ADCE20HB005678"){
-                console.log("LK6ADCE20HB005678: ")
-                console.log(filterDic[k]);
+                // console.log("LK6ADCE20HB005678: ")
+                // console.log(filterDic[k]);
             }
             filteredData.push(filterDic[k]);
         }
@@ -2010,6 +2020,9 @@
         }
     }
 
+    var carOutSchoolCache = [];
+    var movedOutSchool = [[],[],[],[]];
+
     function backgroundRequest(){
         // map.clearOverlays();
         $.ajax({
@@ -2023,7 +2036,7 @@
                 for(var i = 0; i < totalOperatingModelCnt; ++i){
                     if(backgroundRequestProcessing[i] == true){
                         needProcess[i] = false;
-                        console.log('background lock: '+getOperatingModeTypeName(i));
+                        // console.log('background lock: '+getOperatingModeTypeName(i));
                     }else{
                         needProcess[i] = true
                     }
@@ -2043,13 +2056,22 @@
                 var unequalcnt = 0;
                 var undefinecnt = 0;
 
-                console.log("before filter"+data.length);
+                // console.log("before filter"+data.length);
                 filterBackgroundRequest(data);
-                console.log("after filter"+filteredData.length)
+                // console.log("after filter"+filteredData.length)
 
                 var curTime = new Date().getTime();
                 pie_active_cnt = 0;
                 pie_deactive_cnt = 0;
+
+                carOutSchoolCache = [];
+                movedOutSchool = [[],[],[],[]];
+
+                var obj = document.getElementById("OutSchoolDetail");
+                var pObjs = obj.childNodes;
+                for (var i = pObjs.length - 1; i >= 0; i--) { // 一定要倒序，正序是删不干净的，可自行尝试
+                    obj.removeChild(pObjs[i]);
+                }
 
 
                 for(var i = 0; i < filteredData.length; ++i){
@@ -2084,6 +2106,23 @@
                         // if(needAnimation[5]) marker.setAnimation(BMAP_ANIMATION_DROP);//坠落动画
                         addMouseHandler(content, marker);
                         backgroundCarOverlayNew[tem_type].push(marker);
+
+                        if(IsInFance(backGroundPointCache[tem_vin]['converted']) == false){
+                            var new_tex = document.createElement("p");
+                            new_tex.setAttribute("onclick", "centerAndZoomCarVin(this)");
+                            new_tex.setAttribute("style", "color: #fff; padding-left: 5%");
+                            new_tex.innerHTML = '<i class="search plus icon"></i>'+' '+content;
+
+                            // var new_tex = document.createElement("div");
+                            // new_tex.setAttribute("style", "height: 25%; width: 32%; float: left; padding-left: 1px; padding-right: 1px; margin-top: 5px");
+                            // var new_but = document.createElement("button");
+                            // new_but.setAttribute("class", "ui fluid inverted blue button");
+                            // new_but.innerHTML = content.split(' ')[1];
+                            // new_but.setAttribute("onclick", "centerAndZoomCarVin(this)");
+                            // new_tex.appendChild(new_but);
+
+                            carOutSchoolCache.push(new_tex);
+                        }
                     }else{
                         requestcnt += 1;
                         if(!backGroundPointCache.hasOwnProperty(tem_vin)){
@@ -2121,6 +2160,17 @@
                     // }
                 }
 
+                for(var i = 0; i < carOutSchoolCache.length; ++i){
+                    obj.appendChild(carOutSchoolCache[i]);
+                }
+                // console.log("校外车辆统计cache")
+                // console.log(carOutSchoolCache.length)
+
+                optionOutSchoolBar['series'][1]['data'][0] = filteredData.length - carOutSchoolCache.length;
+                optionOutSchoolBar['series'][0]['data'][0] = carOutSchoolCache.length;
+
+                myChartOutSchoolBar.setOption(optionOutSchoolBar);
+
                 var option = myChartPie.getOption();
                 for(var i = 0; i < totalOperatingModelCnt; ++i){
                     option.series[0].data[i]['value'] = 0;
@@ -2133,7 +2183,7 @@
                 cur_value[0] = pie_active_cnt;
                 cur_value[1] = pie_deactive_cnt;
 
-                console.log('deactive: '+pie_deactive_cnt);
+                // console.log('deactive: '+pie_deactive_cnt);
 
                 var curDate = curTime;
 
@@ -2418,7 +2468,7 @@
                     for(var i = 0; i < totalOperatingModelCnt; ++i){
                         // console.log('stack_value.length'+stack_value.length);
                         if(stack_value[i] == undefined) stack_value = new Array();
-                        console.log('stack_value[i].length'+stack_value[i].length);
+                        // console.log('stack_value[i].length'+stack_value[i].length);
 
                         (stack_value[i]).push(cur_value[i]);
                     }
@@ -2562,7 +2612,7 @@
             // map.addEventListener('click', function(){console.log('EventListener trigged')});
             curSingleMode = true;
             mapLocked = false;
-            console.log('request History finish'+ curSingleMode);
+            // console.log('request History finish'+ curSingleMode);
             shouldRequestSingle = true;
 
             
@@ -2571,7 +2621,7 @@
 
     // 进入单车模式后增加的地图回调函数 用于返回到默认模式
     function backToBackground(){
-        console.log("evoke");
+        // console.log("evoke");
         map.clearOverlays();
         // map.removeEventListener("click", backToBackground);
         for(var i = 0; i < needAnimation.length; ++i){
@@ -2620,6 +2670,8 @@
         console.log('backtoground cursinglemode='+curSingleMode);
     }
 
+    
+
     // 百度地图坐标转换回调函数
     function translateCallBackOnline(data){
         // console.log('onlineCallback');
@@ -2638,24 +2690,50 @@
             backGroundPointCache[tem_vin]['converted'] = data.points[0];
 
             if(IsInFance(data.points[0]) == false){
-                console.log("carPosition[0][carPositionIdx[0]]");
-                console.log(carPosition[0][carPositionIdx[0]]);
+                // // console.log("carPosition[1][carPositionIdx[1]]");
+                // console.log('out fence')
+                // console.log(carPosition[1][carPositionIdx[1]]);
+                // console.log(IsInPolygon(data.points[0], defaulteFence))
 
-                var obj = document.getElementById("right_bottom_coner_default");
+                var obj = document.getElementById("OutSchoolDetail");
                 var new_tex = document.createElement("p");
                 new_tex.setAttribute("onclick", "centerAndZoomCarVin(this)");
-                new_tex.setAttribute("style", "color: #fff");
-                new_tex.innerHTML = carPosition[0][carPositionIdx[0]][0];
-                obj.appendChild(new_tex);
+                new_tex.setAttribute("style", "color: #fff; padding-left: 5%");
+                new_tex.innerHTML = '<i class="search plus icon"></i>'+' '+carPosition[0][carPositionIdx[0]][0];
 
+                // var new_tex = document.createElement("div");
+                // new_tex.setAttribute("style", "height: 25%; width: 32%; float: left; padding-left: 1px; padding-right: 1px; padding-top: 5px;");
+                // var new_but = document.createElement("button");
+                // new_but.setAttribute("class", "ui fluid inverted blue button");
+                // new_but.innerHTML = carPosition[0][carPositionIdx[0]][0].split(' ')[1];
+                // new_but.setAttribute("onclick", "centerAndZoomCarVin(this)");
+                // new_tex.appendChild(new_but);
+                
+                movedOutSchool[0].push(new_tex);
             }
 
             
             ++carPositionIdx[0];
             if(carPositionIdx[0] == carPosition[0].length){
+
+
+
                 needAnimation[0] = false;
                 backgroundRequestProcessing[0] = false;
                 drawOverlay(0);
+
+                var obj = document.getElementById("OutSchoolDetail");
+
+                // console.log("校外车辆统计online")
+                // console.log(movedOutSchool[0].length)
+                for(var i = 0; i < movedOutSchool[0].length; ++i){
+                    obj.appendChild(movedOutSchool[0][i]);
+                }
+
+                optionOutSchoolBar['series'][1]['data'][0] -= movedOutSchool[0].length;
+                optionOutSchoolBar['series'][0]['data'][0] += movedOutSchool[0].length;
+
+                myChartOutSchoolBar.setOption(optionOutSchoolBar);
 
                 // for(var i = 0; i < totalOperatingModelCnt; ++i){
                 //     if(carPositionIdx[i] != carPosition[i].length){
@@ -2697,19 +2775,29 @@
             backGroundPointCache[tem_vin]['converted'] = data.points[0];
 
             if(IsInFance(data.points[0]) == false){
-                // console.log("carPosition[1][carPositionIdx[1]]");
-                console.log('out fence')
-                console.log(carPosition[1][carPositionIdx[1]]);
-                console.log(IsInPolygon(data.points[0], defaulteFence))
+                // // console.log("carPosition[1][carPositionIdx[1]]");
+                // console.log('out fence')
+                // console.log(carPosition[1][carPositionIdx[1]]);
+                // console.log(IsInPolygon(data.points[0], defaulteFence))
 
-                var obj = document.getElementById("right_bottom_coner_default");
+                // var obj = document.getElementById("OutSchoolDetail");
                 var new_tex = document.createElement("p");
                 // curVin = carPosition[1][carPositionIdx[1]][0].split()[1]
-                console.log(tem_vin)
+                // console.log(tem_vin)
                 new_tex.setAttribute("onclick", "centerAndZoomCarVin(this)");
-                new_tex.setAttribute("style", "color: #fff");
-                new_tex.innerHTML = carPosition[1][carPositionIdx[1]][0];
-                obj.appendChild(new_tex);
+                new_tex.setAttribute("style", "color: #fff; padding-left: 5%");
+                new_tex.innerHTML = '<i class="search plus icon"></i>'+' '+carPosition[1][carPositionIdx[1]][0];
+
+                // var new_tex = document.createElement("div");
+                // new_tex.setAttribute("style", "height: 25%; width: 32%; float: left; padding-left: 1px; padding-right: 1px; padding-top: 5px;");
+                // var new_but = document.createElement("button");
+                // new_but.setAttribute("class", "ui fluid inverted blue button");
+                // new_but.innerHTML = carPosition[1][carPositionIdx[1]][0].split(' ')[1];
+                // new_but.setAttribute("onclick", "centerAndZoomCarVin(this)");
+                // new_tex.appendChild(new_but);
+
+                movedOutSchool[1].push(new_tex);
+                // obj.appendChild(new_tex);
             }
 
             
@@ -2725,6 +2813,30 @@
                 //     }
                 // }
                 // mapLocked = false;
+
+                // 因为涉及到旧数据的清空操作，存在异步操作的争用问题
+                // 一般来说offline是最后完成的，所以直接放在这里
+                // 但是发现不行，因为这个路径不一定能够进入
+                // var obj = document.getElementById("OutSchoolDetail");
+                // var pObjs = obj.childNodes;
+                // for (var i = pObjs.length - 1; i >= 0; i--) { // 一定要倒序，正序是删不干净的，可自行尝试
+                //     obj.removeChild(pObjs[i]);
+                // }
+
+                var obj = document.getElementById("OutSchoolDetail");
+
+                // console.log("校外车辆统计offline")
+                // console.log(movedOutSchool[1].length)
+
+                for(var i = 0; i < movedOutSchool[1].length; ++i){
+                    obj.appendChild(movedOutSchool[1][i]);
+                }
+
+                optionOutSchoolBar['series'][1]['data'][0] -= movedOutSchool[1].length;
+                optionOutSchoolBar['series'][0]['data'][0] += movedOutSchool[1].length;
+
+                myChartOutSchoolBar.setOption(optionOutSchoolBar);
+
             }else{
                 var convertor = new BMapGL.Convertor();
                 var pointArr = [];
@@ -2930,19 +3042,19 @@
             }
             // console.log(singleCarTranslatedPoints.length);
             if(singleCarFilteredPointsIdx >= singleCarFilteredPoints.length){
-                console.log('translate finish: '+singleCarTranslatedPoints.length);
+                // console.log('translate finish: '+singleCarTranslatedPoints.length);
                 do_singleCarTrace();
             }else{
                 var convertor = new BMapGL.Convertor();
                 var pointArr = [];
-                console.log("singleCarFilteredPointsIdx Str: "+singleCarFilteredPointsIdx);
+                // console.log("singleCarFilteredPointsIdx Str: "+singleCarFilteredPointsIdx);
 
                 for(var j = 0; j < 10; ++j){
                     if(singleCarFilteredPointsIdx >= singleCarFilteredPoints.length) break;
                     pointArr.push(singleCarFilteredPoints[singleCarFilteredPointsIdx]);
                     ++singleCarFilteredPointsIdx;
                 }
-                console.log("singleCarFilteredPointsIdx Fin: "+singleCarFilteredPointsIdx);
+                // console.log("singleCarFilteredPointsIdx Fin: "+singleCarFilteredPointsIdx);
 
                 convertor.translate(pointArr, 1, 5, translateCallBackTrace);
             }
@@ -3619,11 +3731,78 @@ var domGuage = document.getElementById("guage");
 // 层叠图 结束
 
 
+// 右下角校外柱状图
+    var domOutSchoolBar = document.getElementById('OutSchoolBar');
+    var myChartOutSchoolBar = echarts.init(domOutSchoolBar);
+    var optionOutSchoolBar;
+
+    optionOutSchoolBar = {
+        tooltip: {
+            trigger: 'axis',
+            axisPointer: {            // Use axis to trigger tooltip
+                type: 'shadow'        // 'shadow' as default; can also be 'line' or 'shadow'
+            }
+        },
+        legend: {
+            show: false,
+            data: ['校内','校外']
+        },
+        grid: {
+            left: '0%',
+            right: '0%',
+            bottom: '0%',
+            top: '0%',
+            containLabel: true
+        },
+        xAxis: {
+            show: false,
+            type: 'value'
+        },
+        yAxis: {
+            show: false,
+            data: ['0']
+        },
+        series: [
+            {
+                name: '校外',
+                type: 'bar',
+                stack: 'total',
+                label: {
+                    formatter: '{a}\n{c}辆',
+                    show: true,
+                    fontWeight: 'bolder'
+                },
+                emphasis: {
+                    focus: 'series'
+                },
+                data: [50.0]
+            },
+            {
+                name: '校内',
+                type: 'bar',
+                stack: 'total',
+                label: {
+                    formatter: '{a}\n{c}辆',
+                    show: true,
+                    fontWeight: 'bolder'
+                },
+                emphasis: {
+                    focus: 'series'
+                },
+                data: [50.0]
+            },
+        ]
+    };
+
+    myChartOutSchoolBar.setOption(optionOutSchoolBar);
+
+
     window.onresize = function () {
         myChartPie.resize();
         myChartStack.resize();
         myChartGuage.resize();
         myChartLine.resize();
+        myChartOutSchoolBar.resize();
     }
 
 
@@ -3631,8 +3810,8 @@ var domGuage = document.getElementById("guage");
 
     // 绘制轨迹折线图
     function drawLine(prePoint, nxtPoint){
-        console.log('prePoint: '+prePoint.lng+''+prePoint.lat);
-        console.log('nxtPoint: '+nxtPoint.lng+''+nxtPoint.lat);
+        // console.log('prePoint: '+prePoint.lng+''+prePoint.lat);
+        // console.log('nxtPoint: '+nxtPoint.lng+''+nxtPoint.lat);
 
         // var sym = new BMapGL.Symbol
         // (
@@ -3684,7 +3863,7 @@ var domGuage = document.getElementById("guage");
             strokeColor:"#18a45b" //折线颜色
         });
         map.addOverlay(polyline);
-        console.log('drawnline finish');
+        // console.log('drawnline finish');
     }
 
     // 绘制点（根据车辆状态选择图片颜色），并加入回调
