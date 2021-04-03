@@ -73,19 +73,22 @@
 		<script type="text/javascript" src="js/global_config.js"></script>
         <!-- <script src="package.js"></script> -->
 
+        <!-- 山西省大数据平台模板 -->
+        <link rel="stylesheet" type="text/css" href="css/visual.css">
+
 
 
        <style type="text/css">
             div#mapDiv_wrapper {
                 /* background-color:green; */
-                height:75%;
+                height:70%;
                 width:75%;
                 float:left;
                 
             }
             div#optionList {
                 /* background-color:gray; */
-                height:75%;
+                height:70%;
                 width:25%;
                 float:left;
             }
@@ -93,6 +96,12 @@
                 /* background-color:blue; */
                 width:100%;
                 height:25%;
+                float: left; 
+            }
+            div#title {
+                /* background-color:blue; */
+                width:100%;
+                height:5%;
                 float: left; 
             }
             .threed{
@@ -112,7 +121,7 @@
         
     </head>
 
-    <body style="background-color:transparent">
+    <body class="ksh">
     <div id="mySidebar" class="ui right inverted vertical menu sidebar">
         <a class="item" href="javascript:void(0);" onclick="window.location.reload();">
             刷新
@@ -140,11 +149,18 @@
     </div>
     <div class="pusher" style="height: 100%; margin: 0" >
         <!-- <div id="Echarts"></div> -->
-        <div id="mapDiv_wrapper">
-            <div class="ui raised centered card"  style="height: 98.6%; width: 99%">
-                <div class="content" style="height: 100%; width: 100%;">
-                    <div id="mapDiv" style="height: 100%; width: 100%;"></div>
-                </div>
+        <div id="title">
+            <div class="head_top" style="width: 100%; height: 100%;"><span>上海交大-五菱E100电动汽车智能监控平台</span></div>
+
+        </div>
+
+        <div class="visual_con" id="mapDiv_wrapper">
+            <div class="visual_conBot" style="height: 100%; width: 100%;">
+                <img class="visual_conBot_l" src="images/ksh42.png">
+                <img class="visual_conBot_2" src="images/ksh43.png">
+                <img class="visual_conBot_3" src="images/ksh44.png">
+                <img class="visual_conBot_4" src="images/ksh45.png">
+                <div class="visual_chart" id="mapDiv" style="height: 96%; width: 98%; margin: 1%;"></div>
             </div>
         </div>
         
@@ -155,711 +171,714 @@
                 }).sidebar('toggle');">
             </div> -->
             <div style="height:100%">
-                <div style="height: 10%; width: 100%; float: left;">
+                <!-- <div style="height: 10%; width: 100%; float: left;">
+                    <p>上海交大-五菱E100电动汽车智能监控平台</p>
                     <div class="ui raised centered card"  style="height: 96%; width: 98%">
                         <div class="content" style="height: 100%; width: 100%;">
-                            <!-- <p>上海交大-五菱E100电动汽车智能监控平台</p> -->
                             <img width="100%" src="img/title.png" style="vertical-align: middle">
                         </div>
                     </div>
-                </div>
-                <div id="detailOption" style="height: 17%; width: 100%; float: left;">
-                    <div class="ui raised centered card"  style="height: 96%; width: 98%">
-                        <div class="content" style="height: 100%; width: 100%;">
-                            <!-- 查询类型选择 -->
-                            <select name="reques_type" class="ui compact dropdown" id="select">
-                                <optgroup label="车辆状态">
-                                    <option value="velocity" selected>速度</option>
-                                    <option disabled="disabled" value="cumulative_mileage">总行驶里程</option>
-                                    <option disabled="disabled" value="drive_motor_rpm">电机转速</option>
-                                    <option disabled="disabled" value="drive_motor_temperature">电机温度</option>
-                                </optgroup>
-                                <optgroup label="电池信息">
-                                    <option disabled="disabled" value="residual_energy">剩余电量</option>
-                                    <option disabled="disabled" value="high_voltage_battery_current">总电流</option>
-                                    <option disabled="disabled" value="total_battery_voltage">总电压</option>
-                                    <option disabled="disabled" value="max_single_voltage">电池最高单体电压</option>
-                                    <option disabled="disabled" value="min_single_voltage">电池最低单体电压</option>
-                                    <option disabled="disabled" value="insulation_resistance_value">绝缘阻值</option>
-                                </optgroup>
-                                <optgroup label="其他数据">
-                                    <option disabled="disabled" value="motor_torque">电机转矩</option>
-                                    <option disabled="disabled" value="motor_controller_current">电机控制器电流</option>
-                                    <option disabled="disabled" value="motor_controller_voltage">电机控制器电压</option>
-                                </optgroup>
-                            </select>
-                            
-                            <!-- vin选择 -->
-                            <select class="ui compact search selection dropdown" id="search-select" onchange="vinChange()"> 
-                                <option value="LK6ADCE22JB007910">LK6ADCE22JB007910</option>
-                                <option value="LK6ADCE22JB011083">LK6ADCE22JB011083</option>
-                                <option value="LK6ADCE29JB011100">LK6ADCE29JB011100</option>
-                                <option value="LK6ADCE20JB011051">LK6ADCE20JB011051</option>
-                                <option value="LK6ADCE23JB008886">LK6ADCE23JB008886</option>
-                                <option value="LK6ADCE27JB011113">LK6ADCE27JB011113</option>
-                                <option value="LK6ADCE25JB011093">LK6ADCE25JB011093</option>
-                                <option value="LK6ADCE28JB008883">LK6ADCE28JB008883</option>
-                                <option value="LK6ADCE28JB009631">LK6ADCE28JB009631</option>
-                                <option value="LK6ADCE26JB010499">LK6ADCE26JB010499</option>
-                                <option value="LK6ADCE28JB010486">LK6ADCE28JB010486</option>
-                                <option value="LK6ADCE20JB010482">LK6ADCE20JB010482</option>
-                                <option value="LK6ADCE29JB010481">LK6ADCE29JB010481</option>
-                                <option value="LK6ADCE29JB009637">LK6ADCE29JB009637</option>
-                                <option value="LK6ADCE25JB009635">LK6ADCE25JB009635</option>
-                                <option value="LK6ADCE24JB011117">LK6ADCE24JB011117</option>
-                                <option value="LK6ADCE21JB009633">LK6ADCE21JB009633</option>
-                                <option value="LK6ADCE23JB009651">LK6ADCE23JB009651</option>
-                                <option value="LK6ADCE25JB011076">LK6ADCE25JB011076</option>
-                                <option value="LK6ADCE28JB011105">LK6ADCE28JB011105</option>
-                                <option value="LK6ADCE27JB011094">LK6ADCE27JB011094</option>
-                                <option value="LK6ADCE24JB011134">LK6ADCE24JB011134</option>
-                                <option value="LK6ADCE20JB011129">LK6ADCE20JB011129</option>
-                                <option value="LK6ADCE2XJB011123">LK6ADCE2XJB011123</option>
-                                <option value="LK6ADCE26JB011099">LK6ADCE26JB011099</option>
-                                <option value="LK6ADCE21JB011057">LK6ADCE21JB011057</option>
-                                <option value="LK6ADCE25JB011112">LK6ADCE25JB011112</option>
-                                <option value="LK6ADCE29JB011095">LK6ADCE29JB011095</option>
-                                <option value="LK6ADCE21JB011091">LK6ADCE21JB011091</option>
-                                <option value="LK6ADCE28JB009659">LK6ADCE28JB009659</option>
-                                <option value="LK6ADCE24JB009691">LK6ADCE24JB009691</option>
-                                <option value="LK6ADCE29JB010500">LK6ADCE29JB010500</option>
-                                <option value="LK6ADCE29JB008312">LK6ADCE29JB008312</option>
-                                <option value="LK6ADCE25JB010526">LK6ADCE25JB010526</option>
-                                <option value="LK6ADCE29JB010514">LK6ADCE29JB010514</option>
-                                <option value="LK6ADCE28JB009676">LK6ADCE28JB009676</option>
-                                <option value="LK6ADCE28JB010522">LK6ADCE28JB010522</option>
-                                <option value="LK6ADCE22JB009642">LK6ADCE22JB009642</option>
-                                <option value="LK6ADCE21JB009664">LK6ADCE21JB009664</option>
-                                <option value="LK6ADCE21JB010510">LK6ADCE21JB010510</option>
-                                <option value="LK6ADCE27HB005533">LK6ADCE27HB005533</option>
-                                <option value="LK6ADCE26HB005460">LK6ADCE26HB005460</option>
-                                <option value="LK6ADCE2XHB005154">LK6ADCE2XHB005154</option>
-                                <option value="LK6ADCE28HB005184">LK6ADCE28HB005184</option>
-                                <option value="LK6ADCE23HB005383">LK6ADCE23HB005383</option>
-                                <option value="LK6ADCE22HB005388">LK6ADCE22HB005388</option>
-                                <option value="LK6ADCE20HB005390">LK6ADCE20HB005390</option>
-                                <option value="LK6ADCE28HB006531">LK6ADCE28HB006531</option>
-                                <option value="LK6ADCE2XHB006546">LK6ADCE2XHB006546</option>
-                                <option value="LK6ADCE28HB006464">LK6ADCE28HB006464</option>
-                                <option value="LK6ADCE22HB005701">LK6ADCE22HB005701</option>
-                                <option value="LK6ADCE27HB006407">LK6ADCE27HB006407</option>
-                                <option value="LK6ADCE23HB005402">LK6ADCE23HB005402</option>
-                                <option value="LK6ADCE28HB005640">LK6ADCE28HB005640</option>
-                                <option value="LK6ADCE28HB006836">LK6ADCE28HB006836</option>
-                                <option value="LK6ADCE23HB005738">LK6ADCE23HB005738</option>
-                                <option value="LK6ADCE21HB005026">LK6ADCE21HB005026</option>
-                                <option value="LK6ADCE21HB005012">LK6ADCE21HB005012</option>
-                                <option value="LK6ADCE28HB005282">LK6ADCE28HB005282</option>
-                                <option value="LK6ADCE22HB005522">LK6ADCE22HB005522</option>
-                                <option value="LK6ADCE2XHB005185">LK6ADCE2XHB005185</option>
-                                <option value="LK6ADCE20HB005339">LK6ADCE20HB005339</option>
-                                <option value="LK6ADCE26HB006284">LK6ADCE26HB006284</option>
-                                <option value="LK6ADCE21HB005981">LK6ADCE21HB005981</option>
-                                <option value="LK6ADCE27HB006116">LK6ADCE27HB006116</option>
-                                <option value="LK6ADCE27HB005063">LK6ADCE27HB005063</option>
-                                <option value="LK6ADCE25HB005109">LK6ADCE25HB005109</option>
-                                <option value="LK6ADCE20HB005082" selected=true>LK6ADCE20HB005082</option>
-                                <option value="LK6ADCE27HB006553">LK6ADCE27HB006553</option>
-                                <option value="LK6ADCE22HB005102">LK6ADCE22HB005102</option>
-                                <option value="LK6ADCE27HB006861">LK6ADCE27HB006861</option>
-                                <option value="LK6ADCE20JB007842">LK6ADCE20JB007842</option>
-                                <option value="LK6ADCE27JB007885">LK6ADCE27JB007885</option>
-                                <option value="LK6ADCE25JB007934">LK6ADCE25JB007934</option>
-                                <option value="LK6ADCE21JB007929">LK6ADCE21JB007929</option>
-                                <option value="LK6ADCE23JB008290">LK6ADCE23JB008290</option>
-                                <option value="LK6ADCE2XJB007931">LK6ADCE2XJB007931</option>
-                                <option value="LK6ADCE20JB008294">LK6ADCE20JB008294</option>
-                                <option value="LK6ADCE2XJB008285">LK6ADCE2XJB008285</option>
-                                <option value="LK6ADCE29JB008293">LK6ADCE29JB008293</option>
-                                <option value="LK6ADCE29JB007905">LK6ADCE29JB007905</option>
-                                <option value="LK6ADCE21JB008241">LK6ADCE21JB008241</option>
-                                <option value="LK6ADCE20JB007890">LK6ADCE20JB007890</option>
-                                <option value="LK6ADCE24JB008251">LK6ADCE24JB008251</option>
-                                <option value="LK6ADCE22JB007891">LK6ADCE22JB007891</option>
-                                <option value="LK6ADCE2XJB008299">LK6ADCE2XJB008299</option>
-                                <option value="LK6ADCE2XJB011140">LK6ADCE2XJB011140</option>
-                                <option value="LK6ADCE22JB008247">LK6ADCE22JB008247</option>
-                                <option value="LK6ADCE28JB008253">LK6ADCE28JB008253</option>
-                                <option value="LK6ADCE2XJB008268">LK6ADCE2XJB008268</option>
-                                <option value="LK6ADCE25JB008873">LK6ADCE25JB008873</option>
-                                <option value="LK6ADCE27JB008292">LK6ADCE27JB008292</option>
-                                <option value="LK6ADCE28JB009273">LK6ADCE28JB009273</option>
-                                <option value="LK6ADCE22JB008250">LK6ADCE22JB008250</option>
-                                <option value="LK6ADCE23JB008239">LK6ADCE23JB008239</option>
-                                <option value="LK6ADCE28JB011122">LK6ADCE28JB011122</option>
-                                <option value="LK6ADCE29JB011114">LK6ADCE29JB011114</option>
-                                <option value="LK6ADCE24JB008864">LK6ADCE24JB008864</option>
-                                <option value="LK6ADCE23JB008872">LK6ADCE23JB008872</option>
-                                <option value="LK6ADCE27JB008874">LK6ADCE27JB008874</option>
-                                <option value="LK6ADCE21JB011110">LK6ADCE21JB011110</option>
-                                <option value="LK6ADCE23JB011142">LK6ADCE23JB011142</option>
-                                <option value="LK6ADCE26JB008879">LK6ADCE26JB008879</option>
-                                <option value="LK6ADCE2XJB008884">LK6ADCE2XJB008884</option>
-                                <option value="LK6ADCE24JB008878">LK6ADCE24JB008878</option>
-                                <option value="LK6ADCE25JB011059">LK6ADCE25JB011059</option>
-                                <option value="LK6ADCE24JB011098">LK6ADCE24JB011098</option>
-                                <option value="LK6ADCE24JB011084">LK6ADCE24JB011084</option>
-                                <option value="LK6ADCE22JB011116">LK6ADCE22JB011116</option>
-                                <option value="LK6ADCE2XJB009694">LK6ADCE2XJB009694</option>
-                                <option value="LK6ADCE25JB008887">LK6ADCE25JB008887</option>
-                                <option value="LK6ADCE23JB009634">LK6ADCE23JB009634</option>
-                                <option value="LK6ADCE27JB009636">LK6ADCE27JB009636</option>
-                                <option value="LK6ADCE22JB009639">LK6ADCE22JB009639</option>
-                                <option value="LK6ADCE21JB010538">LK6ADCE21JB010538</option>
-                                <option value="LK6ADCE22JB009091">LK6ADCE22JB009091</option>
-                                <option value="LK6ADCE22JB009057">LK6ADCE22JB009057</option>
-                                <option value="LK6ADCE27JB009085">LK6ADCE27JB009085</option>
-                                <option value="LK6ADCE24JB009061">LK6ADCE24JB009061</option>
-                                <option value="LK6ADCE23JB009083">LK6ADCE23JB009083</option>
-                                <option value="LK6ADCE23JB009102">LK6ADCE23JB009102</option>
-                                <option value="LK6ADCE21JB009065">LK6ADCE21JB009065</option>
-                                <option value="LK6ADCE29JB009086">LK6ADCE29JB009086</option>
-                                <option value="LK6ADCE26JB009059">LK6ADCE26JB009059</option>
-                                <option value="LK6ADCE24JB008993">LK6ADCE24JB008993</option>
-                                <option value="LK6ADCE25JB009053">LK6ADCE25JB009053</option>
-                                <option value="LK6ADCE22JB008975">LK6ADCE22JB008975</option>
-                                <option value="LK6ADCE2XJB009114">LK6ADCE2XJB009114</option>
-                                <option value="LK6ADCE28JB009113">LK6ADCE28JB009113</option>
-                                <option value="LK6ADCE21JB009082">LK6ADCE21JB009082</option>
-                                <option value="LK6ADCE29HB005176">LK6ADCE29HB005176</option>
-                                <option value="LK6ADCE21HB006452">LK6ADCE21HB006452</option>
-                                <option value="LK6ADCE21HB005723">LK6ADCE21HB005723</option>
-                                <option value="LK6ADCE24HB006171">LK6ADCE24HB006171</option>
-                                <option value="LK6ADCE28HB006027">LK6ADCE28HB006027</option>
-                                <option value="LK6ADCE2XHB006207">LK6ADCE2XHB006207</option>
-                                <option value="LK6ADCE23HB006789">LK6ADCE23HB006789</option>
-                                <option value="LK6ADCE24HB005828">LK6ADCE24HB005828</option>
-                                <option value="LK6ADCE21HB005446">LK6ADCE21HB005446</option>
-                                <option value="LK6ADCE24HB005425">LK6ADCE24HB005425</option>
-                                <option value="LK6ADCE23HB005447">LK6ADCE23HB005447</option>
-                                <option value="LK6ADCE20HB006040">LK6ADCE20HB006040</option>
-                                <option value="LK6ADCE2XHB005526">LK6ADCE2XHB005526</option>
-                                <option value="LK6ADCE26HB005216">LK6ADCE26HB005216</option>
-                                <option value="LK6ADCE27HB006536">LK6ADCE27HB006536</option>
-                                <option value="LK6ADCE25HB005384">LK6ADCE25HB005384</option>
-                                <option value="LK6ADCE25HB005370">LK6ADCE25HB005370</option>
-                                <option value="LK6ADCE25HB005322">LK6ADCE25HB005322</option>
-                                <option value="LK6ADCE20HB005003">LK6ADCE20HB005003</option>
-                                <option value="LK6ADCE24HB006381">LK6ADCE24HB006381</option>
-                                <option value="LK6ADCE26HB005703">LK6ADCE26HB005703</option>
-                                <option value="LK6ADCE2XHB006790">LK6ADCE2XHB006790</option>
-                                <option value="LK6ADCE22HB006296">LK6ADCE22HB006296</option>
-                                <option value="LK6ADCE28HB005010">LK6ADCE28HB005010</option>
-                                <option value="LK6ADCE25HB005983">LK6ADCE25HB005983</option>
-                                <option value="LK6ADCE21HB005995">LK6ADCE21HB005995</option>
-                                <option value="LK6ADCE25HB005434">LK6ADCE25HB005434</option>
-                                <option value="LK6ADCE21HB006564">LK6ADCE21HB006564</option>
-                                <option value="LK6ADCE22HB005407">LK6ADCE22HB005407</option>
-                                <option value="LK6ADCE20HB005700">LK6ADCE20HB005700</option>
-                                <option value="LK6ADCE24HB005697">LK6ADCE24HB005697</option>
-                                <option value="LK6ADCE21HB006547">LK6ADCE21HB006547</option>
-                                <option value="LK6ADCE21HB005396">LK6ADCE21HB005396</option>
-                                <option value="LK6ADCE26HB005393">LK6ADCE26HB005393</option>
-                                <option value="LK6ADCE23HB006565">LK6ADCE23HB006565</option>
-                                <option value="LK6ADCE24HB005103">LK6ADCE24HB005103</option>
-                                <option value="LK6ADCE20HB005678">LK6ADCE20HB005678</option>
-                                <option value="LK6ADCE26HB006852">LK6ADCE26HB006852</option>
-                                <option value="LK6ADCE22HB005746">LK6ADCE22HB005746</option>
-                                <option value="LK6ADCE24HB006557">LK6ADCE24HB006557</option>
-                                <option value="LK6ADCE22HB005438">LK6ADCE22HB005438</option>
-                                <option value="LK6ADCE24HB005733">LK6ADCE24HB005733</option>
-                                <option value="LK6ADCE20HB005809">LK6ADCE20HB005809</option>
-                                <option value="LK6ADCE23HB005805">LK6ADCE23HB005805</option>
-                                <option value="LK6ADCE2XJB007928">LK6ADCE2XJB007928</option>
-                                <option value="LK6ADCE22JB007910">LK6ADCE22JB007910</option>
-                                <option value="LK6ADCE23JB008287">LK6ADCE23JB008287</option>
-                                <option value="LK6ADCE20JB009252">LK6ADCE20JB009252</option>
-                                <option value="LK6ADCE22JB008331">LK6ADCE22JB008331</option>
-                                <option value="LK6ADCE22HB006203">LK6ADCE22HB006203</option>
-                                <option value="LK6ADCE28HB005413">LK6ADCE28HB005413</option>
-                                <option value="LK6ADCE26HB006804">LK6ADCE26HB006804</option>
-                                <option value="LK6ADCE2XHB005400">LK6ADCE2XHB005400</option>
-                                <option value="LK6ADCE26HB005085">LK6ADCE26HB005085</option>
-                                <option value="LK6ADCE20JB007839">LK6ADCE20JB007839</option>
-                                <option value="LK6ADCE26JB007893">LK6ADCE26JB007893</option>
-                                <option value="LK6ADCE2XJB007895">LK6ADCE2XJB007895</option>
-                                <option value="LK6ADCE26JB007943">LK6ADCE26JB007943</option>
-                                <option value="LK6ADCE29JB009265">LK6ADCE29JB009265</option>
-                                <option value="LK6ADCE25JB008291">LK6ADCE25JB008291</option>
-                                <option value="LK6ADCE29JB007922">LK6ADCE29JB007922</option>
-                                <option value="LK6ADCE26JB008252">LK6ADCE26JB008252</option>
-                                <option value="LK6ADCE26JB008249">LK6ADCE26JB008249</option>
-                                <option value="LK6ADCE21JB008286">LK6ADCE21JB008286</option>
-                                <option value="LK6ADCE20JB008246">LK6ADCE20JB008246</option>
-                                <option value="LK6ADCE27JB011144">LK6ADCE27JB011144</option>
-                                <option value="LK6ADCE29JB011047">LK6ADCE29JB011047</option>
-                                <option value="LK6ADCE25JB011062">LK6ADCE25JB011062</option>
-                                <option value="LK6ADCE27JB010480">LK6ADCE27JB010480</option>
-                                <option value="LK6ADCE26JB008994">LK6ADCE26JB008994</option>
-                                <option value="LK6ADCE21JB009079">LK6ADCE21JB009079</option>
-                                <option value="LK6ADCE21JB009051">LK6ADCE21JB009051</option>
-                                <option value="LK6ADCE25JB009067">LK6ADCE25JB009067</option>
-                                <option value="LK6ADCE28JB009077">LK6ADCE28JB009077</option>
-                                <option value="LK6ADCE25JB009098">LK6ADCE25JB009098</option>
-                                <option value="LK6ADCE21JB009096">LK6ADCE21JB009096</option>
-                                <option value="LK6ADCE23HB005481">LK6ADCE23HB005481</option>
-                                <option value="LK6ADCE26HB005488">LK6ADCE26HB005488</option>
-                                <option value="LK6ADCE25HB005207">LK6ADCE25HB005207</option>
-                                <option value="LK6ADCE26HB005409">LK6ADCE26HB005409</option>
-                                <option value="LK6ADCE20HB006247">LK6ADCE20HB006247</option>
-                                <option value="LK6ADCE24HB006512">LK6ADCE24HB006512</option>
-                                <option value="LK6ADCE22HB006556">LK6ADCE22HB006556</option>
-                                <option value="LK6ADCE25HB005529">LK6ADCE25HB005529</option>
-                                <option value="LK6ADCE21HB006810">LK6ADCE21HB006810</option>
-                                <option value="LK6ADCE26HB006401">LK6ADCE26HB006401</option>
-                                <option value="LK6ADCE21HB005401">LK6ADCE21HB005401</option>
-                                <option value="LK6ADCE21HB006063">LK6ADCE21HB006063</option>
-                                <option value="LK6ADCE28HB005072">LK6ADCE28HB005072</option>
-                                <option value="LK6ADCE23JB007933">LK6ADCE23JB007933</option>
-                                <option value="LK6ADCE2XJB009081">LK6ADCE2XJB009081</option>
-                                <option value="LK6ADCE20JB008330">LK6ADCE20JB008330</option>
-                                <option value="LK6ADCE21HB005155">LK6ADCE21HB005155</option>
-                                <option value="LK6ADCE21HB005527">LK6ADCE21HB005527</option>
-                                <option value="LK6ADCE24HB005957">LK6ADCE24HB005957</option>
-                                <option value="LK6ADCE23HB005433">LK6ADCE23HB005433</option>
-                                <option value="LK6ADCE25JB007853">LK6ADCE25JB007853</option>
-                                <option value="LK6ADCE26JB007845">LK6ADCE26JB007845</option>
-                                <option value="LK6ADCE28JB008298">LK6ADCE28JB008298</option>
-                                <option value="LK6ADCE29JB009640">LK6ADCE29JB009640</option>
-                                <option value="LK6ADCE25JB008288">LK6ADCE25JB008288</option>
-                                <option value="LK6ADCE22JB008295">LK6ADCE22JB008295</option>
-                                <option value="LK6ADCE24JB008248">LK6ADCE24JB008248</option>
-                                <option value="LK6ADCE21JB008868">LK6ADCE21JB008868</option>
-                                <option value="LK6ADCE26JB008283">LK6ADCE26JB008283</option>
-                                <option value="LK6ADCE21JB008269">LK6ADCE21JB008269</option>
-                                <option value="LK6ADCE2XJB011137">LK6ADCE2XJB011137</option>
-                                <option value="LK6ADCE27JB009264">LK6ADCE27JB009264</option>
-                                <option value="LK6ADCE25JB008310">LK6ADCE25JB008310</option>
-                                <option value="LK6ADCE26HB006558">LK6ADCE26HB006558</option>
-                                <option value="LK6ADCE23HB005724">LK6ADCE23HB005724</option>
-                                <option value="LK6ADCE23JB008855">LK6ADCE23JB008855</option>
-                                <option value="LK6ADCE2XJB010487">LK6ADCE2XJB010487</option>
-                                <option value="LK6ADCE21JB010555">LK6ADCE21JB010555</option>
-                                <option value="LK6ADCE27JB007840">LK6ADCE27JB007840</option>
-                                <option value="LK6ADCE24JB007889">LK6ADCE24JB007889</option>
-                                <option value="LK6ADCE28JB008849">LK6ADCE28JB008849</option>
-                                <option value="LK6ADCE20JB008862">LK6ADCE20JB008862</option>
-                                <option value="LK6ADCE26JB008882">LK6ADCE26JB008882</option>
-                                <option value="LK6ADCE2XJB009243">LK6ADCE2XJB009243</option>                 
-                            </select>
+                </div> -->
+                <div class="visual_box" id="detailOption" style="height: 20%; width: 100%; float: left;">
+                    <div class="visual_title">
+                        <span>查询控制台</span>
+                        <img src="images/ksh33.png">
+                    </div>
+                    
+                    <div class="visual_chart">
+                        <!-- 查询类型选择 -->
+                        <select name="reques_type" class="ui compact dropdown" id="select">
+                            <optgroup label="车辆状态">
+                                <option value="velocity" selected>速度</option>
+                                <option disabled="disabled" value="cumulative_mileage">总行驶里程</option>
+                                <option disabled="disabled" value="drive_motor_rpm">电机转速</option>
+                                <option disabled="disabled" value="drive_motor_temperature">电机温度</option>
+                            </optgroup>
+                            <optgroup label="电池信息">
+                                <option disabled="disabled" value="residual_energy">剩余电量</option>
+                                <option disabled="disabled" value="high_voltage_battery_current">总电流</option>
+                                <option disabled="disabled" value="total_battery_voltage">总电压</option>
+                                <option disabled="disabled" value="max_single_voltage">电池最高单体电压</option>
+                                <option disabled="disabled" value="min_single_voltage">电池最低单体电压</option>
+                                <option disabled="disabled" value="insulation_resistance_value">绝缘阻值</option>
+                            </optgroup>
+                            <optgroup label="其他数据">
+                                <option disabled="disabled" value="motor_torque">电机转矩</option>
+                                <option disabled="disabled" value="motor_controller_current">电机控制器电流</option>
+                                <option disabled="disabled" value="motor_controller_voltage">电机控制器电压</option>
+                            </optgroup>
+                        </select>
+                        
+                        <!-- vin选择 -->
+                        <select class="ui compact search selection dropdown" id="search-select" onchange="vinChange()"> 
+                            <option value="LK6ADCE22JB007910">LK6ADCE22JB007910</option>
+                            <option value="LK6ADCE22JB011083">LK6ADCE22JB011083</option>
+                            <option value="LK6ADCE29JB011100">LK6ADCE29JB011100</option>
+                            <option value="LK6ADCE20JB011051">LK6ADCE20JB011051</option>
+                            <option value="LK6ADCE23JB008886">LK6ADCE23JB008886</option>
+                            <option value="LK6ADCE27JB011113">LK6ADCE27JB011113</option>
+                            <option value="LK6ADCE25JB011093">LK6ADCE25JB011093</option>
+                            <option value="LK6ADCE28JB008883">LK6ADCE28JB008883</option>
+                            <option value="LK6ADCE28JB009631">LK6ADCE28JB009631</option>
+                            <option value="LK6ADCE26JB010499">LK6ADCE26JB010499</option>
+                            <option value="LK6ADCE28JB010486">LK6ADCE28JB010486</option>
+                            <option value="LK6ADCE20JB010482">LK6ADCE20JB010482</option>
+                            <option value="LK6ADCE29JB010481">LK6ADCE29JB010481</option>
+                            <option value="LK6ADCE29JB009637">LK6ADCE29JB009637</option>
+                            <option value="LK6ADCE25JB009635">LK6ADCE25JB009635</option>
+                            <option value="LK6ADCE24JB011117">LK6ADCE24JB011117</option>
+                            <option value="LK6ADCE21JB009633">LK6ADCE21JB009633</option>
+                            <option value="LK6ADCE23JB009651">LK6ADCE23JB009651</option>
+                            <option value="LK6ADCE25JB011076">LK6ADCE25JB011076</option>
+                            <option value="LK6ADCE28JB011105">LK6ADCE28JB011105</option>
+                            <option value="LK6ADCE27JB011094">LK6ADCE27JB011094</option>
+                            <option value="LK6ADCE24JB011134">LK6ADCE24JB011134</option>
+                            <option value="LK6ADCE20JB011129">LK6ADCE20JB011129</option>
+                            <option value="LK6ADCE2XJB011123">LK6ADCE2XJB011123</option>
+                            <option value="LK6ADCE26JB011099">LK6ADCE26JB011099</option>
+                            <option value="LK6ADCE21JB011057">LK6ADCE21JB011057</option>
+                            <option value="LK6ADCE25JB011112">LK6ADCE25JB011112</option>
+                            <option value="LK6ADCE29JB011095">LK6ADCE29JB011095</option>
+                            <option value="LK6ADCE21JB011091">LK6ADCE21JB011091</option>
+                            <option value="LK6ADCE28JB009659">LK6ADCE28JB009659</option>
+                            <option value="LK6ADCE24JB009691">LK6ADCE24JB009691</option>
+                            <option value="LK6ADCE29JB010500">LK6ADCE29JB010500</option>
+                            <option value="LK6ADCE29JB008312">LK6ADCE29JB008312</option>
+                            <option value="LK6ADCE25JB010526">LK6ADCE25JB010526</option>
+                            <option value="LK6ADCE29JB010514">LK6ADCE29JB010514</option>
+                            <option value="LK6ADCE28JB009676">LK6ADCE28JB009676</option>
+                            <option value="LK6ADCE28JB010522">LK6ADCE28JB010522</option>
+                            <option value="LK6ADCE22JB009642">LK6ADCE22JB009642</option>
+                            <option value="LK6ADCE21JB009664">LK6ADCE21JB009664</option>
+                            <option value="LK6ADCE21JB010510">LK6ADCE21JB010510</option>
+                            <option value="LK6ADCE27HB005533">LK6ADCE27HB005533</option>
+                            <option value="LK6ADCE26HB005460">LK6ADCE26HB005460</option>
+                            <option value="LK6ADCE2XHB005154">LK6ADCE2XHB005154</option>
+                            <option value="LK6ADCE28HB005184">LK6ADCE28HB005184</option>
+                            <option value="LK6ADCE23HB005383">LK6ADCE23HB005383</option>
+                            <option value="LK6ADCE22HB005388">LK6ADCE22HB005388</option>
+                            <option value="LK6ADCE20HB005390">LK6ADCE20HB005390</option>
+                            <option value="LK6ADCE28HB006531">LK6ADCE28HB006531</option>
+                            <option value="LK6ADCE2XHB006546">LK6ADCE2XHB006546</option>
+                            <option value="LK6ADCE28HB006464">LK6ADCE28HB006464</option>
+                            <option value="LK6ADCE22HB005701">LK6ADCE22HB005701</option>
+                            <option value="LK6ADCE27HB006407">LK6ADCE27HB006407</option>
+                            <option value="LK6ADCE23HB005402">LK6ADCE23HB005402</option>
+                            <option value="LK6ADCE28HB005640">LK6ADCE28HB005640</option>
+                            <option value="LK6ADCE28HB006836">LK6ADCE28HB006836</option>
+                            <option value="LK6ADCE23HB005738">LK6ADCE23HB005738</option>
+                            <option value="LK6ADCE21HB005026">LK6ADCE21HB005026</option>
+                            <option value="LK6ADCE21HB005012">LK6ADCE21HB005012</option>
+                            <option value="LK6ADCE28HB005282">LK6ADCE28HB005282</option>
+                            <option value="LK6ADCE22HB005522">LK6ADCE22HB005522</option>
+                            <option value="LK6ADCE2XHB005185">LK6ADCE2XHB005185</option>
+                            <option value="LK6ADCE20HB005339">LK6ADCE20HB005339</option>
+                            <option value="LK6ADCE26HB006284">LK6ADCE26HB006284</option>
+                            <option value="LK6ADCE21HB005981">LK6ADCE21HB005981</option>
+                            <option value="LK6ADCE27HB006116">LK6ADCE27HB006116</option>
+                            <option value="LK6ADCE27HB005063">LK6ADCE27HB005063</option>
+                            <option value="LK6ADCE25HB005109">LK6ADCE25HB005109</option>
+                            <option value="LK6ADCE20HB005082" selected=true>LK6ADCE20HB005082</option>
+                            <option value="LK6ADCE27HB006553">LK6ADCE27HB006553</option>
+                            <option value="LK6ADCE22HB005102">LK6ADCE22HB005102</option>
+                            <option value="LK6ADCE27HB006861">LK6ADCE27HB006861</option>
+                            <option value="LK6ADCE20JB007842">LK6ADCE20JB007842</option>
+                            <option value="LK6ADCE27JB007885">LK6ADCE27JB007885</option>
+                            <option value="LK6ADCE25JB007934">LK6ADCE25JB007934</option>
+                            <option value="LK6ADCE21JB007929">LK6ADCE21JB007929</option>
+                            <option value="LK6ADCE23JB008290">LK6ADCE23JB008290</option>
+                            <option value="LK6ADCE2XJB007931">LK6ADCE2XJB007931</option>
+                            <option value="LK6ADCE20JB008294">LK6ADCE20JB008294</option>
+                            <option value="LK6ADCE2XJB008285">LK6ADCE2XJB008285</option>
+                            <option value="LK6ADCE29JB008293">LK6ADCE29JB008293</option>
+                            <option value="LK6ADCE29JB007905">LK6ADCE29JB007905</option>
+                            <option value="LK6ADCE21JB008241">LK6ADCE21JB008241</option>
+                            <option value="LK6ADCE20JB007890">LK6ADCE20JB007890</option>
+                            <option value="LK6ADCE24JB008251">LK6ADCE24JB008251</option>
+                            <option value="LK6ADCE22JB007891">LK6ADCE22JB007891</option>
+                            <option value="LK6ADCE2XJB008299">LK6ADCE2XJB008299</option>
+                            <option value="LK6ADCE2XJB011140">LK6ADCE2XJB011140</option>
+                            <option value="LK6ADCE22JB008247">LK6ADCE22JB008247</option>
+                            <option value="LK6ADCE28JB008253">LK6ADCE28JB008253</option>
+                            <option value="LK6ADCE2XJB008268">LK6ADCE2XJB008268</option>
+                            <option value="LK6ADCE25JB008873">LK6ADCE25JB008873</option>
+                            <option value="LK6ADCE27JB008292">LK6ADCE27JB008292</option>
+                            <option value="LK6ADCE28JB009273">LK6ADCE28JB009273</option>
+                            <option value="LK6ADCE22JB008250">LK6ADCE22JB008250</option>
+                            <option value="LK6ADCE23JB008239">LK6ADCE23JB008239</option>
+                            <option value="LK6ADCE28JB011122">LK6ADCE28JB011122</option>
+                            <option value="LK6ADCE29JB011114">LK6ADCE29JB011114</option>
+                            <option value="LK6ADCE24JB008864">LK6ADCE24JB008864</option>
+                            <option value="LK6ADCE23JB008872">LK6ADCE23JB008872</option>
+                            <option value="LK6ADCE27JB008874">LK6ADCE27JB008874</option>
+                            <option value="LK6ADCE21JB011110">LK6ADCE21JB011110</option>
+                            <option value="LK6ADCE23JB011142">LK6ADCE23JB011142</option>
+                            <option value="LK6ADCE26JB008879">LK6ADCE26JB008879</option>
+                            <option value="LK6ADCE2XJB008884">LK6ADCE2XJB008884</option>
+                            <option value="LK6ADCE24JB008878">LK6ADCE24JB008878</option>
+                            <option value="LK6ADCE25JB011059">LK6ADCE25JB011059</option>
+                            <option value="LK6ADCE24JB011098">LK6ADCE24JB011098</option>
+                            <option value="LK6ADCE24JB011084">LK6ADCE24JB011084</option>
+                            <option value="LK6ADCE22JB011116">LK6ADCE22JB011116</option>
+                            <option value="LK6ADCE2XJB009694">LK6ADCE2XJB009694</option>
+                            <option value="LK6ADCE25JB008887">LK6ADCE25JB008887</option>
+                            <option value="LK6ADCE23JB009634">LK6ADCE23JB009634</option>
+                            <option value="LK6ADCE27JB009636">LK6ADCE27JB009636</option>
+                            <option value="LK6ADCE22JB009639">LK6ADCE22JB009639</option>
+                            <option value="LK6ADCE21JB010538">LK6ADCE21JB010538</option>
+                            <option value="LK6ADCE22JB009091">LK6ADCE22JB009091</option>
+                            <option value="LK6ADCE22JB009057">LK6ADCE22JB009057</option>
+                            <option value="LK6ADCE27JB009085">LK6ADCE27JB009085</option>
+                            <option value="LK6ADCE24JB009061">LK6ADCE24JB009061</option>
+                            <option value="LK6ADCE23JB009083">LK6ADCE23JB009083</option>
+                            <option value="LK6ADCE23JB009102">LK6ADCE23JB009102</option>
+                            <option value="LK6ADCE21JB009065">LK6ADCE21JB009065</option>
+                            <option value="LK6ADCE29JB009086">LK6ADCE29JB009086</option>
+                            <option value="LK6ADCE26JB009059">LK6ADCE26JB009059</option>
+                            <option value="LK6ADCE24JB008993">LK6ADCE24JB008993</option>
+                            <option value="LK6ADCE25JB009053">LK6ADCE25JB009053</option>
+                            <option value="LK6ADCE22JB008975">LK6ADCE22JB008975</option>
+                            <option value="LK6ADCE2XJB009114">LK6ADCE2XJB009114</option>
+                            <option value="LK6ADCE28JB009113">LK6ADCE28JB009113</option>
+                            <option value="LK6ADCE21JB009082">LK6ADCE21JB009082</option>
+                            <option value="LK6ADCE29HB005176">LK6ADCE29HB005176</option>
+                            <option value="LK6ADCE21HB006452">LK6ADCE21HB006452</option>
+                            <option value="LK6ADCE21HB005723">LK6ADCE21HB005723</option>
+                            <option value="LK6ADCE24HB006171">LK6ADCE24HB006171</option>
+                            <option value="LK6ADCE28HB006027">LK6ADCE28HB006027</option>
+                            <option value="LK6ADCE2XHB006207">LK6ADCE2XHB006207</option>
+                            <option value="LK6ADCE23HB006789">LK6ADCE23HB006789</option>
+                            <option value="LK6ADCE24HB005828">LK6ADCE24HB005828</option>
+                            <option value="LK6ADCE21HB005446">LK6ADCE21HB005446</option>
+                            <option value="LK6ADCE24HB005425">LK6ADCE24HB005425</option>
+                            <option value="LK6ADCE23HB005447">LK6ADCE23HB005447</option>
+                            <option value="LK6ADCE20HB006040">LK6ADCE20HB006040</option>
+                            <option value="LK6ADCE2XHB005526">LK6ADCE2XHB005526</option>
+                            <option value="LK6ADCE26HB005216">LK6ADCE26HB005216</option>
+                            <option value="LK6ADCE27HB006536">LK6ADCE27HB006536</option>
+                            <option value="LK6ADCE25HB005384">LK6ADCE25HB005384</option>
+                            <option value="LK6ADCE25HB005370">LK6ADCE25HB005370</option>
+                            <option value="LK6ADCE25HB005322">LK6ADCE25HB005322</option>
+                            <option value="LK6ADCE20HB005003">LK6ADCE20HB005003</option>
+                            <option value="LK6ADCE24HB006381">LK6ADCE24HB006381</option>
+                            <option value="LK6ADCE26HB005703">LK6ADCE26HB005703</option>
+                            <option value="LK6ADCE2XHB006790">LK6ADCE2XHB006790</option>
+                            <option value="LK6ADCE22HB006296">LK6ADCE22HB006296</option>
+                            <option value="LK6ADCE28HB005010">LK6ADCE28HB005010</option>
+                            <option value="LK6ADCE25HB005983">LK6ADCE25HB005983</option>
+                            <option value="LK6ADCE21HB005995">LK6ADCE21HB005995</option>
+                            <option value="LK6ADCE25HB005434">LK6ADCE25HB005434</option>
+                            <option value="LK6ADCE21HB006564">LK6ADCE21HB006564</option>
+                            <option value="LK6ADCE22HB005407">LK6ADCE22HB005407</option>
+                            <option value="LK6ADCE20HB005700">LK6ADCE20HB005700</option>
+                            <option value="LK6ADCE24HB005697">LK6ADCE24HB005697</option>
+                            <option value="LK6ADCE21HB006547">LK6ADCE21HB006547</option>
+                            <option value="LK6ADCE21HB005396">LK6ADCE21HB005396</option>
+                            <option value="LK6ADCE26HB005393">LK6ADCE26HB005393</option>
+                            <option value="LK6ADCE23HB006565">LK6ADCE23HB006565</option>
+                            <option value="LK6ADCE24HB005103">LK6ADCE24HB005103</option>
+                            <option value="LK6ADCE20HB005678">LK6ADCE20HB005678</option>
+                            <option value="LK6ADCE26HB006852">LK6ADCE26HB006852</option>
+                            <option value="LK6ADCE22HB005746">LK6ADCE22HB005746</option>
+                            <option value="LK6ADCE24HB006557">LK6ADCE24HB006557</option>
+                            <option value="LK6ADCE22HB005438">LK6ADCE22HB005438</option>
+                            <option value="LK6ADCE24HB005733">LK6ADCE24HB005733</option>
+                            <option value="LK6ADCE20HB005809">LK6ADCE20HB005809</option>
+                            <option value="LK6ADCE23HB005805">LK6ADCE23HB005805</option>
+                            <option value="LK6ADCE2XJB007928">LK6ADCE2XJB007928</option>
+                            <option value="LK6ADCE22JB007910">LK6ADCE22JB007910</option>
+                            <option value="LK6ADCE23JB008287">LK6ADCE23JB008287</option>
+                            <option value="LK6ADCE20JB009252">LK6ADCE20JB009252</option>
+                            <option value="LK6ADCE22JB008331">LK6ADCE22JB008331</option>
+                            <option value="LK6ADCE22HB006203">LK6ADCE22HB006203</option>
+                            <option value="LK6ADCE28HB005413">LK6ADCE28HB005413</option>
+                            <option value="LK6ADCE26HB006804">LK6ADCE26HB006804</option>
+                            <option value="LK6ADCE2XHB005400">LK6ADCE2XHB005400</option>
+                            <option value="LK6ADCE26HB005085">LK6ADCE26HB005085</option>
+                            <option value="LK6ADCE20JB007839">LK6ADCE20JB007839</option>
+                            <option value="LK6ADCE26JB007893">LK6ADCE26JB007893</option>
+                            <option value="LK6ADCE2XJB007895">LK6ADCE2XJB007895</option>
+                            <option value="LK6ADCE26JB007943">LK6ADCE26JB007943</option>
+                            <option value="LK6ADCE29JB009265">LK6ADCE29JB009265</option>
+                            <option value="LK6ADCE25JB008291">LK6ADCE25JB008291</option>
+                            <option value="LK6ADCE29JB007922">LK6ADCE29JB007922</option>
+                            <option value="LK6ADCE26JB008252">LK6ADCE26JB008252</option>
+                            <option value="LK6ADCE26JB008249">LK6ADCE26JB008249</option>
+                            <option value="LK6ADCE21JB008286">LK6ADCE21JB008286</option>
+                            <option value="LK6ADCE20JB008246">LK6ADCE20JB008246</option>
+                            <option value="LK6ADCE27JB011144">LK6ADCE27JB011144</option>
+                            <option value="LK6ADCE29JB011047">LK6ADCE29JB011047</option>
+                            <option value="LK6ADCE25JB011062">LK6ADCE25JB011062</option>
+                            <option value="LK6ADCE27JB010480">LK6ADCE27JB010480</option>
+                            <option value="LK6ADCE26JB008994">LK6ADCE26JB008994</option>
+                            <option value="LK6ADCE21JB009079">LK6ADCE21JB009079</option>
+                            <option value="LK6ADCE21JB009051">LK6ADCE21JB009051</option>
+                            <option value="LK6ADCE25JB009067">LK6ADCE25JB009067</option>
+                            <option value="LK6ADCE28JB009077">LK6ADCE28JB009077</option>
+                            <option value="LK6ADCE25JB009098">LK6ADCE25JB009098</option>
+                            <option value="LK6ADCE21JB009096">LK6ADCE21JB009096</option>
+                            <option value="LK6ADCE23HB005481">LK6ADCE23HB005481</option>
+                            <option value="LK6ADCE26HB005488">LK6ADCE26HB005488</option>
+                            <option value="LK6ADCE25HB005207">LK6ADCE25HB005207</option>
+                            <option value="LK6ADCE26HB005409">LK6ADCE26HB005409</option>
+                            <option value="LK6ADCE20HB006247">LK6ADCE20HB006247</option>
+                            <option value="LK6ADCE24HB006512">LK6ADCE24HB006512</option>
+                            <option value="LK6ADCE22HB006556">LK6ADCE22HB006556</option>
+                            <option value="LK6ADCE25HB005529">LK6ADCE25HB005529</option>
+                            <option value="LK6ADCE21HB006810">LK6ADCE21HB006810</option>
+                            <option value="LK6ADCE26HB006401">LK6ADCE26HB006401</option>
+                            <option value="LK6ADCE21HB005401">LK6ADCE21HB005401</option>
+                            <option value="LK6ADCE21HB006063">LK6ADCE21HB006063</option>
+                            <option value="LK6ADCE28HB005072">LK6ADCE28HB005072</option>
+                            <option value="LK6ADCE23JB007933">LK6ADCE23JB007933</option>
+                            <option value="LK6ADCE2XJB009081">LK6ADCE2XJB009081</option>
+                            <option value="LK6ADCE20JB008330">LK6ADCE20JB008330</option>
+                            <option value="LK6ADCE21HB005155">LK6ADCE21HB005155</option>
+                            <option value="LK6ADCE21HB005527">LK6ADCE21HB005527</option>
+                            <option value="LK6ADCE24HB005957">LK6ADCE24HB005957</option>
+                            <option value="LK6ADCE23HB005433">LK6ADCE23HB005433</option>
+                            <option value="LK6ADCE25JB007853">LK6ADCE25JB007853</option>
+                            <option value="LK6ADCE26JB007845">LK6ADCE26JB007845</option>
+                            <option value="LK6ADCE28JB008298">LK6ADCE28JB008298</option>
+                            <option value="LK6ADCE29JB009640">LK6ADCE29JB009640</option>
+                            <option value="LK6ADCE25JB008288">LK6ADCE25JB008288</option>
+                            <option value="LK6ADCE22JB008295">LK6ADCE22JB008295</option>
+                            <option value="LK6ADCE24JB008248">LK6ADCE24JB008248</option>
+                            <option value="LK6ADCE21JB008868">LK6ADCE21JB008868</option>
+                            <option value="LK6ADCE26JB008283">LK6ADCE26JB008283</option>
+                            <option value="LK6ADCE21JB008269">LK6ADCE21JB008269</option>
+                            <option value="LK6ADCE2XJB011137">LK6ADCE2XJB011137</option>
+                            <option value="LK6ADCE27JB009264">LK6ADCE27JB009264</option>
+                            <option value="LK6ADCE25JB008310">LK6ADCE25JB008310</option>
+                            <option value="LK6ADCE26HB006558">LK6ADCE26HB006558</option>
+                            <option value="LK6ADCE23HB005724">LK6ADCE23HB005724</option>
+                            <option value="LK6ADCE23JB008855">LK6ADCE23JB008855</option>
+                            <option value="LK6ADCE2XJB010487">LK6ADCE2XJB010487</option>
+                            <option value="LK6ADCE21JB010555">LK6ADCE21JB010555</option>
+                            <option value="LK6ADCE27JB007840">LK6ADCE27JB007840</option>
+                            <option value="LK6ADCE24JB007889">LK6ADCE24JB007889</option>
+                            <option value="LK6ADCE28JB008849">LK6ADCE28JB008849</option>
+                            <option value="LK6ADCE20JB008862">LK6ADCE20JB008862</option>
+                            <option value="LK6ADCE26JB008882">LK6ADCE26JB008882</option>
+                            <option value="LK6ADCE2XJB009243">LK6ADCE2XJB009243</option>                 
+                        </select>
 
-                            <!-- 车牌号选择 -->
-                            <select class="ui compact search selection dropdown" id="search-select-license" onchange="licenseChange()"> 
-                                <option value="AD91750">AD91750</option>
-                                <option value="AD75237">AD75237</option>
-                                <option value="AD76517">AD76517</option>
-                                <option value="AD77836">AD77836</option>
-                                <option value="AD04438">AD04438</option>
-                                <option value="AD92696">AD92696</option>
-                                <option value="AD70137">AD70137</option>
-                                <option value="AD95901">AD95901</option>
-                                <option value="AD75081">AD75081</option>
-                                <option value="AD81932">AD81932</option>
-                                <option value="AD96310">AD96310</option>
-                                <option value="AD73619">AD73619</option>
-                                <option value="AD03642">AD03642</option>
-                                <option value="AD91567">AD91567</option>
-                                <option value="AD71067">AD71067</option>
-                                <option value="AD04315">AD04315</option>
-                                <option value="AD86308">AD86308</option>
-                                <option value="AD89121">AD89121</option>
-                                <option value="AD66459">AD66459</option>
-                                <option value="AD71026">AD71026</option>
-                                <option value="AD75207">AD75207</option>
-                                <option value="AD99563">AD99563</option>
-                                <option value="AD04827">AD04827</option>
-                                <option value="AD99329">AD99329</option>
-                                <option value="AD70167">AD70167</option>
-                                <option value="AD79902">AD79902</option>
-                                <option value="AD01342">AD01342</option>
-                                <option value="AD82865">AD82865</option>
-                                <option value="AD86306">AD86306</option>
-                                <option value="AD61496">AD61496</option>
-                                <option value="AD90638">AD90638</option>
-                                <option value="AD70872">AD70872</option>
-                                <option value="AD04659">AD04659</option>
-                                <option value="AD00804">AD00804</option>
-                                <option value="AD63471">AD63471</option>
-                                <option value="AD86597">AD86597</option>
-                                <option value="AD97236">AD97236</option>
-                                <option value="AD85260">AD85260</option>
-                                <option value="AD09745">AD09745</option>
-                                <option value="AD03476">AD03476</option>
-                                <option value="AD90172">AD90172</option>
-                                <option value="AD90178">AD90178</option>
-                                <option value="AD68492">AD68492</option>
-                                <option value="AD92923">AD92923</option>
-                                <option value="AD92260">AD92260</option>
-                                <option value="AD86006">AD86006</option>
-                                <option value="AD77152">AD77152</option>
-                                <option value="AD79992">AD79992</option>
-                                <option value="AD93339">AD93339</option>
-                                <option value="AD78160">AD78160</option>
-                                <option value="AD78170">AD78170</option>
-                                <option value="AD90555">AD90555</option>
-                                <option value="AD93390">AD93390</option>
-                                <option value="AD97966">AD97966</option>
-                                <option value="AD92920">AD92920</option>
-                                <option value="AD86088">AD86088</option>
-                                <option value="AD86033">AD86033</option>
-                                <option value="AD99168">AD99168</option>
-                                <option value="AD95911">AD95911</option>
-                                <option value="AD92377">AD92377</option>
-                                <option value="AD90566">AD90566</option>
-                                <option value="AD99106">AD99106</option>
-                                <option value="AD90787">AD90787</option>
-                                <option value="AD97918">AD97918</option>
-                                <option value="AD95900">AD95900</option>
-                                <option value="AD71028">AD71028</option>
-                                <option value="AD90162">AD90162</option>
-                                <option value="AD96275">AD96275</option>
-                                <option value="AD90108">AD90108</option>
-                                <option value="AD78586">AD78586</option>
-                                <option value="AD85119">AD85119</option>
-                                <option value="AD89912">AD89912</option>
-                                <option value="AD72172">AD72172</option>
-                                <option value="AD68942">AD68942</option>
-                                <option value="AD90751">AD90751</option>
-                                <option value="AD65948">AD65948</option>
-                                <option value="AD86762">AD86762</option>
-                                <option value="AD73577">AD73577</option>
-                                <option value="AD88763">AD88763</option>
-                                <option value="AD95732">AD95732</option>
-                                <option value="AD86712">AD86712</option>
-                                <option value="AD92950">AD92950</option>
-                                <option value="AD91037">AD91037</option>
-                                <option value="AD77535">AD77535</option>
-                                <option value="AD68784">AD68784</option>
-                                <option value="AD79863">AD79863</option>
-                                <option value="AD76590">AD76590</option>
-                                <option value="AD76970">AD76970</option>
-                                <option value="AD64252">AD64252</option>
-                                <option value="AD81270">AD81270</option>
-                                <option value="AD79323">AD79323</option>
-                                <option value="AD04645">AD04645</option>
-                                <option value="AD70903">AD70903</option>
-                                <option value="AD89721">AD89721</option>
-                                <option value="AD72961">AD72961</option>
-                                <option value="AD00547">AD00547</option>
-                                <option value="AD77195">AD77195</option>
-                                <option value="AD96035">AD96035</option>
-                                <option value="AD81969">AD81969</option>
-                                <option value="AD86375">AD86375</option>
-                                <option value="AD91138">AD91138</option>
-                                <option value="AD79522">AD79522</option>
-                                <option value="AD78132">AD78132</option>
-                                <option value="AD89913">AD89913</option>
-                                <option value="AD85368">AD85368</option>
-                                <option value="AD04925">AD04925</option>
-                                <option value="AD86039">AD86039</option>
-                                <option value="AD78172">AD78172</option>
-                                <option value="AD04749">AD04749</option>
-                                <option value="AD70125">AD70125</option>
-                                <option value="AD92330">AD92330</option>
-                                <option value="AD77823">AD77823</option>
-                                <option value="AD97089">AD97089</option>
-                                <option value="AD76587">AD76587</option>
-                                <option value="AD90726">AD90726</option>
-                                <option value="AD67145">AD67145</option>
-                                <option value="AD80385">AD80385</option>
-                                <option value="AD89751">AD89751</option>
-                                <option value="AD70715">AD70715</option>
-                                <option value="AD95130">AD95130</option>
-                                <option value="AD95903">AD95903</option>
-                                <option value="AD93116">AD93116</option>
-                                <option value="AD76593">AD76593</option>
-                                <option value="AD70736">AD70736</option>
-                                <option value="AD72117">AD72117</option>
-                                <option value="AD02646">AD02646</option>
-                                <option value="AD72207">AD72207</option>
-                                <option value="AD95727">AD95727</option>
-                                <option value="AD04588">AD04588</option>
-                                <option value="AD90311">AD90311</option>
-                                <option value="AD78581">AD78581</option>
-                                <option value="AD92379">AD92379</option>
-                                <option value="AD99158">AD99158</option>
-                                <option value="AD97982">AD97982</option>
-                                <option value="AD77101">AD77101</option>
-                                <option value="AD76267">AD76267</option>
-                                <option value="AD97908">AD97908</option>
-                                <option value="AD98812">AD98812</option>
-                                <option value="AD95768">AD95768</option>
-                                <option value="AD95260">AD95260</option>
-                                <option value="AD86056">AD86056</option>
-                                <option value="AD98877">AD98877</option>
-                                <option value="AD72013">AD72013</option>
-                                <option value="AD81066">AD81066</option>
-                                <option value="AD97956">AD97956</option>
-                                <option value="AD92280">AD92280</option>
-                                <option value="AD98892">AD98892</option>
-                                <option value="AD95986">AD95986</option>
-                                <option value="AD99119">AD99119</option>
-                                <option value="AD92200">AD92200</option>
-                                <option value="AD96295">AD96295</option>
-                                <option value="AD99113">AD99113</option>
-                                <option value="AD90163">AD90163</option>
-                                <option value="AD77199">AD77199</option>
-                                <option value="AD81068">AD81068</option>
-                                <option value="AD99153">AD99153</option>
-                                <option value="AD81028">AD81028</option>
-                                <option value="AD90589">AD90589</option>
-                                <option value="AD98871">AD98871</option>
-                                <option value="AD72902">AD72902</option>
-                                <option value="AD04340">AD04340</option>
-                                <option value="AD99192">AD99192</option>
-                                <option value="AD98876">AD98876</option>
-                                <option value="AD78585">AD78585</option>
-                                <option value="AD81002">AD81002</option>
-                                <option value="AD95885">AD95885</option>
-                                <option value="AD98826">AD98826</option>
-                                <option value="AD99111">AD99111</option>
-                                <option value="AD92287">AD92287</option>
-                                <option value="AD92299">AD92299</option>
-                                <option value="AD97998">AD97998</option>
-                                <option value="AD81008">AD81008</option>
-                                <option value="AD92292">AD92292</option>
-                                <option value="AD95988">AD95988</option>
-                                <option value="AD70975">AD70975</option>
-                                <option value="AD91750">AD91750</option>
-                                <option value="AD91356">AD91356</option>
-                                <option value="AD82838">AD82838</option>
-                                <option value="AD71382">AD71382</option>
-                                <option value="AD79606">AD79606</option>
-                                <option value="AD76233">AD76233</option>
-                                <option value="AD77179">AD77179</option>
-                                <option value="AD98882">AD98882</option>
-                                <option value="AD79611">AD79611</option>
-                                <option value="AD93671">AD93671</option>
-                                <option value="AD96025">AD96025</option>
-                                <option value="AD04083">AD04083</option>
-                                <option value="AD08144">AD08144</option>
-                                <option value="AD76173">AD76173</option>
-                                <option value="AD64043">AD64043</option>
-                                <option value="AD93557">AD93557</option>
-                                <option value="AD77903">AD77903</option>
-                                <option value="AD64392">AD64392</option>
-                                <option value="AD04317">AD04317</option>
-                                <option value="AD82836">AD82836</option>
-                                <option value="AD82073">AD82073</option>
-                                <option value="AD04476">AD04476</option>
-                                <option value="AD81026">AD81026</option>
-                                <option value="AD97127">AD97127</option>
-                                <option value="AD85319">AD85319</option>
-                                <option value="AD99302">AD99302</option>
-                                <option value="AD95120">AD95120</option>
-                                <option value="AD87565">AD87565</option>
-                                <option value="AD65994">AD65994</option>
-                                <option value="AD78390">AD78390</option>
-                                <option value="AD76193">AD76193</option>
-                                <option value="AD78100">AD78100</option>
-                                <option value="AD79668">AD79668</option>
-                                <option value="AD79966">AD79966</option>
-                                <option value="AD81093">AD81093</option>
-                                <option value="AD95777">AD95777</option>
-                                <option value="AD96299">AD96299</option>
-                                <option value="AD96222">AD96222</option>
-                                <option value="AD78180">AD78180</option>
-                                <option value="AD92966">AD92966</option>
-                                <option value="AD71019">AD71019</option>
-                                <option value="AD81022">AD81022</option>
-                                <option value="AD93353">AD93353</option>
-                                <option value="AD98890">AD98890</option>
-                                <option value="AD95805">AD95805</option>
-                                <option value="AD92196">AD92196</option>
-                                <option value="AD79639">AD79639</option>
-                                <option value="AD97909">AD97909</option>
-                                <option value="AD76222">AD76222</option>
-                                <option value="AD79866">AD79866</option>
-                                <option value="AD97876">AD97876</option>
-                                <option value="AD04685">AD04685</option>
-                                <option value="AD89103">AD89103</option>
-                                <option value="AD07804">AD07804</option>
-                                <option value="AD98156">AD98156</option>
-                                <option value="AD70963">AD70963</option>
-                                <option value="AD79569">AD79569</option>
-                                <option value="AD71303">AD71303</option>
-                                <option value="AD75905">AD75905</option>
-                                <option value="AD77860">AD77860</option>
-                                <option value="AD87910">AD87910</option>
-                                <option value="AD85392">AD85392</option>
-                                <option value="AD76995">AD76995</option>
-                                <option value="AD86726">AD86726</option>
-                                <option value="AD92277">AD92277</option>
-                                <option value="AD97968">AD97968</option>
-                                <option value="AD79102">AD79102</option>
-                                <option value="AD83739">AD83739</option>
-                                <option value="AD64234">AD64234</option>
-                                <option value="AD67931">AD67931</option>
-                                <option value="AD70293">AD70293</option>
-                                <option value="AD64654">AD64654</option>
-                                <option value="AD68745">AD68745</option>
-                                <option value="AD92653">AD92653</option>
-                                <option value="AD79321">AD79321</option>
-                            </select>
+                        <!-- 车牌号选择 -->
+                        <select class="ui compact search selection dropdown" id="search-select-license" onchange="licenseChange()"> 
+                            <option value="AD91750">AD91750</option>
+                            <option value="AD75237">AD75237</option>
+                            <option value="AD76517">AD76517</option>
+                            <option value="AD77836">AD77836</option>
+                            <option value="AD04438">AD04438</option>
+                            <option value="AD92696">AD92696</option>
+                            <option value="AD70137">AD70137</option>
+                            <option value="AD95901">AD95901</option>
+                            <option value="AD75081">AD75081</option>
+                            <option value="AD81932">AD81932</option>
+                            <option value="AD96310">AD96310</option>
+                            <option value="AD73619">AD73619</option>
+                            <option value="AD03642">AD03642</option>
+                            <option value="AD91567">AD91567</option>
+                            <option value="AD71067">AD71067</option>
+                            <option value="AD04315">AD04315</option>
+                            <option value="AD86308">AD86308</option>
+                            <option value="AD89121">AD89121</option>
+                            <option value="AD66459">AD66459</option>
+                            <option value="AD71026">AD71026</option>
+                            <option value="AD75207">AD75207</option>
+                            <option value="AD99563">AD99563</option>
+                            <option value="AD04827">AD04827</option>
+                            <option value="AD99329">AD99329</option>
+                            <option value="AD70167">AD70167</option>
+                            <option value="AD79902">AD79902</option>
+                            <option value="AD01342">AD01342</option>
+                            <option value="AD82865">AD82865</option>
+                            <option value="AD86306">AD86306</option>
+                            <option value="AD61496">AD61496</option>
+                            <option value="AD90638">AD90638</option>
+                            <option value="AD70872">AD70872</option>
+                            <option value="AD04659">AD04659</option>
+                            <option value="AD00804">AD00804</option>
+                            <option value="AD63471">AD63471</option>
+                            <option value="AD86597">AD86597</option>
+                            <option value="AD97236">AD97236</option>
+                            <option value="AD85260">AD85260</option>
+                            <option value="AD09745">AD09745</option>
+                            <option value="AD03476">AD03476</option>
+                            <option value="AD90172">AD90172</option>
+                            <option value="AD90178">AD90178</option>
+                            <option value="AD68492">AD68492</option>
+                            <option value="AD92923">AD92923</option>
+                            <option value="AD92260">AD92260</option>
+                            <option value="AD86006">AD86006</option>
+                            <option value="AD77152">AD77152</option>
+                            <option value="AD79992">AD79992</option>
+                            <option value="AD93339">AD93339</option>
+                            <option value="AD78160">AD78160</option>
+                            <option value="AD78170">AD78170</option>
+                            <option value="AD90555">AD90555</option>
+                            <option value="AD93390">AD93390</option>
+                            <option value="AD97966">AD97966</option>
+                            <option value="AD92920">AD92920</option>
+                            <option value="AD86088">AD86088</option>
+                            <option value="AD86033">AD86033</option>
+                            <option value="AD99168">AD99168</option>
+                            <option value="AD95911">AD95911</option>
+                            <option value="AD92377">AD92377</option>
+                            <option value="AD90566">AD90566</option>
+                            <option value="AD99106">AD99106</option>
+                            <option value="AD90787">AD90787</option>
+                            <option value="AD97918">AD97918</option>
+                            <option value="AD95900">AD95900</option>
+                            <option value="AD71028">AD71028</option>
+                            <option value="AD90162">AD90162</option>
+                            <option value="AD96275">AD96275</option>
+                            <option value="AD90108">AD90108</option>
+                            <option value="AD78586">AD78586</option>
+                            <option value="AD85119">AD85119</option>
+                            <option value="AD89912">AD89912</option>
+                            <option value="AD72172">AD72172</option>
+                            <option value="AD68942">AD68942</option>
+                            <option value="AD90751">AD90751</option>
+                            <option value="AD65948">AD65948</option>
+                            <option value="AD86762">AD86762</option>
+                            <option value="AD73577">AD73577</option>
+                            <option value="AD88763">AD88763</option>
+                            <option value="AD95732">AD95732</option>
+                            <option value="AD86712">AD86712</option>
+                            <option value="AD92950">AD92950</option>
+                            <option value="AD91037">AD91037</option>
+                            <option value="AD77535">AD77535</option>
+                            <option value="AD68784">AD68784</option>
+                            <option value="AD79863">AD79863</option>
+                            <option value="AD76590">AD76590</option>
+                            <option value="AD76970">AD76970</option>
+                            <option value="AD64252">AD64252</option>
+                            <option value="AD81270">AD81270</option>
+                            <option value="AD79323">AD79323</option>
+                            <option value="AD04645">AD04645</option>
+                            <option value="AD70903">AD70903</option>
+                            <option value="AD89721">AD89721</option>
+                            <option value="AD72961">AD72961</option>
+                            <option value="AD00547">AD00547</option>
+                            <option value="AD77195">AD77195</option>
+                            <option value="AD96035">AD96035</option>
+                            <option value="AD81969">AD81969</option>
+                            <option value="AD86375">AD86375</option>
+                            <option value="AD91138">AD91138</option>
+                            <option value="AD79522">AD79522</option>
+                            <option value="AD78132">AD78132</option>
+                            <option value="AD89913">AD89913</option>
+                            <option value="AD85368">AD85368</option>
+                            <option value="AD04925">AD04925</option>
+                            <option value="AD86039">AD86039</option>
+                            <option value="AD78172">AD78172</option>
+                            <option value="AD04749">AD04749</option>
+                            <option value="AD70125">AD70125</option>
+                            <option value="AD92330">AD92330</option>
+                            <option value="AD77823">AD77823</option>
+                            <option value="AD97089">AD97089</option>
+                            <option value="AD76587">AD76587</option>
+                            <option value="AD90726">AD90726</option>
+                            <option value="AD67145">AD67145</option>
+                            <option value="AD80385">AD80385</option>
+                            <option value="AD89751">AD89751</option>
+                            <option value="AD70715">AD70715</option>
+                            <option value="AD95130">AD95130</option>
+                            <option value="AD95903">AD95903</option>
+                            <option value="AD93116">AD93116</option>
+                            <option value="AD76593">AD76593</option>
+                            <option value="AD70736">AD70736</option>
+                            <option value="AD72117">AD72117</option>
+                            <option value="AD02646">AD02646</option>
+                            <option value="AD72207">AD72207</option>
+                            <option value="AD95727">AD95727</option>
+                            <option value="AD04588">AD04588</option>
+                            <option value="AD90311">AD90311</option>
+                            <option value="AD78581">AD78581</option>
+                            <option value="AD92379">AD92379</option>
+                            <option value="AD99158">AD99158</option>
+                            <option value="AD97982">AD97982</option>
+                            <option value="AD77101">AD77101</option>
+                            <option value="AD76267">AD76267</option>
+                            <option value="AD97908">AD97908</option>
+                            <option value="AD98812">AD98812</option>
+                            <option value="AD95768">AD95768</option>
+                            <option value="AD95260">AD95260</option>
+                            <option value="AD86056">AD86056</option>
+                            <option value="AD98877">AD98877</option>
+                            <option value="AD72013">AD72013</option>
+                            <option value="AD81066">AD81066</option>
+                            <option value="AD97956">AD97956</option>
+                            <option value="AD92280">AD92280</option>
+                            <option value="AD98892">AD98892</option>
+                            <option value="AD95986">AD95986</option>
+                            <option value="AD99119">AD99119</option>
+                            <option value="AD92200">AD92200</option>
+                            <option value="AD96295">AD96295</option>
+                            <option value="AD99113">AD99113</option>
+                            <option value="AD90163">AD90163</option>
+                            <option value="AD77199">AD77199</option>
+                            <option value="AD81068">AD81068</option>
+                            <option value="AD99153">AD99153</option>
+                            <option value="AD81028">AD81028</option>
+                            <option value="AD90589">AD90589</option>
+                            <option value="AD98871">AD98871</option>
+                            <option value="AD72902">AD72902</option>
+                            <option value="AD04340">AD04340</option>
+                            <option value="AD99192">AD99192</option>
+                            <option value="AD98876">AD98876</option>
+                            <option value="AD78585">AD78585</option>
+                            <option value="AD81002">AD81002</option>
+                            <option value="AD95885">AD95885</option>
+                            <option value="AD98826">AD98826</option>
+                            <option value="AD99111">AD99111</option>
+                            <option value="AD92287">AD92287</option>
+                            <option value="AD92299">AD92299</option>
+                            <option value="AD97998">AD97998</option>
+                            <option value="AD81008">AD81008</option>
+                            <option value="AD92292">AD92292</option>
+                            <option value="AD95988">AD95988</option>
+                            <option value="AD70975">AD70975</option>
+                            <option value="AD91750">AD91750</option>
+                            <option value="AD91356">AD91356</option>
+                            <option value="AD82838">AD82838</option>
+                            <option value="AD71382">AD71382</option>
+                            <option value="AD79606">AD79606</option>
+                            <option value="AD76233">AD76233</option>
+                            <option value="AD77179">AD77179</option>
+                            <option value="AD98882">AD98882</option>
+                            <option value="AD79611">AD79611</option>
+                            <option value="AD93671">AD93671</option>
+                            <option value="AD96025">AD96025</option>
+                            <option value="AD04083">AD04083</option>
+                            <option value="AD08144">AD08144</option>
+                            <option value="AD76173">AD76173</option>
+                            <option value="AD64043">AD64043</option>
+                            <option value="AD93557">AD93557</option>
+                            <option value="AD77903">AD77903</option>
+                            <option value="AD64392">AD64392</option>
+                            <option value="AD04317">AD04317</option>
+                            <option value="AD82836">AD82836</option>
+                            <option value="AD82073">AD82073</option>
+                            <option value="AD04476">AD04476</option>
+                            <option value="AD81026">AD81026</option>
+                            <option value="AD97127">AD97127</option>
+                            <option value="AD85319">AD85319</option>
+                            <option value="AD99302">AD99302</option>
+                            <option value="AD95120">AD95120</option>
+                            <option value="AD87565">AD87565</option>
+                            <option value="AD65994">AD65994</option>
+                            <option value="AD78390">AD78390</option>
+                            <option value="AD76193">AD76193</option>
+                            <option value="AD78100">AD78100</option>
+                            <option value="AD79668">AD79668</option>
+                            <option value="AD79966">AD79966</option>
+                            <option value="AD81093">AD81093</option>
+                            <option value="AD95777">AD95777</option>
+                            <option value="AD96299">AD96299</option>
+                            <option value="AD96222">AD96222</option>
+                            <option value="AD78180">AD78180</option>
+                            <option value="AD92966">AD92966</option>
+                            <option value="AD71019">AD71019</option>
+                            <option value="AD81022">AD81022</option>
+                            <option value="AD93353">AD93353</option>
+                            <option value="AD98890">AD98890</option>
+                            <option value="AD95805">AD95805</option>
+                            <option value="AD92196">AD92196</option>
+                            <option value="AD79639">AD79639</option>
+                            <option value="AD97909">AD97909</option>
+                            <option value="AD76222">AD76222</option>
+                            <option value="AD79866">AD79866</option>
+                            <option value="AD97876">AD97876</option>
+                            <option value="AD04685">AD04685</option>
+                            <option value="AD89103">AD89103</option>
+                            <option value="AD07804">AD07804</option>
+                            <option value="AD98156">AD98156</option>
+                            <option value="AD70963">AD70963</option>
+                            <option value="AD79569">AD79569</option>
+                            <option value="AD71303">AD71303</option>
+                            <option value="AD75905">AD75905</option>
+                            <option value="AD77860">AD77860</option>
+                            <option value="AD87910">AD87910</option>
+                            <option value="AD85392">AD85392</option>
+                            <option value="AD76995">AD76995</option>
+                            <option value="AD86726">AD86726</option>
+                            <option value="AD92277">AD92277</option>
+                            <option value="AD97968">AD97968</option>
+                            <option value="AD79102">AD79102</option>
+                            <option value="AD83739">AD83739</option>
+                            <option value="AD64234">AD64234</option>
+                            <option value="AD67931">AD67931</option>
+                            <option value="AD70293">AD70293</option>
+                            <option value="AD64654">AD64654</option>
+                            <option value="AD68745">AD68745</option>
+                            <option value="AD92653">AD92653</option>
+                            <option value="AD79321">AD79321</option>
+                        </select>
 
 
-                            
-                            <script>
-                                $('#select').dropdown();
-                                $('#search-select').dropdown();
-                                $('#search-select-license').dropdown();
-                            </script>
-                            <div class="ui animated button" onclick="onClickSearchButton()" style="vertical-align: middle;">
-                                <div class="visible content">搜索</div>
-                                <div class="hidden content"><i class="compass icon"></i></div>
-                            </div>  
-                            <div style="height: 2%; width: 100%; float: left;"></div>
-                            <div class="ui right labeled left icon input">
-                                <i class="tags icon"></i>
-                                <input type="text" placeholder="修改车辆备注">
-                                <a class="ui tag label" onclick="addLabel()">
-                                修改备注
-                                </a>
-                            </div>
+                        
+                        <script>
+                            $('#select').dropdown();
+                            $('#search-select').dropdown();
+                            $('#search-select-license').dropdown();
+                        </script>
+                        <div class="ui animated button" onclick="onClickSearchButton()" style="vertical-align: middle;">
+                            <div class="visible content">搜索</div>
+                            <div class="hidden content"><i class="compass icon"></i></div>
+                        </div>  
+                        <div style="height: 2%; width: 100%; float: left;"></div>
+                        <div class="ui right labeled left icon input">
+                            <i class="tags icon"></i>
+                            <input type="text" placeholder="修改车辆备注">
+                            <a class="ui tag label" onclick="addLabel()">
+                            修改备注
+                            </a>
                         </div>
                     </div>
                 </div>
-                <div id="detailLine" style="height: 35%; width: 100%; float: left;">
-                    <div class="ui raised centered card"  style="height: 96%; width: 98%">
-                        <div class="content" style="height: 100%; width: 100%;">
-                            <div id="dynamicLine" style="height: 100%; width: 100%; float: left;"></div>
-                        </div>
+                <div class="visual_box" id="detailLine"  style="height: 40%; width: 100%; float: left;">
+                    <div class="visual_title">
+                        <span>单车历史详细数据</span>
+                        <img src="images/ksh33.png">
                     </div>
+                    <div class="visual_chart" id="dynamicLine"></div>
                 </div>
 
-                <div id="detailPanel" style="height: 38%; width: 100%; float: left;">
-                    <div class="ui raised centered card"  style="height: 96%; width: 98%">
-                        <div class="content" style="height: 100%; width: 100%;">
-                            <div id="guage" style="height: 100%; width: 100%; float: left; padding-left: 2%;"></div>
-                        </div>
+                <div class="visual_box" id="detailPanel" style="height: 40%; width: 100%; float: left;">
+                    <div class="visual_title">
+                        <span>车辆运行时信息</span>
+                        <img src="images/ksh33.png">
                     </div>
+                    <div class="visual_chart" id="guage"></div>
                 </div>
             </div>
             
         </div>
         <div id="chart">
-            <div style="height: 100%; width: 25%; float: left; padding-left: 0.2%;">
-                <div class="ui raised centered card"  style="height: 96%; width: 99%">
-                    <div class="content">
-                        <!-- <div class="description"> -->
-                        <div id="Pie" style="height: 100%; width: 100%;"></div>
-                        <!-- </div> -->
-                    </div>
+            <div class="visual_box" style="height: 100%; width: 25%; float: left; padding-left: 0.2%; padding-right: 2px;">
+                <div class="visual_title">
+                    <span>当前车辆状态分布</span>
+                    <img src="images/ksh33.png" style="width: 95%;">
                 </div>
+                <div class="visual_chart" id="Pie"></div>
             </div>
             <!-- <div id="Gauge" style="height: 100%; width: 25%; float: left;"></div> -->
             <!-- <div id="Heatmap"" style="height: 100%; width: 50%; float: left;"></div> -->
-            <div style="height: 100%; width: 50%; float: left;">
-                <div class="ui raised centered card"  style="height: 96%; width: 98.5%">
-                    <div class="content">
-                        <div id="Stack" style="height: 100%; width: 100%"></div>
-                    </div>
+            <div class="visual_box" style="height: 100%; width: 50%; float: left;">
+                <div class="visual_title">
+                    <span>车辆历史状态分布</span>
+                    <img src="images/ksh33.png" style="width: 50%;">
                 </div>
+                <div class="visual_chart" id="Stack"></div>
             </div>
-            <div style="height: 100%; width: 25%; float: left;">
-                <div class="ui raised centered card"  style="height: 96%; width: 98%">
-                    <div class="content" style="height: 100%; width: 100%;">
-                        <div id="Board" style="height: 100%; width: 100%;">
-                            <div id="right_bottom_coner_default" style="height: 100%; width: 100%;">
-                                <div style="height: 14%; width: 100%; float: left;">
-                                    <p style="color: #000; font-size: 20px; font-weight: bold;">
-                                        离校车辆信息
-                                    </p>
+            <div class="visual_box" style="height: 100%; width: 25%; float: left;">
+                <div class="visual_title">
+                    <span id='right_bot_name'>离校车辆信息</span>
+                    <img src="images/ksh33.png">
+                </div>
+                <div class="visual_chart">
+                    <div id="Board" style="height: 100%; width: 100%;">
+                        <div id="right_bottom_coner_default" style="height: 100%; width: 100%;">
+                            <!-- <div style="height: 14%; width: 100%; float: left;">
+                                <p style="color: #000; font-size: 20px; font-weight: bold;">
+                                    离校车辆信息
+                                </p>
+                            </div> -->
+                            <div id="OutSchoolBar" style="height: 40%; width: 100%; float: left;"></div>
+                            <div id="OutSchoolDetail" style="height: 60%; width: 100%; overflow: auto; float: left;"></div>
+                            <!-- <p id="time1" style="margin-left: 5%; margin-top: 5%;">item1</p> -->
+                            
+                            <!-- <iframe id="fancybox-frame" name="fancybox-frame1573219207283" frameborder="0" scrolling="no" hspace="0"  src="http://i.tianqi.com/index.php?c=code&a=getcode&id=35&h=55&w=200&py=minhang"></iframe> -->
+                            <!-- <div style="float: right" href="javascript:void(0);" onclick="$('.ui.sidebar').sidebar('toggle');"><i class="huge angle left icon" ></i></div> -->
+                            <!-- <button class="ui button" href="javascript:void(0);" onclick="$('.ui.sidebar').sidebar('toggle');">
+                                    <i class="angle left icon" ></i>
+                                </button> -->
+                        </div>                    
+                        <div id="right_bottom_coner_detail" style="height: 100%; width: 100%; overflow:auto;">
+                                <div id="detail_div" class="ui secondary vertical pointing inverted menu" style="width: 100%">
+                                    <!-- <a class="active item">
+                                        <p style="font-size:20px; color: #000; font-weight: bold;">
+                                            车辆详情
+                                        </p>
+                                    </a> -->
+                                    <!-- <a id="detail_car_VIN" class="active item" href="javascript:void(0);" onclick="setSingleCarType('car_VIN')">
+                                        
+                                    </a> -->
+                                    <a id="detail_car_VIN" class="active item" href="javascript:void(0);">
+                                        
+                                    </a>
+                                    <a id="detail_longitude" class="item" href="javascript:void(0);" onclick="setSingleCarType('longitude')">
+                                        
+                                    </a>
+                                    <a id="detail_latitude" class="item" href="javascript:void(0);" onclick="setSingleCarType('latitude')">
+                                        
+                                    </a>
+                                    <a id="detail_vehicle_operating_mode" class="item" href="javascript:void(0);" onclick="setSingleCarType('vehicle_operating_mode')">
+                                        
+                                    </a>
+                                    <a id="detail_brake_pedal_status" class="item" href="javascript:void(0);" onclick="setSingleCarType('brake_pedal_status')">
+                                        
+                                    </a>
+                                    <a id="detail_accelerator_pedal_stroke" class="item" href="javascript:void(0);" onclick="setSingleCarType('accelerator_pedal_stroke')">
+                                        
+                                    </a>
+                                    <a id="detail_gear_position" class="item" href="javascript:void(0);" onclick="setSingleCarType('gear_position')">
+                                        
+                                    </a>
+                                    <a id="detail_key_status" class="item" href="javascript:void(0);" onclick="setSingleCarType('key_status')">
+                                        
+                                    </a>
+                                    <a id="detail_driving_mode" class="item" href="javascript:void(0);" onclick="setSingleCarType('driving_mode')">
+                                        
+                                    </a>
+                                    <a id="detail_velocity" class="item" href="javascript:void(0);" onclick="setSingleCarType('velocity')">
+                                        
+                                    </a>
+                                    <a id="detail_motor_status" class="item" href="javascript:void(0);" onclick="setSingleCarType('motor_status')">
+                                        
+                                    </a>
+                                    <a id="detail_motor_torque" class="item" href="javascript:void(0);" onclick="setSingleCarType('motor_torque')">
+                                        
+                                    </a>
+                                    <a id="detail_drive_motor_rpm" class="item" href="javascript:void(0);" onclick="setSingleCarType('drive_motor_rpm')">
+                                        
+                                    </a>
+                                    <a id="detail_motor_controller_current" class="item" href="javascript:void(0);" onclick="setSingleCarType('motor_controller_current')">
+                                        
+                                    </a>
+                                    <a id="detail_motor_controller_voltage" class="item" href="javascript:void(0);" onclick="setSingleCarType('motor_controller_voltage')">
+                                        
+                                    </a>
+                                    <a id="detail_drive_motor_temperature" class="item" href="javascript:void(0);" onclick="setSingleCarType('drive_motor_temperature')">
+                                        
+                                    </a>
+                                    <a id="detail_motor_controller_temperature" class="item" href="javascript:void(0);" onclick="setSingleCarType('motor_controller_temperature')">
+                                        
+                                    </a>
+                                    <a id="detail_high_voltage_battery_current" class="item" href="javascript:void(0);" onclick="setSingleCarType('high_voltage_battery_current')">
+                                        
+                                    </a>
+                                    <a id="detail_total_battery_voltage" class="item" href="javascript:void(0);" onclick="setSingleCarType('total_battery_voltage')">
+                                        
+                                    </a>
+                                    <a id="detail_insulation_resistance_value" class="item" href="javascript:void(0);" onclick="setSingleCarType('insulation_resistance_value')">
+                                        
+                                    </a>
+                                    <a id="detail_residual_energy" class="item" href="javascript:void(0);" onclick="setSingleCarType('residual_energy')">
+                                        
+                                    </a>
+                                    <a id="detail_max_single_voltage" class="item" href="javascript:void(0);" onclick="setSingleCarType('max_single_voltage')">
+                                        
+                                    </a>
+                                    <a id="detail_min_single_voltage" class="item" href="javascript:void(0);" onclick="setSingleCarType('min_single_voltage')">
+                                        
+                                    </a>
+                                    <a id="detail_cumulative_mileage" class="item" href="javascript:void(0);" onclick="setSingleCarType('cumulative_mileage')">
+                                        
+                                    </a>
                                 </div>
-                                <div id="OutSchoolBar" style="height: 30%; width: 100%; float: left;"></div>
-                                <div id="OutSchoolDetail" style="height: 55%; width: 100%; overflow: auto; float: left;"></div>
-                                <!-- <p id="time1" style="margin-left: 5%; margin-top: 5%;">item1</p> -->
-                                
-                                <!-- <iframe id="fancybox-frame" name="fancybox-frame1573219207283" frameborder="0" scrolling="no" hspace="0"  src="http://i.tianqi.com/index.php?c=code&a=getcode&id=35&h=55&w=200&py=minhang"></iframe> -->
-                                <!-- <div style="float: right" href="javascript:void(0);" onclick="$('.ui.sidebar').sidebar('toggle');"><i class="huge angle left icon" ></i></div> -->
-                                <!-- <button class="ui button" href="javascript:void(0);" onclick="$('.ui.sidebar').sidebar('toggle');">
-                                        <i class="angle left icon" ></i>
-                                    </button> -->
-                            </div>                    
-                            <div id="right_bottom_coner_detail" style="height: 100%; width: 100%; overflow:auto;">
-                                    <div id="detail_div" class="ui secondary vertical pointing inverted menu" style="width: 100%">
-                                        <a class="active item">
-                                            <p style="font-size:20px; color: #000; font-weight: bold;">
-                                                车辆详情
-                                            </p>
-                                        </a>
-                                        <!-- <a id="detail_car_VIN" class="active item" href="javascript:void(0);" onclick="setSingleCarType('car_VIN')">
-                                            
-                                        </a> -->
-                                        <a id="detail_car_VIN" class="active item" href="javascript:void(0);">
-                                            
-                                        </a>
-                                        <a id="detail_longitude" class="item" href="javascript:void(0);" onclick="setSingleCarType('longitude')">
-                                            
-                                        </a>
-                                        <a id="detail_latitude" class="item" href="javascript:void(0);" onclick="setSingleCarType('latitude')">
-                                            
-                                        </a>
-                                        <a id="detail_vehicle_operating_mode" class="item" href="javascript:void(0);" onclick="setSingleCarType('vehicle_operating_mode')">
-                                            
-                                        </a>
-                                        <a id="detail_brake_pedal_status" class="item" href="javascript:void(0);" onclick="setSingleCarType('brake_pedal_status')">
-                                            
-                                        </a>
-                                        <a id="detail_accelerator_pedal_stroke" class="item" href="javascript:void(0);" onclick="setSingleCarType('accelerator_pedal_stroke')">
-                                            
-                                        </a>
-                                        <a id="detail_gear_position" class="item" href="javascript:void(0);" onclick="setSingleCarType('gear_position')">
-                                            
-                                        </a>
-                                        <a id="detail_key_status" class="item" href="javascript:void(0);" onclick="setSingleCarType('key_status')">
-                                            
-                                        </a>
-                                        <a id="detail_driving_mode" class="item" href="javascript:void(0);" onclick="setSingleCarType('driving_mode')">
-                                            
-                                        </a>
-                                        <a id="detail_velocity" class="item" href="javascript:void(0);" onclick="setSingleCarType('velocity')">
-                                            
-                                        </a>
-                                        <a id="detail_motor_status" class="item" href="javascript:void(0);" onclick="setSingleCarType('motor_status')">
-                                            
-                                        </a>
-                                        <a id="detail_motor_torque" class="item" href="javascript:void(0);" onclick="setSingleCarType('motor_torque')">
-                                            
-                                        </a>
-                                        <a id="detail_drive_motor_rpm" class="item" href="javascript:void(0);" onclick="setSingleCarType('drive_motor_rpm')">
-                                            
-                                        </a>
-                                        <a id="detail_motor_controller_current" class="item" href="javascript:void(0);" onclick="setSingleCarType('motor_controller_current')">
-                                            
-                                        </a>
-                                        <a id="detail_motor_controller_voltage" class="item" href="javascript:void(0);" onclick="setSingleCarType('motor_controller_voltage')">
-                                            
-                                        </a>
-                                        <a id="detail_drive_motor_temperature" class="item" href="javascript:void(0);" onclick="setSingleCarType('drive_motor_temperature')">
-                                            
-                                        </a>
-                                        <a id="detail_motor_controller_temperature" class="item" href="javascript:void(0);" onclick="setSingleCarType('motor_controller_temperature')">
-                                            
-                                        </a>
-                                        <a id="detail_high_voltage_battery_current" class="item" href="javascript:void(0);" onclick="setSingleCarType('high_voltage_battery_current')">
-                                            
-                                        </a>
-                                        <a id="detail_total_battery_voltage" class="item" href="javascript:void(0);" onclick="setSingleCarType('total_battery_voltage')">
-                                            
-                                        </a>
-                                        <a id="detail_insulation_resistance_value" class="item" href="javascript:void(0);" onclick="setSingleCarType('insulation_resistance_value')">
-                                            
-                                        </a>
-                                        <a id="detail_residual_energy" class="item" href="javascript:void(0);" onclick="setSingleCarType('residual_energy')">
-                                            
-                                        </a>
-                                        <a id="detail_max_single_voltage" class="item" href="javascript:void(0);" onclick="setSingleCarType('max_single_voltage')">
-                                            
-                                        </a>
-                                        <a id="detail_min_single_voltage" class="item" href="javascript:void(0);" onclick="setSingleCarType('min_single_voltage')">
-                                            
-                                        </a>
-                                        <a id="detail_cumulative_mileage" class="item" href="javascript:void(0);" onclick="setSingleCarType('cumulative_mileage')">
-                                            
-                                        </a>
-                                    </div>
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -947,9 +966,9 @@
     // map.addControl(top_left_control);        
 	// map.addControl(top_left_navigation);     
 	map.addControl(top_right_navigation);
-    // map.setMapStyleV2({     
-    //     styleId: '17c84567c712a49ee687af01700e1d74'
-    // });
+    map.setMapStyleV2({     
+        styleId: '17c84567c712a49ee687af01700e1d74'
+    });
 
     // map.setMapStyleV2({     
     //     styleId: '0c4e2c205d522daab0c5090baf1e0163'
@@ -1474,6 +1493,10 @@
                 startTime = singleCarEagleRawData[i]['loc_time']
             }
         }
+
+        console.log("starttime" + startTime)
+        console.log("endtime" + endTime)
+
         getEagleTrace(eagleEntity, startTime, endTime);
 
         polylineNaive = new BMapGL.Polyline(singleCarTranslatedPoints, { strokeColor: "#5470C6", strokeWeight: 5, strokeOpacity: 0.8 });
@@ -1559,8 +1582,12 @@
     function constructEagleTrace(data, entityname){
         // console.log(data)
         // console.log(entityname)
+        var cur_time = new Date().getTime();
         for(var i = 0; i < data.length; ++i){
             if(i > 0 && data[i]['latitude'] == data[i-1]['latitude'] && data[i]['longitude'] == data[i-1]['longitude']){
+                continue;
+            }
+            if(Date.parse(data[i]['collectTime']) > cur_time){
                 continue;
             }
             var curDict = {
@@ -1696,8 +1723,11 @@
             },
             success: function (data) {
                 console.log('鹰眼拉取成功');
-                // console.log(data)
+                console.log(data)
                 singleCarEagleProcessedData = data["points"];
+                singleCarEagleProcessedPoints = new Array();
+                console.log(singleCarEagleProcessedData)
+
                 for(var i = 0; i < singleCarEagleProcessedData.length; ++i){
                     singleCarEagleProcessedPoints.push(new BMapGL.Point(singleCarEagleProcessedData[i].longitude, singleCarEagleProcessedData[i].latitude))
                 }
@@ -1826,15 +1856,6 @@
                 // console.log('requestSingleCarHistory: '+dataLine.length+' '+data.length);
 
                 myChartLine.setOption({
-                    title:{
-                        // TODO: 现在只支持速度查询
-                        // text:'速度'+' of '+getLicenseByVin(curCarVin),
-                        text: '车辆 '+getLicenseByVin(curCarVin)+' 的车速历史记录',
-                        textStyle: { //图例文字的样式
-                            color: color_legend,
-                            fontSize: fontSize_all_title,
-                        },
-                    },
                     dataZoom: [
                         {   // 这个dataZoom组件，也控制x轴。
                             type: 'inside', // 这个 dataZoom 组件是 inside 型 dataZoom 组件
@@ -1863,7 +1884,7 @@
     }
 
     function createDetailItem(k, d){
-        var result = '<a id="detail_cumulative_mileage" class="item" href="javascript:void(0);"><p style="font-size:'+fontSize_all_legend+'px; color: #000">' + k + ' : ' + d + '</p></a>';
+        var result = '<a id="detail_cumulative_mileage" class="item" href="javascript:void(0);"><p style="font-size:'+fontSize_all_legend+'px; color: #fff">' + k + ' : ' + d + '</p></a>';
         return result;
         
     }
@@ -1887,7 +1908,8 @@
 
                 if(data.length == 0) return;
 
-                var elementList = '<a class="active item"><p style="font-size:'+fontSize_all_title+'px; color: #000; font-weight: bold;">车辆详情</p></a>\n';
+                var elementList = '';
+                // var elementList = '<a class="active item"><p style="font-size:'+fontSize_all_title+'px; color: #fff; font-weight: bold;">车辆详情</p></a>\n';
 
                 // document.getElementById("detail_car").innerHTML = data;
                 for(var key in data){
@@ -2178,7 +2200,7 @@
                         if(IsInFance(backGroundPointCache[tem_vin]['converted']) == false){
                             var new_tex = document.createElement("p");
                             new_tex.setAttribute("onclick", "centerAndZoomCarVin(this)");
-                            new_tex.setAttribute("style", "color: #000; padding-left: 5%");
+                            new_tex.setAttribute("style", "color: #fff; padding-left: 5%");
                             new_tex.innerHTML = '<i class="search plus icon"></i>'+' '+content;
 
                             // var new_tex = document.createElement("div");
@@ -2657,6 +2679,7 @@
         console.log('single start');
         document.getElementById("right_bottom_coner_default").style.display="none";//隐藏
         document.getElementById("right_bottom_coner_detail").style.display="";//隐藏
+        document.getElementById("right_bot_name").innerHTML="车辆详情"
 
 
         // if(requestIdValue != 'LK6ADCE28JB008253') console.log('no data yet');
@@ -2711,13 +2734,6 @@
         dataLine=[];
 
         myChartLine.setOption({
-            title:{
-                text:'单车历史详细信息',
-                textStyle: { //图例文字的样式
-                    color: color_legend,
-                    fontSize: fontSize_all_title,
-                },
-            },
             series: [{
                 data: default_dataLine
             }]
@@ -2735,6 +2751,8 @@
         curSingleMode = false;
         document.getElementById("right_bottom_coner_detail").style.display="none";//隐藏
         document.getElementById("right_bottom_coner_default").style.display="";
+        document.getElementById("right_bot_name").innerHTML="离校车辆信息"
+
 
         console.log('backtoground cursinglemode='+curSingleMode);
     }
@@ -2767,7 +2785,7 @@
                 var obj = document.getElementById("OutSchoolDetail");
                 var new_tex = document.createElement("p");
                 new_tex.setAttribute("onclick", "centerAndZoomCarVin(this)");
-                new_tex.setAttribute("style", "color: #000; padding-left: 5%");
+                new_tex.setAttribute("style", "color: #fff; padding-left: 5%");
                 new_tex.innerHTML = '<i class="search plus icon"></i>'+' '+carPosition[0][carPositionIdx[0]][0];
 
                 // var new_tex = document.createElement("div");
@@ -2854,7 +2872,7 @@
                 // curVin = carPosition[1][carPositionIdx[1]][0].split()[1]
                 // console.log(tem_vin)
                 new_tex.setAttribute("onclick", "centerAndZoomCarVin(this)");
-                new_tex.setAttribute("style", "color: #000; padding-left: 5%");
+                new_tex.setAttribute("style", "color: #fff; padding-left: 5%");
                 new_tex.innerHTML = '<i class="search plus icon"></i>'+' '+carPosition[1][carPositionIdx[1]][0];
 
                 // var new_tex = document.createElement("div");
@@ -3194,14 +3212,14 @@ var domGuage = document.getElementById("guage");
     optionGuage = null;
     optionGuage = {
         title: {
-            text: '车辆运行时信息',
+            // text: '车辆运行时信息',
             subtext:' 转速、车速、电量、温度',
             textStyle: { //图例文字的样式
-                color: color_legend,
+                color: "#fff",
                 fontSize: fontSize_all_title,
             },
-            textStyle: { //图例文字的样式
-                color: color_legend,
+            subtextStyle: { //图例文字的样式
+                color: "#fff",
                 fontSize: fontSize_all_title-4,
             },
         },
@@ -3330,6 +3348,9 @@ var domGuage = document.getElementById("guage");
                     lineStyle: {       // 属性lineStyle控制线条样式
                         color: 'auto'
                     }
+                },
+                axisLabel:{
+                    color:'auto',
                 },
                 splitLine: {           // 分隔线
                     length:'20%',         // 属性length控制线长
@@ -3507,16 +3528,10 @@ var domGuage = document.getElementById("guage");
     }
 
     console.log(default_dataLine)
-    
+
     optionLine = {
-        title: {
-            text: '单车历史详细信息',
-            textStyle: { //图例文字的样式
-                color: color_legend,
-                fontSize: fontSize_all_title,
-            },
-        },
-        tooltip: {
+    
+        tooltip: {//鼠标指上时的标线
             trigger: 'axis',
             formatter: function (params) {
                 params = params[0];
@@ -3527,58 +3542,25 @@ var domGuage = document.getElementById("guage");
                 // return data.getFullYear()+'-'+(date.getMonth() + 1)+'-'+date.getDate()+' '+date.getHours()+':'+date.getMinutes()+':'+date.getSeconds()+'.'+date.getMinutes()+' '+params.value[1];
             },
             axisPointer: {
-                animation: false
-            }
-        },
-        grid: {
-            // top: '12%',
-            left: '1%',
-            // right: '2%',
-            bottom: '1px',
-            containLabel: true
-        },
-        xAxis: {
-            name: '时间',
-            type: 'time',
-            splitLine: {
-                show: false
-            },
-            axisLabel:{
-				textStyle: { //图例文字的样式
-                    color: color_axis,
-                    fontSize: fontSize_axis_label,
-                },
-                minInterval: 3600
-			},
-            axisLine:{
-                lineStyle:{
-                    color: color_axis,
-                    // width:8,//这里是为了突出显示加上的
+                animation: false,
+                lineStyle: {
+                    color: '#fff'
                 }
             }
         },
-        yAxis: {
-            name: '速度(km/h)',
-            type: 'value',
-            boundaryGap: [0, '100%'],
-            splitLine: {
-                show: true
-            },
-            axisLabel:{
-				textStyle: { //图例文字的样式
-                    color: color_axis,
-                    fontSize: fontSize_axis_label,
-				},
-            },
-            axisLine:{
-                lineStyle:{
-                    show: true,
-                    color: color_axis,
-                    // width:8,//这里是为了突出显示加上的
-                }
-            },
-            max: 40,
-        },
+        // legend: {
+        //     icon: 'rect',
+        //     itemWidth: 14,
+        //     itemHeight: 5,
+        //     itemGap: 13,
+        //     data: ['速度', '中型车', '大型车'],
+        //     right: '10px',
+        //     top: '0px',
+        //     textStyle: {
+        //         fontSize: 12,
+        //         color: '#fff'
+        //     }
+        // },
         dataZoom: [
             // {   // 这个dataZoom组件，默认控制x轴。
             //     type: 'slider', // 这个 dataZoom 组件是 slider 型 dataZoom 组件
@@ -3594,14 +3576,189 @@ var domGuage = document.getElementById("guage");
                 end: 100         // 右边在 60% 的位置。
             }
         ],
+        grid: {
+            left: 40,
+            top: 40,
+            right: 8,
+            bottom: 40,
+        },
+        xAxis: {
+            name: '时间',
+            type: 'time',
+            splitLine: {
+                show: false
+            },
+            axisLine: {
+                lineStyle: {
+                    color: '#57617B'
+                }
+            },
+            axisLabel: {
+                textStyle: {
+                    color:'#fff',
+                },
+                minInterval: 3600
+            },
+        },
+        yAxis: {
+            name: '速度(km/h)',
+            type: 'value',
+            boundaryGap: [0, '100%'],
+            axisTick: {
+                show: false
+            },
+            nameTextStyle: { //图例文字的样式
+                color: "#fff",
+                fontSize: fontSize_all_title-4,
+            },
+            axisLine: {
+                show: true,
+                lineStyle: {
+                    color: '#57617B',
+                }
+            },
+            axisLabel: {
+                // margin: 10,
+                textStyle: {
+                    fontSize: fontSize_axis_label,
+                    color:'#fff',
+                },
+            },
+            splitLine: {
+                show: true,
+                lineStyle: {
+                    color: 'rgba(255,255,255,.2)',
+                    type:'dotted',
+                }
+            }
+        },
         series: [{
             name: '数据',
             type: 'line',
+            smooth: true,
             showSymbol: false,
             hoverAnimation: false,
-            data: default_dataLine
+            lineStyle: {
+                normal: {
+                    width: 2
+                }
+            },
+            areaStyle: {
+                normal: {
+                    color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                        offset: 0,
+                        color: 'rgba(137, 189, 27, 0.3)'
+                    }, {
+                        offset: 0.8,
+                        color: 'rgba(137, 189, 27, 0)'
+                    }], false),
+                    shadowColor: 'rgba(0, 0, 0, 0.1)',
+                    shadowBlur: 10
+                }
+            },
+            itemStyle: {
+                normal: {
+                    color: 'rgb(137,189,27)'
+                }
+            },
+            data: default_dataLine,
         }]
     };
+    
+    // optionLine = {
+    //     // title: {
+    //     //     text: '单车历史详细信息',
+    //     //     textStyle: { //图例文字的样式
+    //     //         color: color_legend,
+    //     //         fontSize: fontSize_all_title,
+    //     //     },
+    //     // },
+    //     tooltip: {
+    //         trigger: 'axis',
+    //         formatter: function (params) {
+    //             params = params[0];
+    //             // var date = new Date(params.name);
+    //             var data_tem = params.name.split(' ');
+    //             return data_tem[3]+'-'+data_tem[1]+'-'+data_tem[2]+' '+data_tem[4]+' '+params.value[1]; 
+    //             // return date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear() + ' : ' + params.value[1];
+    //             // return data.getFullYear()+'-'+(date.getMonth() + 1)+'-'+date.getDate()+' '+date.getHours()+':'+date.getMinutes()+':'+date.getSeconds()+'.'+date.getMinutes()+' '+params.value[1];
+    //         },
+    //         axisPointer: {
+    //             animation: false
+    //         }
+    //     },
+    //     grid: {
+    //         // top: '12%',
+    //         left: '1%',
+    //         // right: '2%',
+    //         bottom: '1px',
+    //         containLabel: true
+    //     },
+    //     xAxis: {
+    //         name: '时间',
+    //         type: 'time',
+    //         splitLine: {
+    //             show: false
+    //         },
+    //         axisLabel:{
+	// 			textStyle: { //图例文字的样式
+    //                 color: color_axis,
+    //                 fontSize: fontSize_axis_label,
+    //             },
+    //             minInterval: 3600
+	// 		},
+    //         axisLine:{
+    //             lineStyle:{
+    //                 color: color_axis,
+    //                 // width:8,//这里是为了突出显示加上的
+    //             }
+    //         }
+    //     },
+    //     yAxis: {
+    //         name: '速度(km/h)',
+    //         type: 'value',
+    //         boundaryGap: [0, '100%'],
+    //         splitLine: {
+    //             show: true
+    //         },
+    //         axisLabel:{
+	// 			textStyle: { //图例文字的样式
+    //                 color: color_axis,
+    //                 fontSize: fontSize_axis_label,
+	// 			},
+    //         },
+    //         axisLine:{
+    //             lineStyle:{
+    //                 show: true,
+    //                 color: color_axis,
+    //                 // width:8,//这里是为了突出显示加上的
+    //             }
+    //         },
+    //         max: 40,
+    //     },
+    //     dataZoom: [
+    //         // {   // 这个dataZoom组件，默认控制x轴。
+    //         //     type: 'slider', // 这个 dataZoom 组件是 slider 型 dataZoom 组件
+    //         //     start: 0,      // 左边在 10% 的位置。
+    //         //     end: 100,         // 右边在 60% 的位置。
+    //         //     height: '5%',
+    //         //     // zlevel:3
+    //         //     // minSpan:8,
+    //         // },
+    //         {   // 这个dataZoom组件，也控制x轴。
+    //             type: 'inside', // 这个 dataZoom 组件是 inside 型 dataZoom 组件
+    //             start: 0,      // 左边在 10% 的位置。
+    //             end: 100         // 右边在 60% 的位置。
+    //         }
+    //     ],
+    //     series: [{
+    //         name: '数据',
+    //         type: 'line',
+    //         showSymbol: false,
+    //         hoverAnimation: false,
+    //         data: default_dataLine
+    //     }]
+    // };
     
     // setInterval(function () {
     
@@ -3637,13 +3794,13 @@ var domGuage = document.getElementById("guage");
     app.title = '环形图';
     
     optionPie = {
-        title: {
-            text: '当前车辆状态分布',
-            textStyle: { //图例文字的样式
-                color: color_legend,
-                fontSize: fontSize_all_title,
-            },
-        },
+        // title: {
+        //     text: '当前车辆状态分布',
+        //     textStyle: { //图例文字的样式
+        //         color: color_legend,
+        //         fontSize: fontSize_all_title,
+        //     },
+        // },
         tooltip: {
             triggeron:'click',
             trigger: 'item',
@@ -3732,13 +3889,13 @@ var domGuage = document.getElementById("guage");
         // title: {
         //     text: '车辆使用情况'
         // },
-        title: {
-            text: '车辆状态历史分布',
-            textStyle: { //图例文字的样式
-                color: color_legend,
-                fontSize: fontSize_all_title,
-            },
-        },
+        // title: {
+        //     text: '车辆状态历史分布',
+        //     textStyle: { //图例文字的样式
+        //         color: color_legend,
+        //         fontSize: fontSize_all_title,
+        //     },
+        // },
         tooltip : {
             trigger: 'axis',
             axisPointer: {
