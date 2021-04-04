@@ -920,8 +920,9 @@
             onChangeCalled = true;
         }
 
-        var requestId = document.getElementById('search-select');
-        var requestIdValue = requestId.options[requestId.selectedIndex].value;
+        // var requestId = document.getElementById('search-select');
+        // var requestIdValue = requestId.options[requestId.selectedIndex].value;
+        var requestIdValue = $('#search-select').dropdown('get text');
 
         // console.log('vinchange to '+requestIdValue);
         // console.log('license to '+getLicenseByVin(requestIdValue));
@@ -938,8 +939,14 @@
         }
 
         // console.log('license change')
-        var requestLicense = document.getElementById('search-select-license');
-        var requestLicenseValue = requestLicense.options[requestLicense.selectedIndex].value;
+        // var requestLicense = document.getElementById('search-select-license');
+        // var requestLicenseValue = requestLicense.options[requestLicense.selectedIndex].value;
+        
+        // var getValue = $('#search-select-license').dropdown('get value');
+        var requestLicenseValue = $('#search-select-license').dropdown('get text');
+        // console.log('ori value: '+requestLicenseValue)
+        // console.log('getValue: '+getValue)
+        // console.log('getText: '+getText)
 
         // console.log('licensechange to '+requestLicenseValue);
         // console.log('vin to '+getVinByLicense(requestLicenseValue));
@@ -2655,8 +2662,11 @@
 
     // <!-- 地图覆盖物点击回调函数 -->
     function onClickOverlay(targetId){
-        var requestType = document.getElementById('select');
-        var requestTypeValue = requestType.options[requestType.selectedIndex].value;
+        // var requestType = document.getElementById('select');
+        // var requestTypeValue = requestType.options[requestType.selectedIndex].value;
+        
+        var requestTypeValue = $('#select').dropdown('get text');
+        $('#search-select').dropdown('set selected', targetId);
 
         //TODO: 通过车辆选择之后也要进行选择框联动修改
         // $('#search-select')
