@@ -65,6 +65,7 @@
         <link href="https://cdn.bootcdn.net/ajax/libs/semantic-ui/2.4.1/components/card.css" rel="stylesheet">
         <link href="https://cdn.bootcdn.net/ajax/libs/semantic-ui/2.4.1/components/dropdown.css" rel="stylesheet">
         <script src="https://cdn.bootcdn.net/ajax/libs/semantic-ui/2.4.1/components/dropdown.js"></script>
+        <link href="https://cdn.bootcdn.net/ajax/libs/semantic-ui/2.4.1/components/label.css" rel="stylesheet">
 
         <script type="text/javascript" src="vin_license.js"></script>
 
@@ -187,7 +188,24 @@
                     
                     <div class="visual_chart">
                         <!-- 查询类型选择 -->
-                        <select name="reques_type" class="ui compact dropdown" id="select">
+                        <div class="ui inline search dropdown" id="select" style="color: #fff;">
+                            <div class="text" >
+                                速度
+                            </div>
+                            <i class="dropdown icon"></i>
+                            <div class="menu">
+                                <div class="item">
+                                    速度
+                                </div>
+                                <div class="item">
+                                    剩余电量
+                                </div>
+                                <div class="item">
+                                    电机转速
+                                </div>
+                            </div>
+                        </div>
+                        <!-- <select name="reques_type" class="ui compact dropdown" id="select">
                             <optgroup label="车辆状态">
                                 <option value="velocity" selected>速度</option>
                                 <option disabled="disabled" value="cumulative_mileage">总行驶里程</option>
@@ -207,10 +225,10 @@
                                 <option disabled="disabled" value="motor_controller_current">电机控制器电流</option>
                                 <option disabled="disabled" value="motor_controller_voltage">电机控制器电压</option>
                             </optgroup>
-                        </select>
+                        </select> -->
                         
                         <!-- vin选择 -->
-                        <select class="ui compact search selection dropdown" id="search-select" onchange="vinChange()"> 
+                        <!-- <select class="ui compact search selection dropdown" id="search-select" onchange="vinChange()"> 
                             <option value="LK6ADCE22JB007910">LK6ADCE22JB007910</option>
                             <option value="LK6ADCE22JB011083">LK6ADCE22JB011083</option>
                             <option value="LK6ADCE29JB011100">LK6ADCE29JB011100</option>
@@ -461,10 +479,269 @@
                             <option value="LK6ADCE20JB008862">LK6ADCE20JB008862</option>
                             <option value="LK6ADCE26JB008882">LK6ADCE26JB008882</option>
                             <option value="LK6ADCE2XJB009243">LK6ADCE2XJB009243</option>                 
-                        </select>
+                        </select> -->
+
+                        <div class="ui inline search dropdown" id="search-select" style="color: #fff;">
+                            <div class="text" >
+                                LK6ADCE20HB005082
+                            </div>
+                            <i class="dropdown icon"></i>
+                            <div class="menu">
+                                <div class="item">LK6ADCE22JB007910</div>
+                                <div class="item">LK6ADCE22JB011083</div>
+                                <div class="item">LK6ADCE29JB011100</div>
+                                <div class="item">LK6ADCE20JB011051</div>
+                                <div class="item">LK6ADCE23JB008886</div>
+                                <div class="item">LK6ADCE27JB011113</div>
+                                <div class="item">LK6ADCE25JB011093</div>
+                                <div class="item">LK6ADCE28JB008883</div>
+                                <div class="item">LK6ADCE28JB009631</div>
+                                <div class="item">LK6ADCE26JB010499</div>
+                                <div class="item">LK6ADCE28JB010486</div>
+                                <div class="item">LK6ADCE20JB010482</div>
+                                <div class="item">LK6ADCE29JB010481</div>
+                                <div class="item">LK6ADCE29JB009637</div>
+                                <div class="item">LK6ADCE25JB009635</div>
+                                <div class="item">LK6ADCE24JB011117</div>
+                                <div class="item">LK6ADCE21JB009633</div>
+                                <div class="item">LK6ADCE23JB009651</div>
+                                <div class="item">LK6ADCE25JB011076</div>
+                                <div class="item">LK6ADCE28JB011105</div>
+                                <div class="item">LK6ADCE27JB011094</div>
+                                <div class="item">LK6ADCE24JB011134</div>
+                                <div class="item">LK6ADCE20JB011129</div>
+                                <div class="item">LK6ADCE2XJB011123</div>
+                                <div class="item">LK6ADCE26JB011099</div>
+                                <div class="item">LK6ADCE21JB011057</div>
+                                <div class="item">LK6ADCE25JB011112</div>
+                                <div class="item">LK6ADCE29JB011095</div>
+                                <div class="item">LK6ADCE21JB011091</div>
+                                <div class="item">LK6ADCE28JB009659</div>
+                                <div class="item">LK6ADCE24JB009691</div>
+                                <div class="item">LK6ADCE29JB010500</div>
+                                <div class="item">LK6ADCE29JB008312</div>
+                                <div class="item">LK6ADCE25JB010526</div>
+                                <div class="item">LK6ADCE29JB010514</div>
+                                <div class="item">LK6ADCE28JB009676</div>
+                                <div class="item">LK6ADCE28JB010522</div>
+                                <div class="item">LK6ADCE22JB009642</div>
+                                <div class="item">LK6ADCE21JB009664</div>
+                                <div class="item">LK6ADCE21JB010510</div>
+                                <div class="item">LK6ADCE27HB005533</div>
+                                <div class="item">LK6ADCE26HB005460</div>
+                                <div class="item">LK6ADCE2XHB005154</div>
+                                <div class="item">LK6ADCE28HB005184</div>
+                                <div class="item">LK6ADCE23HB005383</div>
+                                <div class="item">LK6ADCE22HB005388</div>
+                                <div class="item">LK6ADCE20HB005390</div>
+                                <div class="item">LK6ADCE28HB006531</div>
+                                <div class="item">LK6ADCE2XHB006546</div>
+                                <div class="item">LK6ADCE28HB006464</div>
+                                <div class="item">LK6ADCE22HB005701</div>
+                                <div class="item">LK6ADCE27HB006407</div>
+                                <div class="item">LK6ADCE23HB005402</div>
+                                <div class="item">LK6ADCE28HB005640</div>
+                                <div class="item">LK6ADCE28HB006836</div>
+                                <div class="item">LK6ADCE23HB005738</div>
+                                <div class="item">LK6ADCE21HB005026</div>
+                                <div class="item">LK6ADCE21HB005012</div>
+                                <div class="item">LK6ADCE28HB005282</div>
+                                <div class="item">LK6ADCE22HB005522</div>
+                                <div class="item">LK6ADCE2XHB005185</div>
+                                <div class="item">LK6ADCE20HB005339</div>
+                                <div class="item">LK6ADCE26HB006284</div>
+                                <div class="item">LK6ADCE21HB005981</div>
+                                <div class="item">LK6ADCE27HB006116</div>
+                                <div class="item">LK6ADCE27HB005063</div>
+                                <div class="item">LK6ADCE25HB005109</div>
+                                <div class="item">LK6ADCE20HB005082</div>
+                                <div class="item">LK6ADCE27HB006553</div>
+                                <div class="item">LK6ADCE22HB005102</div>
+                                <div class="item">LK6ADCE27HB006861</div>
+                                <div class="item">LK6ADCE20JB007842</div>
+                                <div class="item">LK6ADCE27JB007885</div>
+                                <div class="item">LK6ADCE25JB007934</div>
+                                <div class="item">LK6ADCE21JB007929</div>
+                                <div class="item">LK6ADCE23JB008290</div>
+                                <div class="item">LK6ADCE2XJB007931</div>
+                                <div class="item">LK6ADCE20JB008294</div>
+                                <div class="item">LK6ADCE2XJB008285</div>
+                                <div class="item">LK6ADCE29JB008293</div>
+                                <div class="item">LK6ADCE29JB007905</div>
+                                <div class="item">LK6ADCE21JB008241</div>
+                                <div class="item">LK6ADCE20JB007890</div>
+                                <div class="item">LK6ADCE24JB008251</div>
+                                <div class="item">LK6ADCE22JB007891</div>
+                                <div class="item">LK6ADCE2XJB008299</div>
+                                <div class="item">LK6ADCE2XJB011140</div>
+                                <div class="item">LK6ADCE22JB008247</div>
+                                <div class="item">LK6ADCE28JB008253</div>
+                                <div class="item">LK6ADCE2XJB008268</div>
+                                <div class="item">LK6ADCE25JB008873</div>
+                                <div class="item">LK6ADCE27JB008292</div>
+                                <div class="item">LK6ADCE28JB009273</div>
+                                <div class="item">LK6ADCE22JB008250</div>
+                                <div class="item">LK6ADCE23JB008239</div>
+                                <div class="item">LK6ADCE28JB011122</div>
+                                <div class="item">LK6ADCE29JB011114</div>
+                                <div class="item">LK6ADCE24JB008864</div>
+                                <div class="item">LK6ADCE23JB008872</div>
+                                <div class="item">LK6ADCE27JB008874</div>
+                                <div class="item">LK6ADCE21JB011110</div>
+                                <div class="item">LK6ADCE23JB011142</div>
+                                <div class="item">LK6ADCE26JB008879</div>
+                                <div class="item">LK6ADCE2XJB008884</div>
+                                <div class="item">LK6ADCE24JB008878</div>
+                                <div class="item">LK6ADCE25JB011059</div>
+                                <div class="item">LK6ADCE24JB011098</div>
+                                <div class="item">LK6ADCE24JB011084</div>
+                                <div class="item">LK6ADCE22JB011116</div>
+                                <div class="item">LK6ADCE2XJB009694</div>
+                                <div class="item">LK6ADCE25JB008887</div>
+                                <div class="item">LK6ADCE23JB009634</div>
+                                <div class="item">LK6ADCE27JB009636</div>
+                                <div class="item">LK6ADCE22JB009639</div>
+                                <div class="item">LK6ADCE21JB010538</div>
+                                <div class="item">LK6ADCE22JB009091</div>
+                                <div class="item">LK6ADCE22JB009057</div>
+                                <div class="item">LK6ADCE27JB009085</div>
+                                <div class="item">LK6ADCE24JB009061</div>
+                                <div class="item">LK6ADCE23JB009083</div>
+                                <div class="item">LK6ADCE23JB009102</div>
+                                <div class="item">LK6ADCE21JB009065</div>
+                                <div class="item">LK6ADCE29JB009086</div>
+                                <div class="item">LK6ADCE26JB009059</div>
+                                <div class="item">LK6ADCE24JB008993</div>
+                                <div class="item">LK6ADCE25JB009053</div>
+                                <div class="item">LK6ADCE22JB008975</div>
+                                <div class="item">LK6ADCE2XJB009114</div>
+                                <div class="item">LK6ADCE28JB009113</div>
+                                <div class="item">LK6ADCE21JB009082</div>
+                                <div class="item">LK6ADCE29HB005176</div>
+                                <div class="item">LK6ADCE21HB006452</div>
+                                <div class="item">LK6ADCE21HB005723</div>
+                                <div class="item">LK6ADCE24HB006171</div>
+                                <div class="item">LK6ADCE28HB006027</div>
+                                <div class="item">LK6ADCE2XHB006207</div>
+                                <div class="item">LK6ADCE23HB006789</div>
+                                <div class="item">LK6ADCE24HB005828</div>
+                                <div class="item">LK6ADCE21HB005446</div>
+                                <div class="item">LK6ADCE24HB005425</div>
+                                <div class="item">LK6ADCE23HB005447</div>
+                                <div class="item">LK6ADCE20HB006040</div>
+                                <div class="item">LK6ADCE2XHB005526</div>
+                                <div class="item">LK6ADCE26HB005216</div>
+                                <div class="item">LK6ADCE27HB006536</div>
+                                <div class="item">LK6ADCE25HB005384</div>
+                                <div class="item">LK6ADCE25HB005370</div>
+                                <div class="item">LK6ADCE25HB005322</div>
+                                <div class="item">LK6ADCE20HB005003</div>
+                                <div class="item">LK6ADCE24HB006381</div>
+                                <div class="item">LK6ADCE26HB005703</div>
+                                <div class="item">LK6ADCE2XHB006790</div>
+                                <div class="item">LK6ADCE22HB006296</div>
+                                <div class="item">LK6ADCE28HB005010</div>
+                                <div class="item">LK6ADCE25HB005983</div>
+                                <div class="item">LK6ADCE21HB005995</div>
+                                <div class="item">LK6ADCE25HB005434</div>
+                                <div class="item">LK6ADCE21HB006564</div>
+                                <div class="item">LK6ADCE22HB005407</div>
+                                <div class="item">LK6ADCE20HB005700</div>
+                                <div class="item">LK6ADCE24HB005697</div>
+                                <div class="item">LK6ADCE21HB006547</div>
+                                <div class="item">LK6ADCE21HB005396</div>
+                                <div class="item">LK6ADCE26HB005393</div>
+                                <div class="item">LK6ADCE23HB006565</div>
+                                <div class="item">LK6ADCE24HB005103</div>
+                                <div class="item">LK6ADCE20HB005678</div>
+                                <div class="item">LK6ADCE26HB006852</div>
+                                <div class="item">LK6ADCE22HB005746</div>
+                                <div class="item">LK6ADCE24HB006557</div>
+                                <div class="item">LK6ADCE22HB005438</div>
+                                <div class="item">LK6ADCE24HB005733</div>
+                                <div class="item">LK6ADCE20HB005809</div>
+                                <div class="item">LK6ADCE23HB005805</div>
+                                <div class="item">LK6ADCE2XJB007928</div>
+                                <div class="item">LK6ADCE22JB007910</div>
+                                <div class="item">LK6ADCE23JB008287</div>
+                                <div class="item">LK6ADCE20JB009252</div>
+                                <div class="item">LK6ADCE22JB008331</div>
+                                <div class="item">LK6ADCE22HB006203</div>
+                                <div class="item">LK6ADCE28HB005413</div>
+                                <div class="item">LK6ADCE26HB006804</div>
+                                <div class="item">LK6ADCE2XHB005400</div>
+                                <div class="item">LK6ADCE26HB005085</div>
+                                <div class="item">LK6ADCE20JB007839</div>
+                                <div class="item">LK6ADCE26JB007893</div>
+                                <div class="item">LK6ADCE2XJB007895</div>
+                                <div class="item">LK6ADCE26JB007943</div>
+                                <div class="item">LK6ADCE29JB009265</div>
+                                <div class="item">LK6ADCE25JB008291</div>
+                                <div class="item">LK6ADCE29JB007922</div>
+                                <div class="item">LK6ADCE26JB008252</div>
+                                <div class="item">LK6ADCE26JB008249</div>
+                                <div class="item">LK6ADCE21JB008286</div>
+                                <div class="item">LK6ADCE20JB008246</div>
+                                <div class="item">LK6ADCE27JB011144</div>
+                                <div class="item">LK6ADCE29JB011047</div>
+                                <div class="item">LK6ADCE25JB011062</div>
+                                <div class="item">LK6ADCE27JB010480</div>
+                                <div class="item">LK6ADCE26JB008994</div>
+                                <div class="item">LK6ADCE21JB009079</div>
+                                <div class="item">LK6ADCE21JB009051</div>
+                                <div class="item">LK6ADCE25JB009067</div>
+                                <div class="item">LK6ADCE28JB009077</div>
+                                <div class="item">LK6ADCE25JB009098</div>
+                                <div class="item">LK6ADCE21JB009096</div>
+                                <div class="item">LK6ADCE23HB005481</div>
+                                <div class="item">LK6ADCE26HB005488</div>
+                                <div class="item">LK6ADCE25HB005207</div>
+                                <div class="item">LK6ADCE26HB005409</div>
+                                <div class="item">LK6ADCE20HB006247</div>
+                                <div class="item">LK6ADCE24HB006512</div>
+                                <div class="item">LK6ADCE22HB006556</div>
+                                <div class="item">LK6ADCE25HB005529</div>
+                                <div class="item">LK6ADCE21HB006810</div>
+                                <div class="item">LK6ADCE26HB006401</div>
+                                <div class="item">LK6ADCE21HB005401</div>
+                                <div class="item">LK6ADCE21HB006063</div>
+                                <div class="item">LK6ADCE28HB005072</div>
+                                <div class="item">LK6ADCE23JB007933</div>
+                                <div class="item">LK6ADCE2XJB009081</div>
+                                <div class="item">LK6ADCE20JB008330</div>
+                                <div class="item">LK6ADCE21HB005155</div>
+                                <div class="item">LK6ADCE21HB005527</div>
+                                <div class="item">LK6ADCE24HB005957</div>
+                                <div class="item">LK6ADCE23HB005433</div>
+                                <div class="item">LK6ADCE25JB007853</div>
+                                <div class="item">LK6ADCE26JB007845</div>
+                                <div class="item">LK6ADCE28JB008298</div>
+                                <div class="item">LK6ADCE29JB009640</div>
+                                <div class="item">LK6ADCE25JB008288</div>
+                                <div class="item">LK6ADCE22JB008295</div>
+                                <div class="item">LK6ADCE24JB008248</div>
+                                <div class="item">LK6ADCE21JB008868</div>
+                                <div class="item">LK6ADCE26JB008283</div>
+                                <div class="item">LK6ADCE21JB008269</div>
+                                <div class="item">LK6ADCE2XJB011137</div>
+                                <div class="item">LK6ADCE27JB009264</div>
+                                <div class="item">LK6ADCE25JB008310</div>
+                                <div class="item">LK6ADCE26HB006558</div>
+                                <div class="item">LK6ADCE23HB005724</div>
+                                <div class="item">LK6ADCE23JB008855</div>
+                                <div class="item">LK6ADCE2XJB010487</div>
+                                <div class="item">LK6ADCE21JB010555</div>
+                                <div class="item">LK6ADCE27JB007840</div>
+                                <div class="item">LK6ADCE24JB007889</div>
+                                <div class="item">LK6ADCE28JB008849</div>
+                                <div class="item">LK6ADCE20JB008862</div>
+                                <div class="item">LK6ADCE26JB008882</div>
+                                <div class="item">LK6ADCE2XJB009243</div>   
+                            </div>
+                        </div>
 
                         <!-- 车牌号选择 -->
-                        <select class="ui compact search selection dropdown" id="search-select-license" onchange="licenseChange()"> 
+                        <!-- <select class="ui compact search selection dropdown" id="search-select-license" onchange="licenseChange()"> 
                             <option value="AD91750">AD91750</option>
                             <option value="AD75237">AD75237</option>
                             <option value="AD76517">AD76517</option>
@@ -715,27 +992,302 @@
                             <option value="AD68745">AD68745</option>
                             <option value="AD92653">AD92653</option>
                             <option value="AD79321">AD79321</option>
-                        </select>
+                        </select> -->
+
+                        <div class="ui inline search dropdown" id="search-select-license" style="color: #fff;">
+                            <div class="text" >
+                                AD96275
+                            </div>
+                            <i class="dropdown icon"></i>
+                            <div class="menu">
+                                <div class="item">AD91750</div>
+                                <div class="item">AD75237</div>
+                                <div class="item">AD76517</div>
+                                <div class="item">AD77836</div>
+                                <div class="item">AD04438</div>
+                                <div class="item">AD92696</div>
+                                <div class="item">AD70137</div>
+                                <div class="item">AD95901</div>
+                                <div class="item">AD75081</div>
+                                <div class="item">AD81932</div>
+                                <div class="item">AD96310</div>
+                                <div class="item">AD73619</div>
+                                <div class="item">AD03642</div>
+                                <div class="item">AD91567</div>
+                                <div class="item">AD71067</div>
+                                <div class="item">AD04315</div>
+                                <div class="item">AD86308</div>
+                                <div class="item">AD89121</div>
+                                <div class="item">AD66459</div>
+                                <div class="item">AD71026</div>
+                                <div class="item">AD75207</div>
+                                <div class="item">AD99563</div>
+                                <div class="item">AD04827</div>
+                                <div class="item">AD99329</div>
+                                <div class="item">AD70167</div>
+                                <div class="item">AD79902</div>
+                                <div class="item">AD01342</div>
+                                <div class="item">AD82865</div>
+                                <div class="item">AD86306</div>
+                                <div class="item">AD61496</div>
+                                <div class="item">AD90638</div>
+                                <div class="item">AD70872</div>
+                                <div class="item">AD04659</div>
+                                <div class="item">AD00804</div>
+                                <div class="item">AD63471</div>
+                                <div class="item">AD86597</div>
+                                <div class="item">AD97236</div>
+                                <div class="item">AD85260</div>
+                                <div class="item">AD09745</div>
+                                <div class="item">AD03476</div>
+                                <div class="item">AD90172</div>
+                                <div class="item">AD90178</div>
+                                <div class="item">AD68492</div>
+                                <div class="item">AD92923</div>
+                                <div class="item">AD92260</div>
+                                <div class="item">AD86006</div>
+                                <div class="item">AD77152</div>
+                                <div class="item">AD79992</div>
+                                <div class="item">AD93339</div>
+                                <div class="item">AD78160</div>
+                                <div class="item">AD78170</div>
+                                <div class="item">AD90555</div>
+                                <div class="item">AD93390</div>
+                                <div class="item">AD97966</div>
+                                <div class="item">AD92920</div>
+                                <div class="item">AD86088</div>
+                                <div class="item">AD86033</div>
+                                <div class="item">AD99168</div>
+                                <div class="item">AD95911</div>
+                                <div class="item">AD92377</div>
+                                <div class="item">AD90566</div>
+                                <div class="item">AD99106</div>
+                                <div class="item">AD90787</div>
+                                <div class="item">AD97918</div>
+                                <div class="item">AD95900</div>
+                                <div class="item">AD71028</div>
+                                <div class="item">AD90162</div>
+                                <div class="item">AD96275</div>
+                                <div class="item">AD90108</div>
+                                <div class="item">AD78586</div>
+                                <div class="item">AD85119</div>
+                                <div class="item">AD89912</div>
+                                <div class="item">AD72172</div>
+                                <div class="item">AD68942</div>
+                                <div class="item">AD90751</div>
+                                <div class="item">AD65948</div>
+                                <div class="item">AD86762</div>
+                                <div class="item">AD73577</div>
+                                <div class="item">AD88763</div>
+                                <div class="item">AD95732</div>
+                                <div class="item">AD86712</div>
+                                <div class="item">AD92950</div>
+                                <div class="item">AD91037</div>
+                                <div class="item">AD77535</div>
+                                <div class="item">AD68784</div>
+                                <div class="item">AD79863</div>
+                                <div class="item">AD76590</div>
+                                <div class="item">AD76970</div>
+                                <div class="item">AD64252</div>
+                                <div class="item">AD81270</div>
+                                <div class="item">AD79323</div>
+                                <div class="item">AD04645</div>
+                                <div class="item">AD70903</div>
+                                <div class="item">AD89721</div>
+                                <div class="item">AD72961</div>
+                                <div class="item">AD00547</div>
+                                <div class="item">AD77195</div>
+                                <div class="item">AD96035</div>
+                                <div class="item">AD81969</div>
+                                <div class="item">AD86375</div>
+                                <div class="item">AD91138</div>
+                                <div class="item">AD79522</div>
+                                <div class="item">AD78132</div>
+                                <div class="item">AD89913</div>
+                                <div class="item">AD85368</div>
+                                <div class="item">AD04925</div>
+                                <div class="item">AD86039</div>
+                                <div class="item">AD78172</div>
+                                <div class="item">AD04749</div>
+                                <div class="item">AD70125</div>
+                                <div class="item">AD92330</div>
+                                <div class="item">AD77823</div>
+                                <div class="item">AD97089</div>
+                                <div class="item">AD76587</div>
+                                <div class="item">AD90726</div>
+                                <div class="item">AD67145</div>
+                                <div class="item">AD80385</div>
+                                <div class="item">AD89751</div>
+                                <div class="item">AD70715</div>
+                                <div class="item">AD95130</div>
+                                <div class="item">AD95903</div>
+                                <div class="item">AD93116</div>
+                                <div class="item">AD76593</div>
+                                <div class="item">AD70736</div>
+                                <div class="item">AD72117</div>
+                                <div class="item">AD02646</div>
+                                <div class="item">AD72207</div>
+                                <div class="item">AD95727</div>
+                                <div class="item">AD04588</div>
+                                <div class="item">AD90311</div>
+                                <div class="item">AD78581</div>
+                                <div class="item">AD92379</div>
+                                <div class="item">AD99158</div>
+                                <div class="item">AD97982</div>
+                                <div class="item">AD77101</div>
+                                <div class="item">AD76267</div>
+                                <div class="item">AD97908</div>
+                                <div class="item">AD98812</div>
+                                <div class="item">AD95768</div>
+                                <div class="item">AD95260</div>
+                                <div class="item">AD86056</div>
+                                <div class="item">AD98877</div>
+                                <div class="item">AD72013</div>
+                                <div class="item">AD81066</div>
+                                <div class="item">AD97956</div>
+                                <div class="item">AD92280</div>
+                                <div class="item">AD98892</div>
+                                <div class="item">AD95986</div>
+                                <div class="item">AD99119</div>
+                                <div class="item">AD92200</div>
+                                <div class="item">AD96295</div>
+                                <div class="item">AD99113</div>
+                                <div class="item">AD90163</div>
+                                <div class="item">AD77199</div>
+                                <div class="item">AD81068</div>
+                                <div class="item">AD99153</div>
+                                <div class="item">AD81028</div>
+                                <div class="item">AD90589</div>
+                                <div class="item">AD98871</div>
+                                <div class="item">AD72902</div>
+                                <div class="item">AD04340</div>
+                                <div class="item">AD99192</div>
+                                <div class="item">AD98876</div>
+                                <div class="item">AD78585</div>
+                                <div class="item">AD81002</div>
+                                <div class="item">AD95885</div>
+                                <div class="item">AD98826</div>
+                                <div class="item">AD99111</div>
+                                <div class="item">AD92287</div>
+                                <div class="item">AD92299</div>
+                                <div class="item">AD97998</div>
+                                <div class="item">AD81008</div>
+                                <div class="item">AD92292</div>
+                                <div class="item">AD95988</div>
+                                <div class="item">AD70975</div>
+                                <div class="item">AD91750</div>
+                                <div class="item">AD91356</div>
+                                <div class="item">AD82838</div>
+                                <div class="item">AD71382</div>
+                                <div class="item">AD79606</div>
+                                <div class="item">AD76233</div>
+                                <div class="item">AD77179</div>
+                                <div class="item">AD98882</div>
+                                <div class="item">AD79611</div>
+                                <div class="item">AD93671</div>
+                                <div class="item">AD96025</div>
+                                <div class="item">AD04083</div>
+                                <div class="item">AD08144</div>
+                                <div class="item">AD76173</div>
+                                <div class="item">AD64043</div>
+                                <div class="item">AD93557</div>
+                                <div class="item">AD77903</div>
+                                <div class="item">AD64392</div>
+                                <div class="item">AD04317</div>
+                                <div class="item">AD82836</div>
+                                <div class="item">AD82073</div>
+                                <div class="item">AD04476</div>
+                                <div class="item">AD81026</div>
+                                <div class="item">AD97127</div>
+                                <div class="item">AD85319</div>
+                                <div class="item">AD99302</div>
+                                <div class="item">AD95120</div>
+                                <div class="item">AD87565</div>
+                                <div class="item">AD65994</div>
+                                <div class="item">AD78390</div>
+                                <div class="item">AD76193</div>
+                                <div class="item">AD78100</div>
+                                <div class="item">AD79668</div>
+                                <div class="item">AD79966</div>
+                                <div class="item">AD81093</div>
+                                <div class="item">AD95777</div>
+                                <div class="item">AD96299</div>
+                                <div class="item">AD96222</div>
+                                <div class="item">AD78180</div>
+                                <div class="item">AD92966</div>
+                                <div class="item">AD71019</div>
+                                <div class="item">AD81022</div>
+                                <div class="item">AD93353</div>
+                                <div class="item">AD98890</div>
+                                <div class="item">AD95805</div>
+                                <div class="item">AD92196</div>
+                                <div class="item">AD79639</div>
+                                <div class="item">AD97909</div>
+                                <div class="item">AD76222</div>
+                                <div class="item">AD79866</div>
+                                <div class="item">AD97876</div>
+                                <div class="item">AD04685</div>
+                                <div class="item">AD89103</div>
+                                <div class="item">AD07804</div>
+                                <div class="item">AD98156</div>
+                                <div class="item">AD70963</div>
+                                <div class="item">AD79569</div>
+                                <div class="item">AD71303</div>
+                                <div class="item">AD75905</div>
+                                <div class="item">AD77860</div>
+                                <div class="item">AD87910</div>
+                                <div class="item">AD85392</div>
+                                <div class="item">AD76995</div>
+                                <div class="item">AD86726</div>
+                                <div class="item">AD92277</div>
+                                <div class="item">AD97968</div>
+                                <div class="item">AD79102</div>
+                                <div class="item">AD83739</div>
+                                <div class="item">AD64234</div>
+                                <div class="item">AD67931</div>
+                                <div class="item">AD70293</div>
+                                <div class="item">AD64654</div>
+                                <div class="item">AD68745</div>
+                                <div class="item">AD92653</div>
+                                <div class="item">AD79321</div>   
+                            </div>
+                        </div>
 
 
                         
                         <script>
                             $('#select').dropdown();
                             $('#search-select').dropdown();
+                            $('#search-select').dropdown('setting', 'onChange', function(value, text, $choice){
+                                vinChange()
+                            });
                             $('#search-select-license').dropdown();
+                            $('#search-select-license').dropdown('setting', 'onChange', function(value, text, $choice){
+                                licenseChange()
+                            });
+                            //? 这个初始化好像没用
+                            $('#search-select-license').dropdown('set selected', getLicenseByVin($('#search-select').dropdown('get text')));
                         </script>
-                        <div class="ui animated button" onclick="onClickSearchButton()" style="vertical-align: middle;">
+                        <div class="ui primary basic animated button" onclick="onClickSearchButton()" style="vertical-align: middle;">
                             <div class="visible content">搜索</div>
                             <div class="hidden content"><i class="compass icon"></i></div>
                         </div>  
                         <div style="height: 2%; width: 100%; float: left;"></div>
-                        <div class="ui right labeled left icon input">
+                        <div class="ui disabled left icon action transparent input">
                             <i class="tags icon"></i>
                             <input type="text" placeholder="修改车辆备注">
-                            <a class="ui tag label" onclick="addLabel()">
+                            <button class="ui primary basic button" onclick="addLabel()">
+                            修改备注
+                            </button>
+                        </div>
+                        <!-- label在深色背景下去不掉底色 -->
+                        <!-- <div class="ui right labeled left icon transparent input">
+                            <i class="tags icon"></i>
+                            <input type="text" placeholder="修改车辆备注">
+                            <a class="ui blue basic label" onclick="addLabel()">
                             修改备注
                             </a>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
                 <div class="visual_box" id="detailLine"  style="height: 40%; width: 100%; float: left;">
@@ -2651,11 +3203,14 @@
 
     // <!-- 搜索点击回调函数 -->
     function onClickSearchButton(){
-        var requestType = document.getElementById('select');
-        var requestTypeValue = requestType.options[requestType.selectedIndex].value;
-        var requestId = document.getElementById('search-select');
-        var requestIdValue = requestId.options[requestId.selectedIndex].value;
+        // var requestType = document.getElementById('select');
+        // var requestTypeValue = requestType.options[requestType.selectedIndex].value;
+        // var requestId = document.getElementById('search-select');
+        // var requestIdValue = requestId.options[requestId.selectedIndex].value;
 
+        var requestTypeValue = $('#select').dropdown('get text');
+        var requestIdValue = $('#search-select').dropdown('get text');
+        
         do_initRequestSingleCar(requestTypeValue, requestIdValue)
 
     }
