@@ -45,6 +45,9 @@
     <link rel="stylesheet" type="text/css" href="static/component.css">
     <link rel="stylesheet" type="text/css" href="css/heatmap.css">
 
+    <!-- 离线坐标转换 -->
+    <script src="js/coordtransform.js"></script>
+
 
 
     <title>五菱智能车分布热力图</title>
@@ -284,9 +287,9 @@
 
         curStamp = startTimeStamp;
 
-        console.log(spanType);
-        console.log(startTimeStamp);
-        console.log(endTimeStamp);
+        console.log("spanType "+spanType);
+        console.log("startTimeStamp "+startTimeStamp);
+        console.log("endTimeStamp "+endTimeStamp);
 
         document.getElementById('range1').min = startTimeStamp;
         document.getElementById('range1').max = startTimeStamp+Math.floor((endTimeStamp-startTimeStamp)/curStep)*curStep;
@@ -335,27 +338,27 @@
         getPointSet();
     }
 
-    var translateCallback = function (data){
-        console.log('state'+data.status);
-        // console.log('points'+data.points);
-        if(data.status === 0) {
-            // pointSets[curStamp.toString()] = data.points;
-            for (var i = 0; i < data.points.length; i++) {
-                // console.log(data.points[i]);
-                pointSets[curStamp.toString()].push(data.points[i]);
-                // console.log(curStamp.toString());
-                // bm.addOverlay(new BMap.Marker(data.points[i]));
-                // bm.setCenter(data.points[i]);
-            }
-        }else{
-            console.log('trans error')
-        }
+    // var translateCallback = function (data){
+    //     console.log('state'+data.status);
+    //     // console.log('points'+data.points);
+    //     if(data.status === 0) {
+    //         // pointSets[curStamp.toString()] = data.points;
+    //         for (var i = 0; i < data.points.length; i++) {
+    //             // console.log(data.points[i]);
+    //             pointSets[curStamp.toString()].push(data.points[i]);
+    //             // console.log(curStamp.toString());
+    //             // bm.addOverlay(new BMap.Marker(data.points[i]));
+    //             // bm.setCenter(data.points[i]);
+    //         }
+    //     }else{
+    //         console.log('trans error')
+    //     }
 
-        // curRemain -= 1;
-        if(curRemain == pointSets[curStamp.toString()].length){
-            getNextPointSet();
-        }
-    }
+    //     // curRemain -= 1;
+    //     if(curRemain == pointSets[curStamp.toString()].length){
+    //         getNextPointSet();
+    //     }
+    // }
 
     function inDic(dic, key){
         for(var k in dic){
@@ -366,7 +369,20 @@
         return false;
     }
 
+    function translateCoorToPoint(long, lati){
+        var wgs84togcj02 = coordtransform.wgs84togcj02(long, lati);
+        var gcj02tobd09 = coordtransform.gcj02tobd09(wgs84togcj02[0], wgs84togcj02[1]);
+        
+        // var gcj02tobd09 = coordtransform.gcj02tobd09(long, lati);
+
+        var result = new BMap.Point(gcj02tobd09[0], gcj02tobd09[1]);
+
+        return result;
+    }
+
     function getPointSet(){
+        console.log("getPointSet "+new Date().getTime());
+
         if(curStamp > endTimeStamp){
             console.log('Finish');
             // console.log(pointSets)
@@ -384,6 +400,7 @@
             if(inDic(pointSets, curStamp.toString()) && pointSets[curStamp.toString()].length != 0){
                 getNextPointSet();
             }else{
+                console.log("begin query "+new Date().getTime());
                 $.ajax({
                     url: 'http://202.120.60.31:3000/query/all/location/batch/time',
                     type: 'get', //请求的方式
@@ -392,40 +409,91 @@
                         console.log('getPointSet请求失败');
                     },
                     success: function (data) {
+                        console.log("get data "+new Date().getTime());
                         curRemain = data.length;
                         // console.log(curStamp+' start');
                         pointSets[curStamp.toString()] = new Array();
                         // console.log(typeof(curStamp.toString()))
                         
-                        var i = 0;
-                        while(i < data.length){
-                            var curPoints = [];
-                            while(curPoints.length < 10 && i < data.length){
-                                if(Date.parse(data[i]['collectTime'])/1000 < (curStamp-rottenSpan)){
-                                    console.log('rotten');
-                                    --curRemain;
-                                    ++i;
-                                }else{
-                                    curPoints.push(new BMap.Point(data[i]['longitude'], data[i]['latitude']));       
-                                    ++i;
-                                }
-                            }
-                            if(curPoints.length > 0){
-                                console.log('convert')
-                                var convertor = new BMap.Convertor();
-                                convertor.translate(curPoints, 1, 5, translateCallback);
+                        for(var i = 0; i < data.length; ++i){
+                            if(Date.parse(data[i]['collectTime'])/1000 < (curStamp-rottenSpan)){
+                                console.log('rotten');
+                                continue;
                             }else{
-                                if(curRemain == pointSets[curStamp.toString()].length){
-                                    getNextPointSet();
-                                }
+                                
+                                pointSets[curStamp.toString()].push(translateCoorToPoint(data[i]['longitude'], data[i]['latitude']));       
                             }
                         }
+                        console.log("finish process "+new Date().getTime());
+
+                        getNextPointSet();
                         
                     }
                 }) 
             }
         }
     }
+
+    // function getPointSet(){
+    //     if(curStamp > endTimeStamp){
+    //         console.log('Finish');
+    //         // console.log(pointSets)
+    //         // console.log(heatmapOverlay)
+
+    //         initHeatmapAndMarker(startTimeStamp.toString());
+    //         document.getElementById('progress_bar').style.display = 'none';
+    //         // $('#map_container')
+    //         //     .dimmer('toggle')
+    //         // ;
+            
+    //         // initMarker(startTimeStamp.toString());
+    //         return;
+    //     }else{
+    //         if(inDic(pointSets, curStamp.toString()) && pointSets[curStamp.toString()].length != 0){
+    //             getNextPointSet();
+    //         }else{
+    //             $.ajax({
+    //                 url: 'http://202.120.60.31:3000/query/all/location/batch/time',
+    //                 type: 'get', //请求的方式
+    //                 data:{'timestamp':curStamp},
+    //                 error: function (data) {
+    //                     console.log('getPointSet请求失败');
+    //                 },
+    //                 success: function (data) {
+    //                     curRemain = data.length;
+    //                     // console.log(curStamp+' start');
+    //                     pointSets[curStamp.toString()] = new Array();
+    //                     // console.log(typeof(curStamp.toString()))
+                        
+    //                     var i = 0;
+    //                     while(i < data.length){
+    //                         var curPoints = [];
+    //                         while(curPoints.length < 10 && i < data.length){
+    //                             if(Date.parse(data[i]['collectTime'])/1000 < (curStamp-rottenSpan)){
+    //                                 console.log('rotten');
+    //                                 --curRemain;
+    //                                 ++i;
+    //                             }else{
+    //                                 curPoints.push(new BMap.Point(data[i]['longitude'], data[i]['latitude']));       
+    //                                 ++i;
+    //                             }
+    //                         }
+    //                         if(curPoints.length > 0){
+    //                             console.log('convert')
+    //                             var convertor = new BMap.Convertor();
+    //                             convertor.translate(curPoints, 1, 5, translateCallback);
+    //                         }else{
+    //                             if(curRemain == pointSets[curStamp.toString()].length){
+    //                                 getNextPointSet();
+    //                             }
+    //                         }
+    //                     }
+                        
+    //                 }
+    //             }) 
+    //         }
+    //     }
+    // }
 
     var markers = [];
     var pt = null;
