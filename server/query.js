@@ -250,12 +250,18 @@ exports.get_all_location_batch_time = function (req, res) {
         " GROUP BY VIN ) GROUP BY VIN );"
     */
 
+//    var localsql = 
+//    "SELECT	VIN, collectTime, longitude, latitude, angle FROM " + tb_LOC_BATCH +
+//    " WHERE	ID IN (SELECT max( ID ) FROM " + tb_LOC_BATCH + 
+//    " WHERE	addTime IN ( SELECT max( addTime ) FROM " + tb_LOC_BATCH +
+//    " WHERE UNIX_TIMESTAMP( addTime ) < " + timestamp +
+//    " GROUP BY VIN ) GROUP BY VIN );"
+
    var localsql = 
-   "SELECT	VIN, collectTime, longitude, latitude, angle FROM " + tb_LOC_BATCH +
-   " WHERE	ID IN (SELECT max( ID ) FROM " + tb_LOC_BATCH + 
-   " WHERE	addTime IN ( SELECT max( addTime ) FROM " + tb_LOC_BATCH +
-   " WHERE UNIX_TIMESTAMP( addTime ) < " + timestamp +
-   " GROUP BY VIN ) GROUP BY VIN );"
+   "SELECT t2.* FROM (SELECT max( ID) AS ID FROM  " + tb_LOC_BATCH +
+   "  WHERE addTime <FROM_UNIXTIME( " + timestamp +
+   ", '%Y-%m-%d %H:%i:%S') GROUP BY VIN )t1 JOIN (SELECT ID, VIN, collectTime, longitude, latitude, angle FROM  " + tb_LOC_BATCH +
+   " )t2 ON t1.ID=t2.ID ;"
 
     //console.log(localsql)
 
