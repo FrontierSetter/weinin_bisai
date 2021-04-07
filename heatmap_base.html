@@ -265,7 +265,7 @@
             </div>
         </div>
     </div>
-    <i id="back-to-top" style="display: inline; z-index: 999;" href="javascript:void(0);" onclick="$('.ui.sidebar').sidebar('toggle');"></i>
+    <!-- <i id="back-to-top" style="display: inline; z-index: 999;" href="javascript:void(0);" onclick="$('.ui.sidebar').sidebar('toggle');"></i> -->
 </body>
 </html>
 
@@ -569,9 +569,9 @@
     // map.addControl(top_left_control);        
 	// map.addControl(top_left_navigation);     
 	map.addControl(top_right_navigation);
-    // map.setMapStyleV2({     
-    //     styleId: '17c84567c712a49ee687af01700e1d74'
-    // });
+    map.setMapStyleV2({     
+        styleId: '17c84567c712a49ee687af01700e1d74'
+    });
 
     
     if(!isSupportCanvas()){

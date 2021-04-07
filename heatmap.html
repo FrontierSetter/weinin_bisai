@@ -7,9 +7,16 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
 		<meta http-equiv="Page-Enter" content="revealTrans(Duration=2.0,Transition=12)" />
 		<title>上海交大-五菱E100电动汽车智能监控平台</title>
+
+		<script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
 		<link rel="stylesheet" href="css/app.css" />
 		<link rel="stylesheet" href="css/mine.css" />
 		<link rel="stylesheet" href="css/style.css" />
+
+		<script src="https://cdn.bootcdn.net/ajax/libs/semantic-ui/2.4.1/components/sidebar.js"></script>
+		<link href="https://cdn.bootcdn.net/ajax/libs/semantic-ui/2.4.1/components/sidebar.css" rel="stylesheet">
+		<link href="https://cdn.bootcdn.net/ajax/libs/semantic-ui/2.4.1/components/menu.css" rel="stylesheet">
 
 		<link rel="stylesheet" type="text/css" href="css/visual.css">
 
@@ -29,38 +36,48 @@
 
 	
 	
-	<body style="background-color:transparent">
-		<!-- <div class="header">
-			<h1 class="header-title" style="font-size:40px; width:100%">上海交大-五菱E100电动汽车智能监控平台</h1>
-		</div> -->
-		<div id="title">
-            <div class="head_top" style="width: 100%; height: 100%;"><span>上海交大-五菱E100电动汽车智能监控平台</span></div>
-        </div>
-		
-		<div class="wrapper" style="height: 90%; width: 98%; float: left; position: relative;">
-			<div class="content">
-				<div class="col col-c">
-					<div class="xpanel-wrapper">
-						<div class="xpanel xpanel-c-t" style="height: 100%; margin: 0">
-							<!-- <div class="title">2014-2017年上海市化妆品监督抽查情况表</div> -->
-							<iframe src="http://202.120.60.31:3000/heatmap_base" style="width: 100%; height: 100%; " frameborder="no" scrolling="no" allowtransparency="yes"></iframe>
+	<body style="background-color:#333333">
+		<div id="mySidebar" class="ui right inverted vertical menu sidebar">
+			<a class="item" href="http://202.120.60.31:3000/base">
+				监控模式
+			</a>
+			<a class="item" href="http://202.120.60.31:3000/heatmap">
+				热力图模式
+			</a>
+		</div>
+		<div class="pusher" style="background-color:#333333; height: 100%; margin: 0" >
+			<!-- <div class="header">
+				<h1 class="header-title" style="font-size:40px; width:100%">上海交大-五菱E100电动汽车智能监控平台</h1>
+			</div> -->
+			<div id="title">
+				<div class="head_top" style="width: 100%; height: 100%;"><span>上海交大-五菱E100电动汽车智能监控平台</span></div>
+			</div>
+			
+			<div class="wrapper" style="height: 90%; width: 98%; float: left; position: relative;">
+				<div class="content">
+					<div class="col col-c">
+						<div class="xpanel-wrapper">
+							<div class="xpanel xpanel-c-t" style="height: 100%; margin: 0">
+								<!-- <div class="title">2014-2017年上海市化妆品监督抽查情况表</div> -->
+								<iframe src="http://202.120.60.31:3000/heatmap_base" style="width: 100%; height: 100%; " frameborder="no" scrolling="no" allowtransparency="yes"></iframe>
+							</div>
 						</div>
 					</div>
+					<!-- <div class="col col-r">
+						<div class="xpanel-wrapper xpanel-wrapper-50">
+							<div class="xpanel xpanel-r-t">
+								<div class="title">2008-2017年上海市食品安全风险监测总体合格率<a href="./index_10.html" style="color: white;" class="title_link"><i class="external square alternate icon"></i></a></div>
+								<div class="echart-container" id="container_2_5"></div>
+							</div>
+						</div>
+						<div class="xpanel-wrapper xpanel-wrapper-55">
+							<div class="xpanel xpanel-r-b">
+								<div class="title">2014年和2015年勘察设计质量监管情况对比</div>
+								<div class="echart-container" id="container_2_6"></div>
+							</div>
+						</div>
+					</div> -->
 				</div>
-				<!-- <div class="col col-r">
-					<div class="xpanel-wrapper xpanel-wrapper-50">
-						<div class="xpanel xpanel-r-t">
-							<div class="title">2008-2017年上海市食品安全风险监测总体合格率<a href="./index_10.html" style="color: white;" class="title_link"><i class="external square alternate icon"></i></a></div>
-							<div class="echart-container" id="container_2_5"></div>
-						</div>
-					</div>
-					<div class="xpanel-wrapper xpanel-wrapper-55">
-						<div class="xpanel xpanel-r-b">
-							<div class="title">2014年和2015年勘察设计质量监管情况对比</div>
-							<div class="echart-container" id="container_2_6"></div>
-						</div>
-					</div>
-				</div> -->
 			</div>
 		</div>
 
@@ -69,6 +86,8 @@
 		</svg> -->
 
 		<!-- <i id="back-to-top"></i> -->
+		<i id="back-to-top" style="display: inline; z-index: 999;" href="javascript:void(0);" onclick="$('.ui.sidebar').sidebar('toggle');"></i>
+
 	</body>
 </html>
 

@@ -60,7 +60,7 @@
         <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
         <script src="semantic.min.js"></script>
 
-        <link href="https://cdn.bootcss.com/semantic-ui/2.4.1/components/icon.css" rel="stylesheet">
+        <link href="https://cdn.bootcdn.net/ajax/libs/semantic-ui/2.4.1/components/icon.css" rel="stylesheet">
         <link href="https://cdn.bootcdn.net/ajax/libs/semantic-ui/2.4.1/components/button.css" rel="stylesheet">
         <link href="https://cdn.bootcdn.net/ajax/libs/semantic-ui/2.4.1/components/card.css" rel="stylesheet">
         <link href="https://cdn.bootcdn.net/ajax/libs/semantic-ui/2.4.1/components/dropdown.css" rel="stylesheet">
@@ -76,6 +76,10 @@
 
         <!-- 山西省大数据平台模板 -->
         <link rel="stylesheet" type="text/css" href="css/visual.css">
+
+        <!-- 侧边栏菜单 -->
+		<link rel="stylesheet" href="css/mine.css" />
+
 
 
 
@@ -122,9 +126,15 @@
         
     </head>
 
-    <body class="ksh">
+    <body>
     <div id="mySidebar" class="ui right inverted vertical menu sidebar">
-        <a class="item" href="javascript:void(0);" onclick="window.location.reload();">
+        <a class="item" href="http://202.120.60.31:3000/base">
+            监控模式
+        </a>
+        <a class="item" href="http://202.120.60.31:3000/heatmap">
+            热力图模式
+        </a>
+        <!-- <a class="item" href="javascript:void(0);" onclick="window.location.reload();">
             刷新
         </a>
         <a class="item" href="javascript:void(0);" onclick="reactivate()">
@@ -146,9 +156,10 @@
             function logout(){
                 location.href='http://202.120.60.31:3000';
             }
-        </script>
+        </script> -->
     </div>
-    <div class="pusher" style="height: 100%; margin: 0" >
+    <!-- background属性一定要以内联css的形式体现，否则在侧边栏push出来的时候会出错 -->
+    <div class="pusher ksh" style="height: 100%; margin: 0; background:url(../images/data08.png) no-repeat #061537;background-size:cover" >
         <!-- <div id="Echarts"></div> -->
         <div id="title">
             <div class="head_top" style="width: 100%; height: 100%;"><span>上海交大-五菱E100电动汽车智能监控平台</span></div>
@@ -1450,6 +1461,7 @@
 
         </div>
     </div>
+		<i id="back-to-top" style="display: inline; z-index: 999;" href="javascript:void(0);" onclick="$('.ui.sidebar').sidebar('toggle');"></i>
     </body>
 </html>
 
